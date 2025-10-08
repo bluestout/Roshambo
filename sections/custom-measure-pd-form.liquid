@@ -1,0 +1,81 @@
+<script src="https://web.cdn.glasseson.com/glasseson-2.15.0.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+  integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+>
+<script>
+  function init(){
+   var clientId = "fa3e9425-06f1-4d6d-b20b-ea3fde9ac1e1";
+    var serverUrl = "https://api.glasseson.com/prod/";
+    var options = {
+      profileName:"web",
+      flow:"pd",
+      fullPage: true,
+      width : 835,
+      themeColor : "#5FB8E3",
+      fontFamily : "Arial"
+    };
+
+    glasseson.init(clientId, serverUrl, options).then(
+      response => {
+        const button = document.getElementById('myButton');
+        button.disabled = false;
+      },
+      error => {
+        handleError(error);
+      });
+  }
+
+  window.onload = init;
+  
+  function handleSuccess(){
+    glasseson.open("pd","post");
+  }
+</script>
+<div id="glasseson"></div>
+
+<div class="custom-measure-pd-form">
+  <div class="container">
+    <div class="custom-measure-pd-form-content">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="custom-measure-pd-form-content">
+            <img src="{{ section.settings.img | img_url:'master' }}">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="cstm-measure-pd-button" id="myButton" disabled="true" onclick="handleSuccess()">Measure My PD</button>
+          <div class="custom-measure-pd-form-content-wrapper">
+             <div style="margin:0 auto;" class="pxFormGenerator" id="QETpwb3tf3IfgIUbn2ASTA"></div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Measure Pd Form",
+  "settings": [
+    {
+      "type":"image_picker",
+      "id":"img",
+      "label":"Image"
+    }
+  ],
+  "presets":[{
+    "name":"Custom Measure Pd Form",
+    "category":"Form"
+  }]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

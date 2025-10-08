@@ -1,0 +1,186 @@
+<style>
+
+    .img_text-outer{
+
+        background-color:{{section.settings.backgroundColor}};
+
+    }
+
+    .txtbox-title{
+
+        color:{{section.settings.titleColor}};
+
+    }
+
+    .txtbox-paragraph{
+
+        color:{{section.settings.paragraphColor}};
+
+    }
+
+    .txtbox-link{
+
+        color:{{section.settings.linkColor}};
+
+    }
+
+    .txtbox-link:hover{
+
+        color:{{section.settings.linkColor}};
+
+    }
+
+</style>
+
+
+
+<div class="img_text-outer">
+
+    <div class="img_text-inner">
+
+        <div class="img_text-imgbox">
+
+            <img class="lazyload" dat-src="{{section.settings.sectionImage | img_url: '600x'}}">
+
+        </div>
+
+        <div class="img_text-txtbox">
+
+            <span class="txtbox-title">{{section.settings.textboxTitle}}</span>
+
+            <span class="txtbox-paragraph">{{section.settings.textboxParagraph}}</span>
+
+            <a class="txtbox-link" href="{{section.settings.textboxLinkURL}}">{{section.settings.textboxLinkText}}</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% schema %}
+
+    {
+
+        "name": "Image With Text 1",
+
+        "settings": [
+
+            {
+
+                "type": "color",
+
+                "id": "backgroundColor",
+
+                "label": "Background Color",
+
+                "default": "#d2f4f5"
+
+            },
+
+            {
+
+                "type": "image_picker",
+
+                "id": "sectionImage",
+
+                "label": "Section Image"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "titleColor",
+
+                "label": "Title Color",
+
+                "default": "#1cbbb4"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "textboxTitle",
+
+                "label": "Textbox Title"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "paragraphColor",
+
+                "label": "Paragraph Color",
+
+                "default": "#000000"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "textboxParagraph",
+
+                "label": "Textbox Paragraph"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "linkColor",
+
+                "label": "Link Color",
+
+                "default": "#ff2392"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "textboxLinkText",
+
+                "label": "Textbox Link Text"
+
+            },
+
+            {
+
+                "type": "url",
+
+                "id": "textboxLinkURL",
+
+                "label": "Textbox Link URL"
+
+            }
+
+        ],
+
+        "presets": [
+
+            {
+
+                "category": "Mediacarry",
+
+                "name":"Image With Text 1"
+
+            }
+
+        ]
+
+    }
+
+{% endschema %}
+

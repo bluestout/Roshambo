@@ -1,0 +1,40 @@
+.custom-measure-pd-form-content .cstm-measure-pd-button {
+	background-color: #54545C;
+	color: #fff;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 22px;
+	width: 100%;
+	display: block;
+	padding: 9px;
+	border: 0;
+	max-width: 600px;
+	margin: 0 auto 16px;
+	text-transform: uppercase;
+	font-family: 'Hind', sans-serif;
+	border-radius: 4px;
+	letter-spacing: 1px;
+}
+.custom-measure-pd-form-content .row > div:first-child {
+	margin-top: -10px;
+}
+.custom-measure-pd-form {
+	background-color: #F7F7F7;
+	padding: 50px 0;
+}
+.custom-measure-pd-form-content .custom-measure-pd-form-content {
+	max-width: 445px;
+	margin: 0 auto;
+}
+.custom-measure-pd-form-content .custom-measure-pd-form-content-wrapper iframe {
+	height: auto !important;
+	min-height: 460px;
+}
+div.form_submit_div button, div.form_submit_div button:hover {
+	line-height: 22px;
+}
+@media (max-width:790px){
+  .custom-measure-pd-form-content .row > div:first-child {
+    margin-bottom: 30px;
+  }
+}

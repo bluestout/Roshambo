@@ -1,0 +1,72 @@
+{% style %}
+  {% for block in section.blocks %}
+    [data-tag="{{block.settings.title}}"] > a {
+      background: url("{{block.settings.color_swatch | img_url: '100x'}}") !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+    }
+
+    [data-value="{{block.settings.title}}"] {
+      background: url("{{block.settings.color_swatch | img_url: '100x'}}") !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+    }
+
+    {% if block.settings.backupTitle != blank %}
+    [data-value="{{block.settings.backupTitle}}"] {
+      background: url("{{block.settings.color_swatch | img_url: '80x'}}") !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+    }
+    {% endif %}
+
+    {% if block.settings.filterTitle != blank %}
+    [data-tooltip="{{block.settings.filterTitle}}"] {
+      background: url("{{block.settings.color_swatch | img_url: '80x'}}") !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+    }
+    {% endif %}
+
+  {% endfor %}
+{% endstyle %}
+
+{% schema %}
+{
+    "name": "Color Codes",
+    "settings": [
+    ],
+    "blocks" : [
+    {
+        "type": "item",
+        "name": "Color Swatch",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Color Name"
+          },
+          {
+            "type": "text",
+            "id": "backupTitle",
+            "label": "Color Name Backup"
+          },
+          {
+            "type": "text",
+            "id": "filterTitle",
+            "label": "Color Name Filter"
+          },
+          {
+              "type": "image_picker",
+              "id": "color_swatch",
+              "label": "label"
+          }
+        ]
+      }
+    ]
+}
+{% endschema %}

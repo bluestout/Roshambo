@@ -1,0 +1,90 @@
+{% comment %}
+Not using all_products[handle] because there are many accessories products
+trigger "Excceed maximum number of handles" error.
+{% endcomment %}
+
+{% for collection in collections %}
+  {% for product in collection.products %}
+    {% if product.handle == product1 %}
+      {% assign productAccessory1 = product %}
+    {% endif %}
+    {% if product.handle == product2 %}
+      {% assign productAccessory2 = product %}
+    {% endif %}
+    {% if product.handle == frame1 %}
+      {% assign frameAccessory1 = product %}
+    {% endif %}
+    {% if product.handle == frame2 %}
+      {% assign frameAccessory2 = product %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+
+<button class="pdp_accordion-button pdp_accordion--active">
+  ACCESSORIES<span id="plus"></span><span id="minus"></span>
+</button>
+<div class="pdp_accordion-content" style="display:block;">
+  <div class="pdp_accessories-textbox">
+    {{ text }}
+  </div>
+  {% if showAccessory1 == true and product1 != blank %}
+    <div class="pdp_accessories-product">
+      <div class="pdp_accessories-product_inner">
+        <img src="{{productAccessory1.featured_image | img_url: '1160x' }}">
+        <div class="pdp_accessories-productInfo">
+          <div class="pdp_accessories-productTitle">{{productAccessory1.title}}</div>
+          <div class="pdp_accessories-productPrice">{{productAccessory1.price | money}}</div>
+          {% comment %} <a href="{{productAccessory1.url}}" class="pdp_accessories-ATC">SHOP NOW</a> {% endcomment %}
+          <button class="pdp_accessories-ATC" {% if productAccessory1.available %}onclick="addItemToCart('{{productAccessory1.selected_or_first_available_variant.id}}', 1)"{% endif %} {% if productAccessory1.available == false %}disabled{% endif %} >ADD TO CART</button>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if showAccessory2 == true and product2 != blank  %}
+    <div class="pdp_accessories-product">
+      <div class="pdp_accessories-product_inner">
+        <img src="{{productAccessory2.featured_image | img_url: '1160x' }}">
+        <div class="pdp_accessories-productInfo">
+          <div class="pdp_accessories-productTitle">{{productAccessory2.title}}</div>
+          <div class="pdp_accessories-productPrice">{{productAccessory2.price | money}}</div>
+          {% comment %} <a href="{{productAccessory2.url}}" class="pdp_accessories-ATC">SHOP NOW</a> {% endcomment %}
+          <button class="pdp_accessories-ATC" {% if productAccessory2.available %}onclick="addItemToCart('{{productAccessory2.selected_or_first_available_variant.id}}', 1)"{% endif %} {% if productAccessory2.available == false %}disabled{% endif %} >ADD TO CART</button>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="pdp_accessories-textbox">
+    {{ frameText }}
+  </div>
+  {% if showFrame1 == true and frame1 != blank %}
+    <div class="pdp_accessories-product">
+      <div class="pdp_accessories-product_inner">
+        <img src="{{frameAccessory1.featured_image | img_url: '1160x' }}">
+        <div class="pdp_accessories-productInfo">
+          <div class="pdp_accessories-productTitle">{{frameAccessory1.title}}</div>
+          <div class="pdp_accessories-productPrice">{{frameAccessory1.price | money}}</div>
+          <a href="{{frameAccessory1.url}}" class="pdp_accessories-ATC">SHOP NOW</a>
+          {% comment %} <button class="pdp_accessories-ATC" {% if productAccessory1.available %}onclick="addItemToCart('{{productAccessory1.selected_or_first_available_variant.id}}', 1)"{% endif %} {% if productAccessory1.available == false %}disabled{% endif %} >ADD TO CART</button> {% endcomment %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if showFrame1 == true and frame2 != blank  %}
+    <div class="pdp_accessories-product">
+      <div class="pdp_accessories-product_inner">
+        <img src="{{frameAccessory2.featured_image | img_url: '1160x' }}">
+        <div class="pdp_accessories-productInfo">
+          <div class="pdp_accessories-productTitle">{{frameAccessory2.title}}</div>
+          <div class="pdp_accessories-productPrice">{{frameAccessory2.price | money}}</div>
+          <a href="{{frameAccessory2.url}}" class="pdp_accessories-ATC">SHOP NOW</a>
+          {% comment %} <button class="pdp_accessories-ATC" {% if productAccessory2.available %}onclick="addItemToCart('{{productAccessory2.selected_or_first_available_variant.id}}', 1)"{% endif %} {% if productAccessory2.available == false %}disabled{% endif %} >ADD TO CART</button> {% endcomment %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+</div>

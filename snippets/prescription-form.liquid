@@ -1,0 +1,393 @@
+<link rel="stylesheet" href="{{ 'jquery-gentleSelect.css' | asset_url }}">
+{% assign upcharge_pro = all_products[settings.upcharge_pro] %}
+{% assign upcharge_pro_variant = upcharge_pro.selected_or_first_available_variant.id %}
+{% assign rad_prod = all_products[settings.rad_pro] %}
+{% assign rad_variant = rad_prod.selected_or_first_available_variant.id %}
+{% assign radder_pro = all_products[settings.radder_pro] %}
+{% assign radder_pro_variant = radder_pro.selected_or_first_available_variant.id %}
+{% assign raddest_pro = all_products[settings.raddest_pro] %}
+{% assign raddest_pro_variant = raddest_pro.selected_or_first_available_variant.id %}
+{% assign mirro_pro = all_products[settings.mirro_pro] %}
+{% for variant in mirro_pro.variants %}
+  {% if variant.title == "Mirrored Blue" %}
+    {% assign mir_blue = variant.id %}
+  {% elsif variant.title == "Mirrored Green" %}
+    {% assign mir_green = variant.id %}
+  {% elsif variant.title == "Mirrored Purple" %}
+    {% assign mir_purple = variant.id %}
+  {% elsif variant.title == "Mirrored Red" %}
+    {% assign mir_red = variant.id %}
+  {% elsif variant.title == "Mirrored Chrome" %}
+    {% assign mir_chrome = variant.id %}
+  {% else %}
+    {% assign mir_blue = variant.id %}
+  {% endif %}
+  
+{% endfor %}
+{% assign raddest_pro_variant = raddest_pro.selected_or_first_available_variant.id %}
+
+<div id="pop1" class="cd-popup" role="alert" data-t="{{ product.selected_or_first_available_variant.title }}">
+	<div class="cd-popup-container">
+		<div class="cd-pdetails">
+          <div class="cd-pmedia">
+              <img width="" height="" loading="lazy" class="zoom-product" src='{{ product.selected_variant.image.src | product_img_url: '600x' }}' alt="{{ product.selected_variant.image.alt }}">
+          </div>
+          <div class="cd-pinfo">
+            <div class="cd-top">
+              <div class="cd-text-tool">
+            <h2 >Submit Your Prescription </h2>
+              <div class="tooltip">
+                <img width="" height="" loading="lazy" loading="eager" src="{{ "Vector.svg" | file_url }}">
+                <div class="tooltiptext tooltip-bottom triangle">
+                  <p style="padding-bottom: 10px;">Help us speed up your order by entering your prescription details!</p>
+                  <p>We can fill most prescriptions, but if for some reason we can't fill yours, we will let you know and issue you a full refund. Sorry, at this time we can’t fill bifocal or progressive prescriptions.</p>
+                </div>
+              </div>
+              </div>
+           
+            <div class="progress">
+              
+              <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+              
+              </div>
+              <div style="display:none" class="cd_higher_strength">
+                <div class="cd_higher_strength_f">
+                <img width="" height="" loading="lazy" src="{{ "Icon.svg" | file_url }}">
+                <p><strong>Higher Strength:</strong> Sphere greater than +/- 6.00 or cylinder greater than +/- 2.00 will incur a $50.00 upcharge for processing.</p>
+                </div>
+                <a class="cdh_str_close"><img  height="" loading="lazy" width="50" src="{{ "close_icon_b396e218-9c84-4b23-aa2c-5faa8e8d3e08.svg" | file_url }}"></a>
+              </div>
+            </div>
+              <div class="alert alert-success hide"></div>
+           
+                <form  id="regiration_form" method="post"  action="/cart/add" id="product_form_6149192941727" accept-charset="UTF-8" class="shopify-product-form" enctype="multipart/form-data" >
+                <input value="{{ product.selected_or_first_available_variant.id }}" type="hidden" id="p_variant_id" name="p_variant_id"  />
+                <input value="1" type="hidden" id="p_variantqty" name="quantity"  />
+                <input value="RAD" type="hidden" id="upgrade_pd" name="properties[Upgrades]"  />
+                <input value="" type="hidden" id="optional_upgrade" name="properties[Optional Upgrade]"  />
+                <input value="" type="hidden" id="mirror_coating" name="properties[Coating (+$50)]"  />
+                <input value="" type="hidden" id="include_feature_tin" name="properties[Include Feature with Tinted Lenses]"  />
+                <input value="" type="hidden" id="include_feature_polar" name="properties[Include Feature with Polarized Lenses]"  />
+                <input value="" type="hidden" id="include_feature_trans" name="properties[Include Feature with Light Responsive Lenses]"  />
+                <input value="0" type="hidden" id="upcharge_product" name="upcharge_product"  />
+                <input value="" type="hidden" id="od_right_eye" name="properties[OD Right Eye]"  />
+                <input value="" type="hidden" id="os_left_eye" name="properties[OS Left Eye]"  />
+                <input value="" type="hidden" id="single_pd" name="properties[Single PD]"  />
+                <input value="" type="hidden" id="dual_pd" name="properties[Dual PD]"  />
+                <input value="" type="hidden" id="pd_info" name="properties[PD]"  />
+                <input value="{{ upcharge_pro_variant }}" type="hidden" id="upch_product" name="upch_product"  />
+                <input value="{{ rad_variant }}" type="hidden" id="rad_variant" name="rad_variant"  />
+                <input value="{{ radder_pro_variant }}" type="hidden" id="radder_variant" name="radder_variant"  />
+                <input value="{{ raddest_pro_variant }}" type="hidden" id="raddest_variant" name="raddest_variant"  />
+                <input value="{{ mir_blue }}" type="hidden" id="mirror_blue" name="mirror_blue"  />
+                <input value="{{ mir_green }}" type="hidden" id="mirror_green" name="mirror_green"  />
+                <input value="{{ mir_purple }}" type="hidden" id="mirror_purple" name="mirror_purple"  />
+                <input value="{{ mir_red }}" type="hidden" id="mirror_red" name="mirror_red"  />
+                <input value="{{ mir_chrome }}" type="hidden" id="mirror_chrome" name="mirror_chrome"  />
+
+              <fieldset id="field_step_1">
+                
+                <div class="cd-top ">
+            
+              <div class="cd-pinfo-odright">
+                <div class="flex_text_a">
+                  <h4>OD Right Eye</h4>
+                  <span class="cd-tooltip modal-link3">How do I read my prescription?</span>
+                </div>
+              <div class="cd-flex-form">
+                 <div class="cd-form-field">
+                  <label>Sphere (SPH)</label>
+                   <span onclick="right_eye_sph_d()"> <input  readonly autocomplete="off" id="right_eye_sph" value="0.00" placeholder="0.00" class="cd-prescription-select-value dropbtn dropbtn1 right_eye_sph_selected" name="properties[Right Eye Sphere]" ></span>
+                  <div id="right_eye_sph_d" class="dropdown-content dropdown-content1">
+                    <div style="margin-right: 0px; margin-bottom: 0px;"><div style="    padding: 5px;border-bottom: 1px solid #ccc;" class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">0.00</div><div class="rxc-prescription-select-table-row scrollable-menu" style="overflow: visible;"><div class="rxc-prescription-select-table-col"><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-6.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-6.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-6.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-6.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-7.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-7.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-7.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-7.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-8.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-8.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-8.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-8.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-9.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-9.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-9.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-9.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-10.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-10.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-10.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-10.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-11.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-11.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-11.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-11.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-12.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-12.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-12.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-12.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-13.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-13.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-13.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-13.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-14.00</div></div><div class="rxc-prescription-select-table-col"><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+6.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+6.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+6.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+6.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+7.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+7.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+7.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+7.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+8.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+8.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+8.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+8.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+9.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+9.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+9.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+9.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+10.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+10.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+10.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+10.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+11.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+11.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+11.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+11.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+12.00</div></div></div></div>
+                  </div>
+                </div>
+                 <div class="cd-form-field">
+                   <label>Cylinder (CYL)</label>
+                 <span onclick="right_eye_cyl_d()" ><input  readonly autocomplete="off" id="right_eye_cyl" value="0.00" placeholder="0.00"  class="cd-prescription-select-value dropbtn dropbtn2 right_eye_cyl_selected" name="properties[Right Eye Cyl]"></span>
+                  <div id="right_eye_cyl_d" class="dropdown-content dropdown-content2">
+                    <div style="margin-right: 0px; margin-bottom: 0px;"><div style="    padding: 5px;border-bottom: 1px solid #ccc;" class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">0.00</div><div class="rxc-prescription-select-table-row scrollable-menu" style="overflow: visible;"><div class="rxc-prescription-select-table-col"><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-6.00</div></div><div class="rxc-prescription-select-table-col"><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+6.00</div></div></div></div>
+                  </div>
+                </div>
+                 <div class="cd-form-field">
+                  <label>Axis</label>
+                  <input id="od_right_axis"  placeholder="0" name="properties[OD Right Axis]" type="number" min="0" max="360">
+                </div>
+                
+              </div>
+            </div>
+             <div class="cd-pinfo-odleft">
+              <h4>OS Left Eye</h4>
+              <div class="cd-flex-form">
+               <div class="cd-form-field">
+                  <label>Sphere (SPH)</label>
+                 <span onclick="left_eye_sph_d()"> <input  readonly autocomplete="off" id="left_eye_sph" value="0.00" placeholder="0.00"  class="cd-prescription-select-value dropbtn dropbtn3 left_eye_sph_selected" name="properties[Left Eye Sphere]"></span>
+                  <div id="left_eye_sph_d" class="dropdown-content dropdown-content3">
+                    <div style="margin-right: 0px; margin-bottom: 0px;"><div style="    padding: 5px;border-bottom: 1px solid #ccc;" class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">0.00</div><div class="rxc-prescription-select-table-row scrollable-menu" style="overflow: visible;"><div class="rxc-prescription-select-table-col"><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-6.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-6.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-6.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-6.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-7.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-7.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-7.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-7.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-8.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-8.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-8.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-8.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-9.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-9.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-9.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-9.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-10.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-10.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-10.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-10.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-11.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-11.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-11.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-11.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-12.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-12.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-12.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-12.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-13.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-13.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-13.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-13.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-14.00</div></div><div class="rxc-prescription-select-table-col"><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+6.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+6.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+6.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+6.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+7.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+7.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+7.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+7.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+8.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+8.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+8.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+8.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+9.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+9.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+9.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+9.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+10.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+10.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+10.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+10.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+11.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+11.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+11.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+11.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+12.00</div></div></div></div>
+                  </div>
+                </div>
+                  <div class="cd-form-field">
+                  <label>Cylinder (CYL)</label>
+                <span onclick="left_eye_cyl_d()"> <input  readonly autocomplete="off" id="left_eye_cyl" value="0.00" placeholder="0.00"  class="cd-prescription-select-value dropbtn dropbtn4 left_eye_cyl_selected" name="properties[Left Eye Cyl]"></span>
+                  <div id="left_eye_cyl_d" class="dropdown-content dropdown-content4">
+                    <div style="margin-right: 0px; margin-bottom: 0px;"><div style="    padding: 5px;border-bottom: 1px solid #ccc;" class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">0.00</div><div class="rxc-prescription-select-table-row scrollable-menu" style="overflow: visible;"><div class="rxc-prescription-select-table-col"><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-0.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-1.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-2.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-3.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-4.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-5.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">-6.00</div></div><div class="rxc-prescription-select-table-col"><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+0.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+1.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+2.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+3.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+4.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.00</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.25</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.50</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+5.75</div><div class="rxc-prescription-select-table-row rxc-prescription-select-table-option" tabindex="0">+6.00</div></div></div></div>
+                  </div>
+                </div>
+                 <div class="cd-form-field">
+                  <label>Axis</label>
+                  <input id="os_left_axis" placeholder="0" name="properties[OD Left Axis]" type="number" min="0" max="360">
+                </div>
+                
+              </div>
+            </div>
+              <hr>
+                </div>
+                  <div class="cd-top form_fixed">
+                <div  class="cd-pinfo-odupload">
+                  <h4>Upload your prescription<sup style="color: #E71316; margin-left: 3px;top: -4px;">*</sup></h4>
+                  <p>Please upload your most recent prescription so we can double check the numbers and get your order processed quickly.</p>
+                   <div class="drop_box">
+                    <div  class="form"></div>
+                    <p class="pp">Drag files to upload, or</p>
+                    <input type="file"  name="properties[View Prescription]" id="fileID"  accept="image/*,.pdf, .doc" style="opacity:0;position: absolute;width: 100%;padding: 50px;">
+                    <button class="btn bt">Choose File</button>
+                    </div>
+                    <div class="file_error"></div>
+                   <!--div class="upload-container">
+                    <input type="file" id="file_upload"  />
+                </div-->
+                </div>
+                <div   class="cd-pinfo-odnotes">
+                  <h4>Notes</h4>
+                  <textarea id="pNotes" name="properties[PD Notes]" rows="4" cols="65"></textarea>
+                </div>
+                 
+        
+                </div>
+              <div class="cd-pinfo-footer">
+                 <span class="new-price"><b>Price: </b>{{ pp | money }}</span>
+                  <input type="button" name="password" class="next btn btn-info" value="Continue">
+              </div>
+                
+              </fieldset>
+              
+              
+              <fieldset  id="field_step_2">
+              
+              <div class="cd-top ">
+                 
+                 <div class="cd-pinfo-pd">
+                   <div class="flex_text_a">
+                     <div class="flex_text_a_inner">
+                   <h4 class="active pd-1-s">PD has 1 number</h4>
+                   <h4 class="pd-2-s">PD has 2 numbers</h4>
+                     </div>
+                   <span class="cd-tooltip modal-link1 desk-s">What is PD?</span>
+                   </div>
+                 </div>
+                 <div class="cd-pinfo-pd pd-1">
+                   <div class="cd-form-field">
+                    <span onclick="pd_with_one_d()"> <input  readonly placeholder="Select" id="pd_with_one"  class="cd-prescription-select-value dropbtn dropbtn5" name="properties[PD with one]"></span>
+                    <div id="pd_with_one_d" class="dropdown-content dropdown-content5">
+                      <div class="options" style="margin-right:0;margin-bottom:0"><div value="32">32</div><div value="32.5">32.5</div><div value="33">33</div><div value="33.5">33.5</div><div value="34">34</div><div value="34.5">34.5</div><div value="35">35</div><div value="35.5">35.5</div><div value="36">36</div><div value="36.5">36.5</div><div value="37">37</div><div value="37.5">37.5</div><div value="38">38</div><div value="38.5">38.5</div><div value="39">39</div><div value="39.5">39.5</div><div value="40">40</div><div value="40.5">40.5</div><div value="41">41</div><div value="41.5">41.5</div><div value="42">42</div><div value="42.5">42.5</div><div value="43">43</div><div value="43.5">43.5</div><div value="44">44</div><div value="44.5">44.5</div><div value="45">45</div><div value="45.5">45.5</div><div value="46">46</div><div value="46.5">46.5</div><div value="47">47</div><div value="47.5">47.5</div><div value="48">48</div><div value="48.5">48.5</div><div value="49">49</div><div value="49.5">49.5</div><div value="50">50</div><div value="50.5">50.5</div><div value="51">51</div><div value="51.5">51.5</div><div value="52">52</div><div value="52.5">52.5</div><div value="53">53</div><div value="53.5">53.5</div><div value="54">54</div><div value="54.5">54.5</div><div value="55">55</div><div value="55.5">55.5</div><div value="56">56</div><div value="56.5">56.5</div><div value="57">57</div><div value="57.5">57.5</div><div value="58">58</div><div value="58.5">58.5</div><div value="59">59</div><div value="59.5">59.5</div><div value="60">60</div><div value="60.5">60.5</div><div value="61">61</div><div value="61.5">61.5</div><div value="62">62</div><div value="62.5">62.5</div><div value="63">63</div><div value="63.5">63.5</div><div value="64">64</div><div value="64.5">64.5</div><div value="65">65</div><div value="65.5">65.5</div><div value="66">66</div><div value="66.5">66.5</div><div value="67">67</div><div value="67.5">67.5</div><div value="68">68</div><div value="68.5">68.5</div><div value="69">69</div><div value="69.5">69.5</div><div value="70">70</div><div value="70.5">70.5</div><div value="71">71</div><div value="71.5">71.5</div><div value="72">72</div><div value="72.5">72.5</div><div value="73">73</div><div value="73.5">73.5</div><div value="74">74</div><div value="74.5">74.5</div><div value="75">75</div></div>
+                     </div>
+                   </div>
+                  
+                 </div>
+                <div style="display:none" class="cd-pinfo-pd pd-2">
+                   <div class="cd-form-field">
+                      <label>Right Eye</label>
+                      <span onclick="pd_right_eye_d()"> <input   readonly autocomplete="off" placeholder="Select" id="pd_right_eye"  class="cd-prescription-select-value dropbtn dropbtn6" name="properties[PD Right Eye]"></span>
+                      <div id="pd_right_eye_d" class="dropdown-content dropdown-content6">
+                       <div class="options" style="margin-right:0;margin-bottom:0"><div value="16">16</div><div value="16.25">16.25</div><div value="16.5">16.5</div><div value="16.75">16.75</div><div value="17">17</div><div value="17.25">17.25</div><div value="17.5">17.5</div><div value="17.75">17.75</div><div value="18">18</div><div value="18.25">18.25</div><div value="18.5">18.5</div><div value="18.75">18.75</div><div value="19">19</div><div value="19.25">19.25</div><div value="19.5">19.5</div><div value="19.75">19.75</div><div value="20">20</div><div value="20.25">20.25</div><div value="20.5">20.5</div><div value="20.75">20.75</div><div value="21">21</div><div value="21.25">21.25</div><div value="21.5">21.5</div><div value="21.75">21.75</div><div value="22">22</div><div value="22.25">22.25</div><div value="22.5">22.5</div><div value="22.75">22.75</div><div value="23">23</div><div value="23.25">23.25</div><div value="23.5">23.5</div><div value="23.75">23.75</div><div value="24">24</div><div value="24.25">24.25</div><div value="24.5">24.5</div><div value="24.75">24.75</div><div value="25">25</div><div value="25.25">25.25</div><div value="25.5">25.5</div><div value="25.75">25.75</div><div value="26">26</div><div value="26.25">26.25</div><div value="26.5">26.5</div><div value="26.75">26.75</div><div value="27">27</div><div value="27.25">27.25</div><div value="27.5">27.5</div><div value="27.75">27.75</div><div value="28">28</div><div value="28.25">28.25</div><div value="28.5">28.5</div><div value="28.75">28.75</div><div value="29">29</div><div value="29.25">29.25</div><div value="29.5">29.5</div><div value="29.75">29.75</div><div value="30">30</div><div value="30.25">30.25</div><div value="30.5">30.5</div><div value="30.75">30.75</div><div value="31">31</div><div value="31.25">31.25</div><div value="31.5">31.5</div><div value="31.75">31.75</div><div value="32">32</div><div value="32.25">32.25</div><div value="32.5">32.5</div><div value="32.75">32.75</div><div value="33">33</div><div value="33.25">33.25</div><div value="33.5">33.5</div><div value="33.75">33.75</div><div value="34">34</div><div value="34.25">34.25</div><div value="34.5">34.5</div><div value="34.75">34.75</div><div value="35">35</div><div value="35.25">35.25</div><div value="35.5">35.5</div><div value="35.75">35.75</div><div value="36">36</div><div value="36.25">36.25</div><div value="36.5">36.5</div><div value="36.75">36.75</div><div value="37">37</div><div value="37.25">37.25</div><div value="37.5">37.5</div><div value="37.75">37.75</div><div value="38">38</div></div>
+                     </div>
+                    </div>
+                   <div class="cd-form-field">
+                      <label>Left Eye</label>
+                        <span onclick="pd_left_eye_d()"> <input  readonly autocomplete="off"  placeholder="Select" id="pd_left_eye"  class="cd-prescription-select-value dropbtn dropbtn7" name="properties[PD Left Eye]"></span>
+                      <div id="pd_left_eye_d" class="dropdown-content dropdown-content7">
+                        <div class="options" style="margin-right:0;margin-bottom:0"><div value="16">16</div><div value="16.25">16.25</div><div value="16.5">16.5</div><div value="16.75">16.75</div><div value="17">17</div><div value="17.25">17.25</div><div value="17.5">17.5</div><div value="17.75">17.75</div><div value="18">18</div><div value="18.25">18.25</div><div value="18.5">18.5</div><div value="18.75">18.75</div><div value="19">19</div><div value="19.25">19.25</div><div value="19.5">19.5</div><div value="19.75">19.75</div><div value="20">20</div><div value="20.25">20.25</div><div value="20.5">20.5</div><div value="20.75">20.75</div><div value="21">21</div><div value="21.25">21.25</div><div value="21.5">21.5</div><div value="21.75">21.75</div><div value="22">22</div><div value="22.25">22.25</div><div value="22.5">22.5</div><div value="22.75">22.75</div><div value="23">23</div><div value="23.25">23.25</div><div value="23.5">23.5</div><div value="23.75">23.75</div><div value="24">24</div><div value="24.25">24.25</div><div value="24.5">24.5</div><div value="24.75">24.75</div><div value="25">25</div><div value="25.25">25.25</div><div value="25.5">25.5</div><div value="25.75">25.75</div><div value="26">26</div><div value="26.25">26.25</div><div value="26.5">26.5</div><div value="26.75">26.75</div><div value="27">27</div><div value="27.25">27.25</div><div value="27.5">27.5</div><div value="27.75">27.75</div><div value="28">28</div><div value="28.25">28.25</div><div value="28.5">28.5</div><div value="28.75">28.75</div><div value="29">29</div><div value="29.25">29.25</div><div value="29.5">29.5</div><div value="29.75">29.75</div><div value="30">30</div><div value="30.25">30.25</div><div value="30.5">30.5</div><div value="30.75">30.75</div><div value="31">31</div><div value="31.25">31.25</div><div value="31.5">31.5</div><div value="31.75">31.75</div><div value="32">32</div><div value="32.25">32.25</div><div value="32.5">32.5</div><div value="32.75">32.75</div><div value="33">33</div><div value="33.25">33.25</div><div value="33.5">33.5</div><div value="33.75">33.75</div><div value="34">34</div><div value="34.25">34.25</div><div value="34.5">34.5</div><div value="34.75">34.75</div><div value="35">35</div><div value="35.25">35.25</div><div value="35.5">35.5</div><div value="35.75">35.75</div><div value="36">36</div><div value="36.25">36.25</div><div value="36.5">36.5</div><div value="36.75">36.75</div><div value="37">37</div><div value="37.25">37.25</div><div value="37.5">37.5</div><div value="37.75">37.75</div><div value="38">38</div></div>
+                     </div>
+                    </div>
+                 
+                </div>
+                 <span class="cd-tooltip modal-link1 mob-s">What is PD?</span>
+                 <div  class="cd-pinfo-odupload measure_pd_info">
+                  <h4>Don’t have your PD?</h4>
+                  <p>If your prescription doesn't include your Pupillary Distance (the distance between the centers of each eye), you can take a picture at home and email it to us and we’ll measure it for you.</p>
+                   <br>
+                  <div class="flex_pd">
+                    <h4>Send us a picture to get your PD</h4>
+                    <div class="flex_pdd">
+                      <div class="flex_pdd_inner">
+                       <ol>
+                          <li>Hold a credit card (or similar) centered below your nose. </li>
+                          <li>Look directly ahead and have a friend take the picture standing at least 2 feet away</li>
+                          <li>Email your photo to <a href="mailto:helpme@roshambo.com">helpme@roshambo.com</a></li>
+                       </ol>
+                      </div>
+                      <div class="flex_pdd_inner">
+                        <img width="" height="" src="https://cdn.shopify.com/s/files/1/0769/0373/files/1080x1080_-_PD_Chloe_1.jpg?v=1724140943">
+                      </div>
+                    </div>
+                  </div>
+                  <div style="display:none" class="measure_pd">
+                     <a  target="_blank" href="https://www.roshambo.com/pages/virtual-pd-measurement-tool" class="btn">Measure My PD</a>
+                     <a class="cd-tooltip modal-link2">Click here for alternate PD Measurement for babies and toddlers.</a>
+                  </div>
+                   
+                </div>
+               <div class="cd_info_consent">
+                 <label class="container">I acknowledge that my order will be on hold if I didn’t submit a PD above. I will email a photo using the PD directions after I place my order.
+                  <input id="mail_consent" name="properties[Mail Consent]" type="checkbox" />
+                  <span class="checkmark"></span>
+                </label>
+                 <p class="not_checked_text" >Please select the checkbox to agree to the terms</p>
+                 <!--input type="checkbox" />
+                 <p>I will email a photo to <a href="mailto:helpme@roshambo.com">helpme@roshambo.com</a> if I didn’t submit my<br>PD. I understand that my order will be on hold until I do this.</p-->
+                 
+               </div>
+                
+  
+                </div>
+              
+             
+               <div class="cd-pinfo-footer">
+                 <span class="new-price"><b>Price: </b>{{ pp | money }}</span>
+                 <div class="step_in">
+                 <input type="button" name="previous" class="previous btn bt" value="Previous" />
+                  <input  type="button" name="password" class="next btn btn-info" value="Continue" />
+                 </div>
+              </div>
+                  <!--input type="button" name="previous" class="previous btn btn-default" value="Previous">
+                  <input type="button" name="next" class="next btn btn-info" value="Next"-->
+              </fieldset>
+              
+              
+              <fieldset id="field_step_3">
+              
+               <div class="cd-top ">
+                 <div class="final_edit">
+                   <h4>Prescription</h4>
+                   <a class="previous_1">Edit</a>
+                 </div>
+                 <div class="od_info">
+                 </div>
+                 <div class="file_refrence">
+                 </div>
+               </div>
+               <div class="cd-top ">
+                 <div class="final_edit">
+                   <h4>Pupillary Distance</h4>
+                   <a class="previous_2">Edit</a>
+                 </div>
+                 <div class="pup_dis">
+                 </div>
+               </div>
+             <div class="cd-pinfo-footer">
+                 <span class="new-price"><b>Price: </b>{{ pp | money }}</span>
+               <div class="step_in">
+                 <input type="button" name="previous" class="previous btn bt" value="Previous" />
+                 <input type="submit" name="submit" class="submit next btn btn-success btn-info" value="Add to cart" />
+                  </div>
+              </div>
+
+                  
+              </fieldset>
+              
+            </form>
+          </div>
+        </div>
+		<a href="#0" class="cd-popup-close"></a>
+	</div> <!-- cd-popup-container -->
+</div> <!-- cd-popup -->
+<div class="modal-bg" style="display: none;"></div>
+<div class="modall modall3" style="display: none;">
+    <div class="modall_top">
+      <h3>How to Read Your Prescription</h3>
+     <img  height="" loading="lazy"  class="close" width="20" src="{{ "Close.svg" | file_url }}">
+    </div>
+    <div class="modall_flex">
+      <div>
+      <p><strong>Right Eye (OD) & Left Eye (OS)</strong></p>
+      <p>OD stands for "oculus dexter" which is Latin for "right eye". OS stands for "oculus sinister" which is Latin for "left eye."</p>
+        </div>
+      <div>
+         <p><strong>Sphere (SPH) aka Power (PWR)</strong></p>
+      <p>If you’re nearsighted you’ll have a minus (-) before the number, and if you’re farsighted you’ll have a plus (+) sign.</p>
+      </div>
+    </div>
+       <div class="modall_flex">
+         <div>
+      <p><strong>Cylinder (CYL)</strong></p>
+      <p>This is only for people with astigmatism. A nearsighted astigmatism will have a minus (-) before the number, and a farsighted astigmatism will have a plus (+) sign.</p>
+      </div>
+      <div>
+      <p><strong>Axis</strong></p>
+      <p>This is only for people with astigmatism. The axis is a number between 0 and 180 and determines the orientation of the Cylinder (CYL).</p>
+      </div>
+    </div>
+    <img height="" loading="lazy"  width="" src="{{ "Prescription_Pad_1.jpg" | file_url }}">
+    <div class="modall_flex_btn">
+	<a href="#" class="close btn">Cancel</a>
+    </div>
+</div>
+<div class="modall modall1" style="display: none;">
+    <div class="modall_top mb_b">
+      <h3>Pupillary Distance</h3>
+     <img height="" loading="lazy"  width="20" class="close" src="{{ "Close.svg" | file_url }}">
+    </div>
+    <p class="mb_b">We need your Pupillary Distance (PD) to ensure that your glasses are customized to fit you perfectly. PD is the distance between the centers of each eye. Once we get your PD we can finish your glasses!</p>
+    <p>Kid PD Range: <strong>35-65 mm</strong>.</p>
+    <p  class="mb_b">Adult PD Range: <strong>50-80 mm.</strong></p>
+    <p  class="mb_b"> If your PD has 2 numbers, it is typically written 22/20 on your prescription. The first number is the right eye (OD), and the second is the left eye (OS).</p>
+    <p  style="display:none" class="mb_b"><strong>1) ONLINE PD TOOL:</strong> Virtually measure your PD using our online tool! Click the "Measure My PD" button and follow the on screen instructions. Then enter your PD number in the form.</p>
+    <p  style="display:none"  class="mb_b"><strong>2) EMAIL A PHOTO:</strong> If your little squirmy wormy can't sit still long enough for the online tool (we totally get it!), you can just take a picture at home and we'll measure the PD for you. Follow these directions here.</p>
+<br>
+    <img height="" loading="lazy"  width="" src="{{ "image_9.png" | file_url }}">
+    <div class="modall_flex_btn">
+	<a href="#" class="close btn">Cancel</a>
+    </div>
+</div>
+<div class="modall modall2" style="display: none;">
+    <div class="modall_top mb_b">
+      <h3 style="text-align:left;">Can't get the PD Tool to work for your little one?</h3>
+     <img height="" loading="lazy"  class="close" width="20" src="{{ "Close.svg" | file_url }}">
+    </div>
+    <p class="mb_b">Sometimes it can be hard with little ones, we totally get it! Take a picture following these directions and we'll measure the PD for you:</p>
+    <ol style=" padding: 0 20px;text-align:left;list-style-type: decimal;">
+      <li>Remove your glasses.</li>
+      <li>Hold a credit card (or similar) centered below your nose.</li>
+      <li>Look directly ahead and take a picture.</li>
+      <li>Email your photo to helpme@roshambo.com.</li>
+    </ol>
+   <img height="" style="padding-bottom:10px;" width="275" loading="lazy"  width="" src="{{ "measure-pd.jpg" | file_url }}"><br>
+    <div class="modall_flex_btn">
+	<a href="#" class="close btn">Cancel</a>
+    </div>
+</div>
+<div class="modall modall4" style="display: none;">
+    <div class="modall_top mb_b">
+      <h3>Are you sure you want to submit all info?</h3>
+     <img height="" loading="lazy"  class="close" width="20" src="{{ "Close.svg" | file_url }}">
+    </div>
+   
+    <div class="modall_flex_btn">
+      <a href="#" class="btn yes_confirm view_dir" >Yes</a>
+    	<a href="#" class="close btn no_confirm">No</a>
+    </div>
+</div>
+<div class="modall modall5" style="display: none;">
+    <div class="modall_top mb_b">
+      <img height="" loading="lazy"  src="https://cdn.shopify.com/s/files/1/0769/0373/files/Rolling-1s-200px_1.svg?v=1694637336" role="presentation" alt="" data-uw-rm-ima="un" width="80">
+      <img style="display:none" height="" loading="lazy"  class="close" width="20" src="{{ "Close.svg" | file_url }}">
+    </div>
+   
+    <div style="display:none" class="modall_flex_btn">
+      <a href="#" class="btn yes_confirm view_dir" >Yes</a>
+    	<a href="#" class="close btn no_confirm">No</a>
+    </div>
+</div>
+<script defer type="text/javascript" src="{{ 'jquery-gentleSelect-min.js' | asset_url }}"></script>
+
+<script src="{{ 'prescription-modal.js' | asset_url }}" defer="defer"></script>

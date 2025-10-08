@@ -1,0 +1,144 @@
+<link rel="stylesheet" href="{{'multi-offer-banner.css' | asset_url}}">
+
+{% style %}
+
+    .multi-banner-outer{
+        background-color: {{section.settings.background_color}};
+    }
+
+    .multi-banner-title,
+    .multi-banner-title:hover{
+        color: {{section.settings.button_text_color}} !important;
+    }
+
+    .multi-banner-title svg{
+        fill: {{section.settings.button_text_color}} !important;
+    }
+
+    .banner-offer-inner{
+       background-color: {{section.settings.background_color_offer}};
+    }
+
+    .banner-offer-content *:hover,
+    .banner-offer-content *{
+       color: {{section.settings.offer_text_color}} !important;
+    }
+
+{% endstyle %}
+{% if section.settings.show_multibanner %}
+    {% if section.settings.home_page_only == false or template.name == 'index' %}
+        <div class="multi-banner-outer">
+            <button onclick="toggleMultiBanner(this)" class="multi-banner-title">{{section.settings.banner_title}}{% render 'icon-chevron-down' %}</button>
+            <div class="multi-banner-content">
+                <div class="multi-banner-content-inner">
+                    {% for block in section.blocks %}
+                        <div class="banner-offer">
+                            <div class="banner-offer-outer">
+                                <div class="banner-offer-inner">
+                                    <div class="banner-offer-content">
+                                        <div class="banner-offer-content-info">
+                                            <span class="banner-offer-subtitle">{{block.settings.offer_subtitle}}</span>
+                                            <span class="banner-offer-title">{{block.settings.offer_title}}</span>
+                                            <a href="{{block.settings.offer_url}}" class="banner-offer-link">{{block.settings.offer_url_title}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+
+<script src="{{'multi-offer-banner.js' | asset_url}}"></script>
+
+{% schema %}
+    {
+        "name": "Multi Offer Banner",
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "show_multibanner",
+                "label": "Show Multibanner",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "home_page_only",
+                "label": "Show Multibanner on Homepage Only",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "banner_title",
+                "label": "Banner Title",
+                "default": "Tap Here for a Special Discount"
+            },
+            {
+                "type": "header",
+                "content": "Color Options"
+            },
+            {
+                "type": "color",
+                "id": "background_color",
+                "label": "Background Color",
+                "default": "#e7e7e7"
+            },
+            {
+                "type": "color",
+                "id": "button_text_color",
+                "label": "Button Text Color",
+                "default": "#000000"
+            },
+            {
+                "type": "color",
+                "id": "background_color_offer",
+                "label": "Offers Background Color",
+                "default": "#000000"
+            },
+            {
+                "type": "color",
+                "id": "offer_text_color",
+                "label": "Offer Text Color",
+                "default": "#ffffff"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "banner_offer",
+                "name": "Banner Offer",
+                "limit": 4,
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "offer_subtitle",
+                        "label": "Offer Subtitle"
+                    },
+                    {
+                        "type": "text",
+                        "id": "offer_title",
+                        "label": "Offer Title"
+                    },
+                    {
+                        "type": "text",
+                        "id": "offer_url_title",
+                        "label": "Offer URL Title"
+                    },
+                    {
+                        "type": "url",
+                        "id": "offer_url",
+                        "label": "Offer URL"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Multi Offer Banner",
+                "category": "Banner"
+            }
+        ]
+    }
+{% endschema %}

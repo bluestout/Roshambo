@@ -1,0 +1,18 @@
+<script src="https://bsdk.api.ditto.com/default/5.0.0/en-gb/api.js"></script>
+<link rel="prefetch" type="text/javascript" href="//bsdk.api.ditto.com/default/5.0.0/en-gb/vendors.js">
+<div id="ditto-container">
+<div id="modal-background"></div>
+<button type="button" class="try-close CloseButton"><svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="CloseButton-icon"><path d="M1,1l8,8m-8,0l8,-8"></path></svg><span class="u-displayA11yHide">Close</span></button>
+</div>
+<div class="container-indent">
+<script src="{{ 'vto-custom.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'virtual-try-on.js' | asset_url }}" defer="defer"></script>
+<link rel="stylesheet" href="{{'vto-style.css' | asset_url }}">
+<div class="container">
+{{ page.content }}
+{% section "vto-banner" %}
+{% section "vto-icon" %}
+{% section "vto-after-render" %}
+{% section "vto-product-carousel" %}
+</div>
+</div>

@@ -1,0 +1,125 @@
+<div class="custom_header-bottom-{{-view-}}">
+
+    <div class="custom_header-megaMenu">
+
+        {% for block in header_blocks %}
+
+            {% if section.settings.use_circle_buttons == true %}
+
+                <button class="custom_header-menu-button-circle">
+
+                    <img src="{{block.settings.mega_menu_img_circle | img_url: '600x'}}">
+
+                </button>
+
+            {% else %}
+
+                <button class="custom_header-menuButton">
+
+                    <img src="{{block.settings.megaMenuIMG | img_url: '600x'}}">
+
+                    <span>{{block.settings.megaMenuTitle}}</span>
+
+                </button>
+
+            {% endif %}
+
+            <div class="megaMenu-modal">
+
+                <div class="megaMenu-modal-inner">
+
+                    {% comment %} <div class="close-flex">
+
+                        <a href="javascript:void(0);" onclick="closeMegaModal(this)" class="custom_header-icon">{% render 'icon-close' %}</a>
+
+                    </div> {% endcomment %}
+
+                    <div class="megaMenu-modal-menus">
+
+                        <div class="megaMenu-menu">
+
+                            {% assign megaMenu = block.settings.megaMenuList %}
+
+                            {% for link in linklists[megaMenu].links %}
+
+                                <div class="megaMenu-menu_item">
+
+                                    {% if link.links != blank %}
+
+                                        <a href="{{link.url}}" class="megaMenu-title">{{link.title}}</a>
+
+                                        <div class="megaMenu-childMenu">
+
+                                            {% for childlink in link.links %}
+
+                                                <a href="{{childlink.url}}" class="megaMenu-childTitle" >
+
+                                                    {{childlink.title}}
+
+                                                </a>
+
+                                            {% endfor %}
+
+                                        </div>
+
+                                    {% else %}
+
+                                        <a href="{{link.url}}" class="megaMenu-title">{{link.title}}</a>
+
+                                    {% endif %}
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                    <div class="megaMenu-modal-ads" style="margin-top:0px;">
+
+                        <div class="megamenu-ads">
+
+                            {% if block.settings.showAd1 == true %}
+
+                                <a href="{{block.settings.megaMenuAdLink1}}" class="megamenu-ad">
+
+                                    <img class="ad-image" data-src="{{block.settings.megaMenuAdIMG1 | img_url: '600x'}}">
+
+                                </a>
+
+                            {% endif %}
+
+                            {% if block.settings.showAd2 == true %}
+
+                                <a href="{{block.settings.megaMenuAdLink2}}" class="megamenu-ad">
+
+                                    <img class="ad-image" data-src="{{block.settings.megaMenuAdIMG2 | img_url: '600x'}}">
+
+                                </a>
+
+                            {% endif %}
+
+                            {% if block.settings.showAd3 == true %}
+
+                                <a href="{{block.settings.megaMenuAdLink3}}" class="megamenu-ad">
+
+                                    <img class="ad-image" data-src="{{block.settings.megaMenuAdIMG3 | img_url: '600x'}}">
+
+                                </a>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>

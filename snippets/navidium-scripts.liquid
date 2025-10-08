@@ -1,0 +1,41 @@
+ <style>
+    form#updateform table tr:has([href*="/products/navidium"]),
+     .ajax-cart-item:has([href*="/products/navidium"]){display: none;}
+    .appearance-right-previw-ld .d-flexCstm-ld h4 {font-size: 18px !important;line-height: 16px !important;padding-bottom: 5px !important;}
+    .navidium-shipping-icon-ld {max-width: 62px !important;margin-top: -10px !important;}
+    .appearance-right-previw-ld .img {left: -2px !important; max-width: 61px !important; height: 24px !important; margin-left: -6px !important; }
+    .ajax-cart-drawer .appearance-right-previw-ld { padding: 0 !important; margin: 0 !important; background: transparent !important; } 
+    .ajax-cart-drawer .appearance-right-previw-ld .d-flexCstm-ld { margin: 0; }
+  </style>
+    <script>
+      const nvdShop = 'roshambobaby.myshopify.com';
+      const nvdShopCurrency = '{{ shop.money_format | strip_html }}';
+      const nvdControls = {
+        cartCounter: '#cart_item_count', //cart item count
+        subtotal: '.cart-subtotal__price .money,.cart-subtotal-container .subtotal-amount', // cart subtotal amount
+        lineAttribute: 'data-line', // cart item line
+        cartItemNodes: 'ajax-cart-item', // Cart items loop
+        quantityMinus: 'qty_minus', // Quantity decrase button
+        quantityPlus: 'qty_plus', // Quantity incrase button
+        removeItem: 'cart_remove_class', // Cart item remove btn class
+        qtybtnAttribute: 'data-href', // Cart item btn line update
+        qtyrmvAttribute: 'href', // Cart item remove line update
+        clickTriggers: 'button[name="add"], button[name="add"] *, .quantity__button, .quantity__button *', // Onclick widget update
+        changeTrigger: 'onchange_input_class_here', // Onchange widget update
+  	    cursorControl: '.nvd-mini', // Disabled/Enabled cursor pointer event
+        onLoadTrigger: false, // window.onload nvd_init function call
+        cartReload: true, // Cart reload for /cart page
+        showConsoleMessage:false, // Console message show/hide
+        trackWidget:false, // Track widget on realtime
+        forceClick: true, // forceclick for onclickTrigger event
+        autoHide: false, // Hide by JS according to cartItemNodes
+        initiateTime: 2000, //milisecond
+        nvdInject:{
+          status:false, // Inject nvd-mini div
+          parent:'parent_class', // parent class for nvd-mini div
+          container:'checkout_button_div' // nvd-mini will added before this div/button
+        }
+      }      
+    </script>
+   <script src="https://navidium-static-assets.s3.amazonaws.com/navidium-widgets/js/nvd-widget-stable-1.js" defer></script>
+

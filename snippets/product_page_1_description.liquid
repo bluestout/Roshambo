@@ -1,0 +1,897 @@
+
+{% comment %} Wholesale_Club_Product_Prices Start {% endcomment %}
+{% assign base_product = product %}
+{% assign base_variant = product.selected_or_first_available_variant %}
+
+{% if shop.metafields.sawholesale['base_price'] == blank %}
+  {% assign base_price = 'compare_at_price' %}
+{% else %}
+  {% assign base_price = shop.metafields.sawholesale['base_price'] %}
+{% endif %}
+
+{% assign saw_discount = 0 %}{% assign saw_has_discount = false %}
+
+{% if customer.tags != blank %}
+  {% for mf in base_product.metafields.sawholesale %}
+    {% capture product_customer_tag %}{{ mf | first | replace: 'discount_', '' }}{% endcapture %}
+    {% if customer.tags contains product_customer_tag %}
+      {% assign saw_has_discount = true %}
+      {% assign discount_key = product_customer_tag | prepend: 'discount_' %}
+      {% assign price_key = product_customer_tag | prepend: 'price_' %}
+      {% assign saw_discount = base_product.metafields.sawholesale[discount_key] | divided_by: 100.0 %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% assign saw_discount = 1 | minus: saw_discount %}
+
+{% if base_price == 'price' or base_variant.compare_at_price == blank  or base_variant.compare_at_price == 0 or base_variant.compare_at_price < base_variant.price %}
+  {% assign saw_variant_compare_at_price = base_variant.price %}
+{% else %}
+  {% assign saw_variant_compare_at_price = base_variant.compare_at_price %}
+{% endif %}
+
+{% assign cpe = shop.metafields.sawholesale['cpe'] | default: "true" %}
+{% if base_variant.metafields.sawholesale[price_key] != blank and cpe == "true" %}
+  {% assign saw_variant_price = base_variant.metafields.sawholesale[price_key] %}
+{% else %}
+  {% assign saw_variant_price = saw_variant_compare_at_price | times: saw_discount %}
+{% endif %}
+
+{% if saw_has_discount == false or saw_variant_price >= saw_variant_compare_at_price %}
+  {% assign WCProduct_Price = base_product.price %}
+  {% assign WCProduct_ComparePrice = base_product.compare_at_price %}
+  {% assign WCProduct_PriceMin = base_product.price_min %}
+  {% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}
+  {% assign WCProduct_PriceMax = base_product.price_max %}
+  {% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}
+  {% assign WCProduct_VariantPrice = base_variant.price %}
+  {% assign WCProduct_VariantComparePrice = base_variant.compare_at_price %}
+{% else %}   
+  {% assign WCProduct_Price = saw_variant_price %}
+  {% assign WCProduct_PriceMin = base_product.price_min | times: saw_discount %}
+  {% assign WCProduct_PriceMax = base_product.price_max | times: saw_discount %}
+  {% assign WCProduct_ComparePrice = saw_variant_compare_at_price %}
+  {% if base_product.compare_at_price_min != 0 %}{% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}{% else %}{% assign WCProduct_ComparePriceMin = base_product.price_min %}{% endif %}
+  {% if base_product.compare_at_price_max != 0 %}{% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}{% else %}{% assign WCProduct_ComparePriceMax = base_product.price_max %}{% endif %}
+  {% assign WCProduct_VariantPrice = saw_variant_price %}
+  {% assign WCProduct_VariantComparePrice = saw_variant_compare_at_price %}
+{% endif %}
+{% comment %} Wholesale_Club_Product_Prices End {% endcomment %}
+{%- assign image_max_width = item.image_max_width | append: 'x' -%}
+{%- assign image_max_width_retina = item.image_max_width | times: 2 | append: 'x' -%}
+{%- assign image_max_width_m = item.image_max_width_m | append: 'x' -%}
+{%- assign image_max_width_retina_m = item.image_max_width_m | times: 2 | append: 'x' -%}
+
+{%- capture badge_icons -%}
+{%- if product_meta.icon_new != 'disable' and item.show_badge_new -%}{%- if date_difference < date_limit or product_meta.icon_new == 'always' -%}<div class="tt-label-new">{{ 'products.general.new' | t }}</div>{%- endif -%}{%- endif -%}
+{%- unless product.available -%}<div class="tt-label-out-stock">{{ 'products.general.unavailable' | t }}</div>{%- endunless -%}
+{%- if product_meta.featured != blank and item.show_badge_featured -%}<div class="tt-label tt-label-our-fatured">{{ product_meta.featured }}</div>{%- endif -%}
+{%- endcapture -%}
+{%- assign badge_icons = badge_icons | strip -%}
+
+{%- assign pid = product.id | append:"" -%}
+{%- assign wl = customer.metafields.wishlist -%}
+{%- unless wl == blank -%}
+{%- if wl[pid] == blank -%}
+{%- assign wl_text = false -%}
+{%- else -%}
+{%- assign wl_text = true -%}
+{%- endif -%}
+{%- else -%}
+{%- assign wl_text = false -%}
+{%- endunless -%}
+
+
+<div class="tt-product-single-info{% if item.stickygallery %} stickprcolheight-js{% endif %}">
+  {%- if badge_icons != '' -%}
+  <div class="tt-wrapper">
+    <div class="tt-label">
+      {{ badge_icons }}
+    </div>
+  </div>
+  {%- endif -%}
+  
+  {%- if item.show_product_main_info -%}
+  <div class="tt-add-info">
+    <ul>
+      {%- if item.show_sku -%}
+      <li class="sku-js{% if product.selected_or_first_available_variant.sku == '' %} hide{% endif %}"><span>{{ 'products.product.sku' | t }}</span> <span>{{ product.selected_or_first_available_variant.sku }}</span></li>
+      {%- endif -%}
+      {%- if item.show_qiantity -%}
+      <li class="availability">
+        <span>{{ 'products.product.availability' | t }}</span>
+        {% if product.available %}
+        <span class="stock_quantity hide"></span> <span class="in_stock hide">{{ 'products.product.in_stock' | t }}</span> <span class="many_in_stock hide">{{ 'products.product.many_in_stock' | t }}</span> <span class="sold_out hide">{{ "products.product.sold_out" | t }}</span> <span class="continue_out hide">{{ "products.product.purchase_when_out_of_stock" | t }}</span>
+        {% else %}
+        <span class="sold_out">{{ "products.product.sold_out" | t }}</span>
+        {% endif %}
+      </li>
+      {%- endif -%}
+    </ul>
+  </div>
+  {%- endif -%}
+  {% if template == "product.prescription" %}
+    <h3 class="tt-type">{{product.type | upcase}}</h3>
+  {% endif %}
+  
+  <h1 class="tt-title">{{ product.title }}</h1>
+
+  {% render 'okendo-reviews-product-rating-summary', product: product %}
+
+  {%- unless settings.catalogue_mode -%}
+  {% if customer.tags == blank %}
+    <div class="tt-price this-one {{ WCProduct_VariantPrice | money }}">
+      {%- if sale_on -%}
+        <span class="sale-price">{{ WCProduct_VariantPrice | money }}</span>
+        <span class="old-price">{{ WCProduct_VariantComparePrice | money }}</span>
+      {%- else -%}
+        <span class="new-price">{{ WCProduct_VariantPrice | money }}</span>
+        <span class="old-price"></span>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    <div class="tt-price1" style="color: #2ac2e4 !important;font-size: 30px !important;line-height: 40px !important;font-family: Hind,sans-serif !important;font-weight: 500 !important;">
+      {%- if sale_on -%}
+        <span class="sale-price">{{ WCProduct_VariantPrice | money }}</span>
+        <span class="old-price">{{ WCProduct_VariantComparePrice | money }}</span>
+      {%- else -%}
+        <span class="new-price">{{ WCProduct_VariantPrice | money }}</span>
+        <span class="old-price"></span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+  
+    {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+      {%- if item.show_tax_text -%}
+        <div class="tt-product-policies" data-product-policies>
+          {%- if shop.taxes_included -%}
+            {{ 'products.product.include_taxes' | t }}
+          {%- endif -%}
+          {%- if shop.shipping_policy.body != blank -%}
+            {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if item.show_review -%}
+    {% comment %}
+      <div class="tt-review">
+        <div class="rating" data-tooltip="{{ 'general.tooltip_texts.view_review' | t }}">
+          {%- if settings.selectedreviewaapp == 'alireviewapp' -%}
+          <div product-id="{{ product.id }}" class="alr-display-review-badge"></div>
+          {%- else %}
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+          {%- endif -%}
+        </div>
+      </div>
+    {% endcomment %}
+    {%- endif -%}
+  {%- endunless -%}
+  {%- unless product_meta.custom_html == blank -%}
+    <div class="tt-wrapper">
+      {{ product_meta.custom_html }}
+    </div>
+  {%- endunless -%}
+
+  {%- unless settings.catalogue_mode -%}
+    {%- unless product_meta.countdown == blank -%}
+      <div class="tt-wrapper">
+        <div class="tt-countdown_box_02 tt-type-02">
+          <div class="tt-countdown_inner">
+            <div class="tt-countdown" data-date="{{ product_meta.countdown }}">
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endunless -%}
+  {%- endunless -%}
+  <div class="product_description-outer">
+
+    {% if template != "product.sunglasses2" %}
+      {{ product.description }}
+    {%- endif -%}
+    {% comment %} {% if template == "product.gift-cards" %}
+      <div class="skt_gc_button_container"></div><div class="skt_gc_preview_button_container"></div>
+        <a href="#" class="skt_gc_customize_button btn" style="margin-bottom:10px;">Customize</a>
+        <a href="#" class="skt_gc_preview_button btn" style="margin-bottom:10px;" target="_blank">Preview</a>
+      <style type="text/css">#skt-gc-shop-logo{width:200px;height:auto;max-width:100%;}</style>
+    {% endif %} {% endcomment %}
+  </div>
+
+  <div class="tt-swatches-container tt-swatches-container-js {% if template == "product.screen-time" %}optional-extras-hidden{% endif %}"></div>
+
+  {% comment %} PRODUCT SWATCHES 
+  Client changed the idea and add spare frame as a separate product
+  {% if template == "product.screen-time" %}
+    <div class="tt-title-options">
+      <strong>Extras (Optional)</strong><br />
+      <span>Add spare frames to your order to easily swap out your lenses for a fresh look with the same lenses. (+ $15)</span>
+    </div>
+    <select class="tt-optional-extras" id="Extras (Optional)" data-screen-time-option>
+      {% for option in product.options_with_values %}
+        {% if option.name == "Extras (Optional)" %}
+          {% for value in option.values %}
+            <option value="{{value}}">{{ value }}</option>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </select>
+    {% for op in product.selected_or_first_available_variant.options %}
+      <p>{{ op }}</p>
+    {% endfor %}
+  {% endif %}
+  {% endcomment %}
+
+  {%- assign m_sizechart = product_meta.sizechart -%}
+  {%- capture sizechart -%}{% if m_sizechart != blank %}{{ m_sizechart }}{% else %}{{ item.popupcontent }}{% endif %}{%- endcapture -%}
+  {%- assign m_shipping = product_meta.shipping -%}
+  {%- capture shipping -%}{% if m_shipping != blank %}{{ m_shipping }}{% else %}{{ item.popupcontentshipping }}{% endif %}{%- endcapture -%}
+  {%- if item.show_sizechart and sizechart != '' and sizechart != 'disable' -%}{% assign sch_a = true %}{%- else -%}{% assign sch_a = false %}{% endif -%}
+  {%- if item.show_shipping and shipping != '' and shipping != 'disable' -%}{% assign shch_a = true %}{%- else -%}{% assign shch_a = false %}{% endif -%}
+  {%- if item.show_message -%}{% assign schm_a = true %}{%- else -%}{% assign schm_a = false %}{% endif -%}
+  {% if sch_a or shch_a or schm_a %}
+    <div class="tt-wrapper product-information-buttons">
+      {%- if sch_a -%}
+      <a data-toggle="modal" data-target="#modalProductInfo" href="#">{{ item.btnname }}</a>
+      {%- endif -%}
+      {%- if shch_a -%}
+      <a data-toggle="modal" data-target="#modalProductInfo-02" href="#">{{ item.btnname2 }}</a>
+      {%- endif -%}
+      {%- if schm_a -%}
+      <a data-toggle="modal" data-target="#modalProductInfo-03" href="#" class="mespr">{{ item.btnname3 }}</a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {% comment %} PRODUCT ATC  {% endcomment %}
+  {%- unless settings.catalogue_mode -%}
+    {%- if product.available -%}
+      {%- capture product_select_options -%}
+        {%- if product.selected_variant == blank and product.variants.size > 1 and item.use_select_button -%}
+          true
+        {%- else -%}
+          false
+        {%- endif -%}
+      {%- endcapture -%}
+      <div class="tt-wrapper{% if product_select_options == 'true' %} select_options{% endif %}">
+        <div class="bold_options" data-product-id="{{ product.id }}"></div>
+        {%- form 'product', product -%}
+        <input type="hidden" class="input_variant" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <style>
+          .btn-addtocart{
+            background-color:deepskyblue;
+            border-radius:0;
+          }
+          .tt-input-counter{
+            border:3px solid deepskyblue;
+            border-radius:0;
+          }
+        </style>
+
+        {% if template == "product.prescription" %}
+        <div class="pd-container">
+          <p><b>Pupillary Distance (PD) Measurement:</b> if you know your PD, please enter the number here or use our  Virtual PD Tool to measure it for you!</p>
+          <div class="cta-container">
+            <div class="left-side">
+              <label for="pd-number"><b>PD:</b></label>
+              <input id="pd-number" name="properties[Pupilary Distance]" type="number" min="0" value="0" />
+            </div>
+            <div class="right-side">
+              <div class="measure-pd" onclick="getPrescriptionClicked()">Measure My PD</div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="tt-row-custom-01">
+          <div class="col-item">
+            <div class="tt-input-counter style-01">
+              <span class="minus-btn"></span>
+              <input type="text" name="quantity" value="1" size="5">
+              <span class="plus-btn"></span>
+            </div>
+          </div>
+
+          <div class="col-item">
+            {% if customer.tags contains "wholesale" %}
+              <input class="addtocart btn btn-lg btn-addtocart" type="submit" value="{{ 'products.general.add_to_cart_html' | t | remove: '<span>' | remove: '</span>'}}" style="cursor: pointer;">
+            {% else %}
+
+              {% if template == "product.prescription" %}
+                <div id="glasseson"></div>
+                <script src="{{'pd-tool.js' | asset_url}}"></script>
+              {% endif %}
+              {% if product.tags contains "product-type-prescription" %}
+                <a href="#0" id="pop1btn" class=" btn btn-lg" onclick="openpopup('pop1')" data-variant="{{ product.selected_or_first_available_variant.sku }}" data-variant-price="{{ product.selected_or_first_available_variant.price | money_without_currency }}">ADD MY PRESCRIPTION</a>
+              {% else %}
+              <button class="addtocart btn btn-lg btn-addtocart{% if settings.ajax_addtocart %} js-ajax-add-to-cart{% endif %}{% if product_select_options == 'false' and product.selected_variant.available == false %} disable{% endif %}"
+                {%- if settings.show_addtocart_popup_related -%}{%- unless product.metafields.description.related_collection == blank -%}data-relatedcollection="{{ product.metafields.description.related_collection }}"{%- endunless -%}{%- endif -%}
+                >
+                {% if product_select_options == 'true' %}{{ 'products.general.select_options_html' | t }}
+                {% else %}
+                {% if product.selected_variant.available == false %}{{ "products.general.unavailable_html" | t }}
+                {% else %}
+                {% if product.selected_or_first_available_variant.inventory_management == 'shopify' and product.selected_or_first_available_variant.inventory_policy == 'continue' and product.selected_or_first_available_variant.inventory_quantity <= 0 %}
+                {{ "products.general.preorder_html" | t }}		
+                {% else %}
+                {{ "products.general.add_to_cart_html" | t }}
+                {% endif %}
+                {% endif %}{% endif %}
+              </button>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+        <style>
+          .payment-icons{
+            width:100%;
+          }
+          .payment-icons #safe-checkout-heading{
+            overflow:hidden;
+            text-align:center;
+            padding:5px 0;
+            font-size:15px;
+            color:lightgrey;
+          }
+          .payment-icons #safe-checkout-heading:before, .payment-icons #safe-checkout-heading:after{
+            background-color:lightgrey;
+            content:"";
+            display:inline-block;
+            height:1px;
+            position:relative;
+            vertical-align:middle;
+            width:50%;
+          }
+          .payment-icons #safe-checkout-heading:before{
+            right:0.5em;
+            margin-left:-50%;
+          }
+          .payment-icons #safe-checkout-heading:after{
+            left:0.5em;
+            margin-right:-50%;
+          }
+          .payment-icons #safe-checkout-icons{
+            text-align:center;
+            margin:0 5px;
+          }
+        </style>
+        <div class="payment-icons">
+          <h4 id="safe-checkout-heading">Guaranteed Safe Checkout</h4>
+          <p id="safe-checkout-icons">
+            {% for payment in shop.enabled_payment_types %}
+            <span {% if shop.enabled_payment_types.size > 10 %}style="margin-right:8px;"{% endif %}>
+              {{ payment | payment_type_svg_tag: class: 'icon icon--full-color' }}
+            </span>
+            {% endfor %}
+          </p>
+        </div>
+        {% comment %} Old Buy In One Click Methods
+        {%- if settings.buy_in_one_click -%}
+        {% if settings.terms_cond_checkbox_show %}
+        <div class="checkbox-group prpage-term-conditions-checkbox term-conditions-checkbox-js">
+          <input type="checkbox" id="prpage-cart-term-conditions-checkbox" value="1">
+          <label for="prpage-cart-term-conditions-checkbox">
+            <span class="check"></span>
+            <span class="box"></span>
+            {{ settings.terms_cond_checkbox_text }}
+          </label>
+        </div>
+        {% endif %}
+        <div class="buyinoneclick{% if product_select_options == 'true' %} hide{% endif %}"
+            data-buttonname="{{ 'products.general.buy_now_button' | t }}"
+            data-loading="{{ 'products.general.loading' | t }}">
+          {{ form | payment_button }}
+        </div>
+        {%- endif -%}
+        {% endcomment %}
+        
+        {%- endform -%}
+        {%- include 'prescription-form', pp: base_variant.price -%}
+        {%- if item.product_item_show_wishlist and settings.show_wishlist or item.product_item_show_compare and settings.show_compare -%}
+        <div class="tt-wrapper">
+          <ul class="tt-list-btn">
+            {%- if item.product_item_show_wishlist and settings.show_wishlist -%}
+            <li><a href="{{ product.url | within: collection }}"
+                  data-productid="{{ product.id }}"
+                  data-producth="{{ product.handle }}"
+                  data-add="{{ "wishlist.buttons_text.tooltip_add" | t }}"
+                  data-remove="{{ "wishlist.buttons_text.tooltip_remove" | t }}"
+                  data-tooltip="{% if customer.id == blank %}{{ "wishlist.buttons_text.tooltip_login" | t }}{% else %}{% if wl_text %}{{ "wishlist.buttons_text.tooltip_remove" | t }}{% else %}{{ "wishlist.buttons_text.tooltip_add" | t }}{% endif %}{% endif %}"
+                  data-type="wishlist"
+                  data-prpage-add="{{ "wishlist.buttons_text.page_text_add" | t }}"
+                  data-prpage-rem="{{ "wishlist.buttons_text.page_text_remove" | t }}"
+                  data-action="{% if wl_text %}wk-remove{% else %}wk-add{% endif %}"
+                  class="inline-wk-link wlbutton-js prpagebtn-js">{% include "svg-heart" %}<span>{% if wl_text %}{{ "wishlist.buttons_text.page_text_remove" | t }}{% else %}{{ "wishlist.buttons_text.page_text_add" | t }}{% endif %}</span></a>
+            </li>
+            {%- endif -%}
+            {%- if item.product_item_show_compare and settings.show_compare -%}
+            <li><a href="{{ product.url | within: collection }}"
+                  data-action="wk-add"
+                  data-add="{{ "compare.buttons_text.tooltip_add" | t }}"
+                  data-remove="{{ "compare.buttons_text.tooltip_remove" | t }}"
+                  data-tooltip="{{ "compare.buttons_text.tooltip_add" | t }}"
+                  data-compareid="{{ pr_variant.id }}"
+                  data-prpage-add="{{ "compare.buttons_text.page_text_add" | t }}"
+                  data-prpage-rem="{{ "compare.buttons_text.page_text_remove" | t }}"
+                  class="inline-wk-link compare-js prpagebtn-js"
+                  >{% include "svg-compare" %}<span>{{ "compare.buttons_text.page_text_add" | t }}</span></a>
+            </li>
+            {%- endif -%}
+          </ul>
+        </div>
+      {%- endif -%}
+      </div>
+      {% else %}
+      <div {% if product.available == false %}id="AddToCart"{%- endif -%}></div>
+    {%- endif -%}
+
+  {%- endunless -%}
+
+  {%- if item.show_trust_badge and item.page_design != "product_page_3_design" -%}{%- if item.image_l != blank -%}
+  <div class="tt-wrapper">
+    <div class="tt-promo-brand">
+      <img data-srcset="{{ item.image_l | img_url: image_max_width }} 1x, {{ item.image_l | img_url: image_max_width_retina }} 2x" alt="{{ item.image_l.alt }}" class="tt-hidden-mobile lazyload">
+      <img data-srcset="{{ item.image_lm | img_url: image_max_width_m }}" srcset="{{ item.image_lm | img_url: image_max_width_m }} 1x, {{ item.image_lm | img_url: image_max_width_retina_m }} 2x" alt="{{ item.image_lm.alt }}" class="tt-hidden-desctope lazyload">
+    </div>
+  </div>
+  {%- endif -%}{%- endif -%}
+
+  {%- if item.show_product_info -%}
+  <div class="tt-wrapper">
+    <div class="tt-add-info">
+      <ul>
+        {%- if item.show_product_vendor -%}<li><span>{{ "products.product.vendor" | t }}</span> <a href="/collections/{% if collection == blank %}all{% else %}{{ collection.handle }}{% endif %}/{{ product.vendor | handle }}">{{ product.vendor }}</a></li>{%- endif -%}
+        {%- if item.show_product_type and product.type != '' -%}<li><span>{{ "products.product.type" | t }}</span> <a href="/collections/{% if collection == blank %}all{% else %}{{ collection.handle }}{% endif %}/{{ product.type | handle }}">{{ product.type }}</a></li>{%- endif -%}
+        {%- if item.show_product_barcode -%}<li{% if product.selected_or_first_available_variant.barcode == '' or product.selected_or_first_available_variant.barcode == empty? %} class="hide"{% endif %}><span>{{ "products.product.barcode" | t }}</span> <span class="barcode">{{ product.selected_or_first_available_variant.barcode }}</span></li>{%- endif -%}
+        {%- if item.show_product_tags -%}
+        {%- assign collection = collections.all -%}
+        {%- assign custom_url = '/collections/all/' -%}
+        {%- capture ppt -%}{%- include 'product_page_tags' -%}{%- endcapture -%}{%- if ppt != '' and ppt != '!' -%}
+        <li><span>{{ "products.product.tags" | t }}</span>&nbsp;{{ ppt | replace: ',&nbsp;!' }}</li>
+        {%- endif -%}{%- endif -%}
+      </ul>
+    </div>
+  </div>
+  {%- endif -%}
+
+  {% comment %} OLD PDP ACCORDIONS {% endcomment %}
+  {% comment %} {% if item.full_width_description == "default" %}{% include "product_page_tabs" %}{% endif %} {% endcomment %}
+
+  {% comment %} NEW PDP ACCORDIONS {% endcomment %}
+  {% if template != "product.sunglasses2" %}
+  <div class="pdp_accordions-outer">
+    {% assign accessoryBlocks = section.blocks | where: 'type', 'productAccessory' %}
+    {% for accBlock in accessoryBlocks %}
+
+      {% if product.handle == accBlock.settings.selectedProduct %}
+        {% include 'product-page-accessories',
+          text: accBlock.settings.productAccessoryText,
+          product1: accBlock.settings.selectedAccessory1,
+          product2: accBlock.settings.selectedAccessory2,
+          showAccessory1: accBlock.settings.showAccessory1,
+          showAccessory2: accBlock.settings.showAccessory2,
+          frameText: accBlock.settings.productFramesText,
+          frame1: accBlock.settings.frameUpsell1,
+          frame2: accBlock.settings.frameUpsell2,
+          showFrame1: accBlock.settings.showFrameUpsell1,
+          showFrame2: accBlock.settings.showFrameUpsell2,
+        %}
+      {% endif %}
+    {% endfor %}
+
+    {% if product.metafields['productAccordion']['productInfo'] %}
+      <button class="pdp_accordion-button pdp_accordion--active">
+        PRODUCT INFO<span id="plus"></span><span id="minus"></span>
+      </button>
+      <div class="pdp_accordion-content" style="display: block;">
+        {{product.metafields['productAccordion']['productInfo']}}
+      </div>
+    {% endif %}
+    {% comment %} 
+      {% if product.template_suffix == 'gift-cards' and section.settings.show_giftcard_accordion%}
+        <button class="pdp_accordion-button pdp_accordion--active">
+          {{section.settings.giftcard_accordion_title}}
+        </button>
+        <div class="pdp_accordion-content" style="display: block;">
+          {% if section.settings.show_giftcard_accordion_text %}
+            {{section.settings.giftcard_accordion_text}}
+          {% endif %}
+          {% if section.settings.show_giftcard_accordion_image and section.settings.giftcard_accordion_image %}
+            <img src="{{section.settings.giftcard_accordion_image | img_url: '1024x'}}">
+          {% endif %}
+          {% if section.settings.show_giftcard_accordion_video and section.settings.giftcard_accordion_video != '' %}
+            <video controls muted src="{{section.settings.giftcard_accordion_video}}"></video>
+          {% endif %}
+        </div>
+      {% endif %} 
+    {% endcomment %}
+    {% if product.metafields['productAccordion']['how_to_order'] %}
+      <button class="pdp_accordion-button {% if product.metafields['accordion_open']['how_to_order'] == true %}pdp_accordion--active{% endif %}">
+        HOW TO ORDER<span id="plus"></span><span id="minus"></span>
+      </button>
+      <div class="pdp_accordion-content" {% if product.metafields['accordion_open']['how_to_order'] == true %} style="display: block;" {% endif %}>
+        {{product.metafields['productAccordion']['how_to_order']}}
+      </div>
+    {% endif %}
+    {% if product.metafields['productAccordion']['add_ons'] %}
+      <button class="pdp_accordion-button {% if product.metafields['accordion_open']['add_ons'] == true %}pdp_accordion--active{% endif %}">
+        ADD-ONS & UPGRADES<span id="plus"></span><span id="minus"></span>
+      </button>
+      <div class="pdp_accordion-content" {% if product.metafields['accordion_open']['add_ons'] == true %} style="display: block;" {% endif %}>
+        {{product.metafields['productAccordion']['add_ons']}}
+      </div>
+    {% endif %}
+    {% if product.metafields['productAccordion']['guarantees'] %}
+      <button class="pdp_accordion-button {% if product.metafields['accordion_open']['guarantees'] == true %}pdp_accordion--active{% endif %}">
+        GUARANTEES<span id="plus"></span><span id="minus"></span>
+      </button>
+      <div class="pdp_accordion-content" {% if product.metafields['accordion_open']['guarantees'] == true %} style="display: block;" {% endif %}>
+        {{product.metafields['productAccordion']['guarantees']}}
+      </div>
+    {% endif %}
+    {% if product.metafields['productAccordion']['sizeDetails'] %}
+      <button class="pdp_accordion-button {% if product.metafields['accordion_open']['sizeDetails'] == true %} pdp_accordion--active {% endif %}">
+        SIZE DETAILS<span id="plus"></span><span id="minus"></span>
+      </button>
+      <div class="pdp_accordion-content" {% if product.metafields['accordion_open']['sizeDetails'] == true %} style="display: block;" {% endif %}>
+        {{product.metafields['productAccordion']['sizeDetails']}}
+      </div>
+    {% endif %}
+    
+    {% if product.template_suffix == 'screen-time' and section.settings.show_screentime_accordion %}
+      <button class="pdp_accordion-button pdp_accordion--active">
+        {{section.settings.screentime_accordion_title}}
+      </button>
+      <div class="pdp_accordion-content" style="display: block;">
+        {% if section.settings.screentime_accordion_text %}
+          {{section.settings.screentime_accordion_text}}
+        {% endif %}
+        {% if section.settings.screentime_accordion_image %}
+          <img src="{{section.settings.screentime_accordion_image | img_url: '1024x'}}">
+        {% endif %}
+        {% if section.settings.show_screentime_accordion_video and section.settings.screentime_accordion_video != '' %}
+          <video controls muted src="{{section.settings.screentime_accordion_video}}"></video>
+        {% endif %}
+        {% if section.settings.screentime_accordion_youtube %}
+          <div class="pdp_accordion-embed">
+            <iframe 
+              width="560" 
+              height="315" 
+              src="https://www.youtube.com/embed/{{section.settings.screentime_accordion_youtube}}" 
+              title="YouTube video player" 
+              frameborder="0" 
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen
+            ></iframe>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if template != "product.sunglasses2" %}
+    <div class="mob-pdp_accordion">
+      <div class="pdp_upsell-suggestion_outer">
+        {% assign suggestionBlocks = section.blocks | where: 'type', 'productSuggestion' %}
+
+        {% for sggBlock in suggestionBlocks %}
+
+          {% if product.handle == sggBlock.settings.selectedProduct %}
+              {% include 'product-page-suggestions',
+                text: block.settings.productSuggestionText,
+                product1: sggBlock.settings.selectedAccessory1,
+                product2: sggBlock.settings.selectedAccessory2,
+                showSuggestion1: sggBlock.settings.showSuggestion1,
+                showSuggestion2: sggBlock.settings.showSuggestion2,
+              %}
+          {% endif %}
+        {% endfor %}
+
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- FREE KIT MESSAGE -->
+    {% if product.template_suffix == 'prescription' %}
+      <div class="free_kit-outer free_gift-mobile">
+        <div class="free_kit-flextop">
+          <div class="free_kit-imagebox">
+            <img src="{{settings.freeKitImage | img_url: '600x'}}">
+          </div>
+          <div class="free_kit-textbox">
+            <div class="free_kit-title_flex">
+              <span class="free_kit-title">{{settings.freeKitTitle}}</span>
+              <a href="{{settings.freeKitURL}}" class="free_kit-ATC">{{settings.freeKitATCText}}</a>
+            </div>
+            {% comment %} <span class="free_kit-paragraph">{{settings.freeKitPara}}</span> {% endcomment %}
+          </div>
+        </div>
+        {% comment %} <span class="free_kit-disclaimer">{{settings.freeKitDisc}}</span> {% endcomment %}
+      </div>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+{%- if settings.first_variant_column_is_image -%}{%- capture piffc_src -%}{%- include 'get_product_images_from_first_column' -%}{%- endcapture -%}{%- endif -%}
+
+<script>
+  function product_page_1_description_handler(){
+    changeBuyNowName();
+    elevateZoomWidget.init();
+    Shopify.getProduct('{{ product.handle }}', productPageJsonLoaded);
+    ttCollapseBlock($('.tt-collapse-block'));
+  }
+
+  function ttCollapseBlock($this){
+    if(!$this.length) return false;
+    $this.each( function () {
+      var obj = $(this),
+          objOpen = obj.find('.tt-item.active'),
+          objItemTitle = obj.find('.tt-item .tt-collapse-title');
+      Shopify.designMode ? objOpen.find('.tt-collapse-content').show(): objOpen.find('.tt-collapse-content').slideToggle(200);
+
+      objItemTitle.unbind().on('click', function () {
+        $(this).next().slideToggle(200).parent().toggleClass('active');
+      });
+    });
+  };
+
+  var firstload = true;
+  /* Swatches */
+  function productPageJsonLoaded(json_data) {
+    console.log('swatches handler called');
+    console.log(json_data);
+    var str = JSON.stringify({{ piffc_src | strip }});
+    var sw_history = Boolean({{ item.history }});
+    var show_unavailable_options = $('.show_unavailable_variants').length > 0;
+    var cur_opt = str != '' ? JSON.parse(str) : '';
+    var full_opt = cur_opt != '' ? $.extend( texture_obj, cur_opt ) : texture_obj;
+    _selectedByDefault = {% if item.use_select_button %}!(location.search == ''){% else %}true{% endif %};
+    var group1 = new SwatchesConstructor(json_data, {contentParent: '.tt-swatches-container-js', enableHistoryState: sw_history, callback: productPageVariant, externalImagesObject: full_opt, externalColors: colors_value, colorWithBorder: color_with_border, productHandle:'{{ product.handle }}', designOption1:'{{ item.designoption1 }}', designOption2:'{{ item.designoption2 }}', designOption3:'{{ item.designoption3 }}', selectedByDefault: _selectedByDefault, show_unavailable_options: show_unavailable_options });
+
+    /* On Reload, Hidden bold option will be reset and need to be attached again */
+    let titles = document.querySelectorAll('.tt-wrapper .tt-title-options');
+    let boldContainers = document.querySelectorAll('.bold_option_title');
+    let boldOption = null;
+
+    for(let b = 0; b < boldContainers.length; b++){
+      if(boldContainers[b].innerText.toLowerCase().includes('lens type')){
+        boldOption = boldContainers[b].parentElement.querySelectorAll('.bold_option_value_element input[type=checkbox]');
+        break;
+      }
+    }
+
+    let variantOptions = null;
+    for(let t  = 0; t < titles.length; t++){
+      if(titles[t].innerText.toLowerCase().includes('lens type')){
+        variantOptions = titles[t].parentElement.querySelector('li.active a');
+        break;
+      }
+    }
+
+    console.log(variantOptions);
+    console.log(boldOption);
+
+    for(let i = 0; i < boldOption.length; i++){
+      console.log(variantOptions.innerText.toLowerCase(), boldOption[i].value.toLowerCase());
+      if(variantOptions.innerText.toLowerCase() == boldOption[i].value.toLowerCase()){
+        console.log(i, boldOption[i]);
+        if(!boldOption[i].parentElement.classList.contains('bold_swatch_selected')){
+          boldOption[i].parentElement.click();
+        }
+        break;
+      }
+    }
+
+    $('body').on('change', '.tt-fixed-product-wrapper select', function(e){
+        group1.initSwatches($(this).val());
+        sw_history && history.pushState(null, null, location.pathname+'?variant='+$(this).val());
+        $('[name="id"]').val($(this).val());
+        $('.tt-fixed-product-wrapper').find('.btn').replaceWith($('.btn-addtocart').first().clone().removeClass('btn-lg btn-addtocart addtocart-js'));
+    })
+
+    json_data = null;
+  };
+
+  function productPageVariant(variant, product){
+    var _parent = $('.tt-product-single-info');
+    var _swatch = _parent.find('.tt-swatches-container-js');
+
+    swatchVariantHandler(_parent, variant);
+    var price_str = Shopify.formatMoney(variant.price, money_format);
+    $('#pop1btn').attr('data-variant', variant.id);
+    $("#p_variant_id").val(variant.id);
+    $('#pop1btn').attr('data-variant-price', price_str);
+    var options = _swatch.children();
+    for(let i = 0; i < options.find('a').length; i++){
+      let option_value = options.find('a')[i];
+      switch(option_value.dataset.value){
+          case '$25.00':
+            option_value.style.background = 'url({{ "giftcard-rad-off.png" | asset_url }})';
+            break;
+          case '$50.00':
+            option_value.style.background = 'url({{ "giftcard-radder-off.png" | asset_url }})';
+            break;
+          case '$100.00':
+            option_value.style.background = 'url({{ "giftcard-raddest-off.png" | asset_url }})';
+            break;
+        }
+    }
+
+    /*   
+    case 'wayfarer':
+    case 'Wayfarer':
+      option_value.style.background = 'url({{ "wayfarer-off.png" | asset_url }})';
+      break;
+    case 'rounded':
+    case 'Rounded':
+      option_value.style.background = 'url({{ "rounded-off.png" | asset_url }})';
+      break;
+    */
+
+    if(firstload == true && location.search == '' && $('.select_options').length && !sc.find('.active').length && _swatch.children().length){
+      firstload = false;
+      return false;
+    }
+
+    if(_parent.find('.select_options').length){
+      _parent.find('.select_options').removeClass('select_options');
+      $(window).trigger('resize');
+    }
+
+    swatchVariantButtonHandler(_parent, variant);
+
+    var g = $('#smallGallery');
+    var filter = '.filter'+variant.options[0].split(' ').join('_');
+    if($('.four-images-js').length == 0 && $('.product-images-static').length == 0 && g.hasClass('withfiltres') && g.attr('data-cur') != filter){
+      g.attr('data-cur', filter);
+      g.slick('slickUnfilter').slick('slickFilter',filter);
+    }
+
+    var img_id = variant.featured_media ? variant.featured_media.id : 'none';
+    var target = img_id == 'none' ? $("[data-slick-index=0]").children() : $("[data-target="+img_id+"]");
+    var num = target.last().parent().attr('data-slick-index');
+
+    var $container = $("#smallGallery");
+    $('.four-images-js').length == 0 && $('.product-images-static').length == 0 && setDefaultSlider(variant, num, $container, target);
+    $container = $('.slider-scroll-product');
+    setScrollSlider(num, $container);
+
+    g = $('.tt-mobile-product-slider');
+    if(num && g.length && g.hasClass('slick-initialized')) {
+      var filter = '.filter'+variant.options[0].split(' ').join('_');
+      if(g.hasClass('withfiltres') && g.attr('data-cur') != filter){
+        g.attr('data-cur', filter);
+        g.slick('slickUnfilter').slick('slickFilter',filter);
+      }
+      g.slick('slickGoTo', num, true);
+    }
+
+    addToCartHandler.initFormAddToCartButton(variant.id, _parent, _swatch);
+
+    $('.four-images-js').length && setFourSlider($('.four-images-js'), product, variant);
+
+    var buyinoneclick = _parent.find(".buyinoneclick");
+    buyinoneclick.length && buyinoneclick.removeClass("hide");
+
+    if(_parent.find('.compare-js').length){
+      _parent.find('.compare-js').attr('data-compareid', variant.id);
+      $(window).trigger( "compareevent" );
+    }
+
+    var tfpw = $('.tt-fixed-product-wrapper');
+    if(tfpw.length){
+      if(variant.featured_media){
+        tfpw.find('img').attr('src', Shopify.resizeImage(variant.featured_media.src, 'x80'));
+      }
+
+      var s = tfpw.find('select');
+      s.val(variant.id);
+      variant.available ? s.removeClass('disabled') : s.addClass('disabled');
+
+      var v = $('.tt-product-single-info').find('.tt-input-counter').first().clone();
+      tfpw.find('.tt-input-counter').replaceWith(v);
+    }
+  }
+  function setDefaultSlider(variant, num, $container, target){
+    $container.length && variant.featured_image && getMediaGalleryItem(target);
+
+    if(num && $container.length && target.attr('data-image')){
+      var it = target.attr('data-image').split('?').shift();
+      var it2 = $(".zoom-product").attr('src').split('?').shift();
+      if(it == it2){
+        $container.slick('slickGoTo', num, true);
+        $container.find('.zoomGalleryActive').removeClass('zoomGalleryActive');
+        target.addClass('zoomGalleryActive');
+        !elevateZoomWidget.checkNoZoom() && elevateZoomWidget.configureZoomImage();
+        return false;
+      }
+    }
+    else{
+      if(variant.featured_image){
+        var it = variant.featured_image.src.split('?').shift();
+        var it2 = $(".zoom-product").attr('src').split('?').shift();
+        if(it == it2) return false;
+      }
+    }
+
+    if(num && $container.length && target.attr('data-item-type')){
+      if(variant.featured_image){
+        $container.slick('slickGoTo', num, true);
+        $container.find('.zoomGalleryActive').removeClass('zoomGalleryActive');
+        target.addClass('zoomGalleryActive');
+        $(".zoom-product").attr('src', target.attr('data-image')).attr('data-zoom-image', target.attr('data-zoom-image'));
+      }
+    }
+    else{
+      //$('#smallGallery')
+      if(variant.featured_image){
+        $('.mediaimageholder').length && $('.mediaimageholder').show();
+        $('.mediaholder').length && $('.mediaholder').hide();
+        $(".zoom-product").attr('src', variant.featured_image.src).attr('data-zoom-image', variant.featured_image.src);
+      }
+      else{
+        if($('[featuredmedia]').length && $container.length == 0){
+          $('.mediaimageholder').length && $('.mediaimageholder').hide();
+          $('.mediaholder').length && $('.mediaholder').show();
+          $(".zoom-product").attr('src', '{{ 'dummy.png' | asset_url }}');
+        }
+      }
+    }
+
+    !elevateZoomWidget.checkNoZoom() && elevateZoomWidget.configureZoomImage();
+  }
+  function setFourSlider($container, product, variant){
+    if(product.images.length < 4 || variant.featured_image == null) return false;
+
+    var c_img = variant.featured_image.src.replace(/https:/g, '');
+    var img_a = String(c_img+product.images.join(',').split(c_img).pop()).split(',');
+
+    $container.find(".zoom-product").each(function(index){
+      var src = Shopify.resizeImage(img_a[index], '600x');
+      $(this).attr('src',src);
+    })
+
+    !elevateZoomWidget.checkNoZoom() && elevateZoomWidget.configureZoomImage();
+  }
+  function setScrollSlider(num, $container){
+    if(!(num && $container.length)) return false;
+    $container.slick('slickGoTo', num, true);
+  }
+  /* For buy now button */
+  function changeBuyNowName(){
+    var $buyinoneclick = $('.buyinoneclick');
+    var buttonname = $buyinoneclick.data("buttonname");
+    var loadname = $buyinoneclick.data("loading");
+    if($buyinoneclick.length == 0) return false;
+    $buyinoneclick.first().bind('DOMNodeInserted', function() {
+      $(this).unbind('DOMNodeInserted');
+      var $shopifypaymentbutton = $(this).find(".shopify-payment-button__button");
+      setTimeout(function(){
+        if($('.buyinoneclick').length){
+          $buyinoneclick.hide();
+          setTimeout(
+            function(){
+              if($(".shopify-payment-button__button").hasClass("shopify-payment-button__button--branded")){
+                $(".shopify-payment-button__button")
+                .on("click", function(){
+                  $('.buyinoneclick').replaceWith('<p class="tt-loading-text">' + loadname + '</p>')
+                })
+                .find('span[aria-hidden=true]').first().text(buttonname+' ');
+              }
+              else{
+                $(".shopify-payment-button__button")
+                .on("click", function(){
+                  $('.buyinoneclick').replaceWith('<p class="tt-loading-text">' + loadname + '</p>')
+                })
+                .text(buttonname);
+              }
+              $buyinoneclick.fadeIn()
+            }, 300);
+        }
+      }, 300);
+    });
+  }
+</script>

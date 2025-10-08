@@ -1,0 +1,24 @@
+{% assign textarea = settings.data_color_swatches | newline_to_br | split: "<br />" %}
+{% for text_row in textarea %}
+    {% assign text_row_array = text_row | split: '|' %}
+    {% assign color_name = text_row_array[0] | strip%}
+    {% assign color_hex = text_row_array[1] %}
+    {% assign color_img = text_row_array[2] %}
+    {% if color_name == color %}
+        {% if color_img != blank%}
+          {% assign tag_color = "background:url(" | append: color_img  %}
+          {% assign tag_color = tag_color | append: ")"  %}
+        {% else %}
+          {% assign tag_color = "background-color:" | append: color_hex  %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+{% unless tag_color %}
+    {% assign tag_color = color %}
+{% endunless %}
+
+<span class="options-color-image"></span><a href="#" style="{{ tag_color }}" data-tooltip="{{ color }}"></a>
+{% comment %}
+To reply the color value of special color names
+{% endcomment %}

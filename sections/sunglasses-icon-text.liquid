@@ -1,0 +1,184 @@
+<div class="container icon-with-text">
+<div class="tt-block-title">
+     {% if section.settings.title != blank %}
+      <h1 class="univ_head">{{ section.settings.title }}</h1>
+     {% endif %}  
+    {% if section.settings.text != blank %}
+      <div class="tt-description">{{ section.settings.text }}</div>
+    {% endif %}  
+    </div>
+    <div class="row icon-row">
+        {% for block in section.blocks %}
+                <div class="col-md-3 col-sm-6 col-6 text-center pad-3">
+                   <div class="icon_wrapper">
+                     <a href="{{ block.settings.icon_link}}">
+                    <img class="sun_image lazyload" data-src="{{block.settings.column_image | img_url: '300x'}}">
+                    <h5 class="icon-title">{{block.settings.column_title}}</h5>
+                     </a>
+                   </div>  
+                </div>
+        {% endfor %}
+
+    </div>
+    {% if section.settings.button_text != blank %}
+      <div class="text-center">
+       <a href="{{ section.settings.button_url }}" class="prim-btn">{{ section.settings.button_text }}</a>
+      </div>
+    {% endif %}  
+</div>
+
+{% schema %}
+
+{
+    "name": "sunglasses Rich Text",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+
+        },
+         {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text"
+
+        },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text"
+
+        },
+        {
+            "type": "url",
+            "id": "button_url",
+            "label": "Url"
+        }
+    ],
+    "blocks":[
+        {
+            "type": "column",
+            "name": "column",
+            "limit": 6,
+            "settings":[
+                {
+                    "type": "image_picker",
+                    "id": "column_image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "column_title",
+                    "label": "Title"
+                },
+                 {
+                    "type": "url",
+                    "id": "icon_link",
+                    "label": "Link"
+                }
+            ]
+
+        }
+    ],
+    "presets": [
+        {
+            "category": "image",
+            "name":"sunglasses with text column"
+        }
+    ]
+}
+
+{% endschema %}
+<style>
+  .text-center{    
+    justify-content: center;
+    display: flex;
+    padding:12px;
+  }
+  .prim-btn{ 
+    font-size: 14px;
+    font-weight: bold;
+    font-family:"Helvetica Neue", "Helvetica, Arial, sans-serif";
+    padding: 16px 24px;
+    font-style: normal;
+    border-radius: 4px;
+    background: #4dc8e9;
+    color: #fff;
+  }
+  .prim-btn:hover{
+    background: #0a97b6;
+    color: #fff;
+  }
+  .prim-btn:active, .prim-btn:focus{
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #0ABDE3;
+    box-shadow: inset 0px 2px 5px rgb(34 34 34 / 20%);
+  }
+  h5.icon-title {
+    font-size: 18px !important;
+    Font-Family: 'Hind', HelveticaNeue, sans-serif !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+  }
+  .icon-text.left-text {
+    color: #1cbbb4;
+    font-family: Avenir-Medium!important;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .icon-with-text a{text-transform: uppercase;}
+  .row.icon-row{max-width:900px;margin:0 auto;}
+  .icon-with-text{padding:0 15px;}
+  .col-md-3 .icon_wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    margin-left: 10px;
+    border-radius: 50%;
+    padding: 20px;
+    margin-bottom:10px;
+    border: 2px solid #00bab4;
+}
+  .col-md-3 .icon_wrapper:hover{
+    background:#00bab4;
+    border: 2px solid #ff2392;
+  }
+  .sun_image{max-width:100%;}
+  span.icon-title{
+        color: #000 !important;
+    padding-top: 10px;
+    display: block;}
+@media only screen and (max-width: 1000px) {
+   .col-md-3 .icon_wrapper{
+    width: 150px;
+    height: 150px;
+  }
+}
+@media only screen and (max-width: 576px) {
+   
+   .col-md-3 .icon_wrapper{
+    width: 160px;
+    height: 160px;
+  }
+  .col-md-3 .icon_wrapper {
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+  h5.icon-title {
+    font-size: 16px !important;
+  }
+ 
+  .grid_wrapper {
+    flex-flow: column;
+    gap: 15px;
+     margin-top:48px !important;
+  }
+  .grid_wrapper .gride_item {
+    width: calc(100% - 5px) !important;
+    flex: 0 0 calc(100% - 5px) !important;
+  }
+}   
+</style>

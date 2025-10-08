@@ -1,0 +1,53 @@
+{% comment %}
+Not using all_products[handle] because there are many accessories products
+trigger "Excceed maximum number of handles" error.
+{% endcomment %}
+
+{% for collection in collections %}
+  {% for product in collection.products %}
+    {% if product.handle == product1 %}
+      {% assign suggestion1 = product %}
+    {% endif %}
+    {% if product.handle == product2 %}
+      {% assign suggestion2 = product %}
+    {% endif %}
+  {% endfor %}
+
+{% endfor %}
+
+<button class="pdp_accordion-button">
+    SUGGESTED PRODUCTS
+</button>
+
+<div class="pdp_accordion-content" style="display:block;">
+    <div class="pdp_accessories-textbox">
+      {{ text }}
+    </div>
+
+    {% if showSuggestion1 == true %}
+      <div class="pdp_accessories-product">
+        <div class="pdp_accessories-product_inner">
+          <img src="{{suggestion1.featured_image | img_url: '1160x' }}">
+          <div class="pdp_accessories-productInfo">
+            <div class="pdp_accessories-productTitle">{{suggestion1.title}}</div>
+            <div class="pdp_accessories-productPrice">{{suggestion1.price | money}}</div>
+            <a href="{{suggestion1.url}}" class="pdp_accessories-ATC">SHOP NOW</a>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if showSuggestion2 == true %}
+      <div class="pdp_accessories-product">
+        <div class="pdp_accessories-product_inner">
+          <img src="{{suggestion2.featured_image | img_url: '1160x' }}">
+          <div class="pdp_accessories-productInfo">
+            <div class="pdp_accessories-productTitle">{{suggestion2.title}}</div>
+            <div class="pdp_accessories-productPrice">{{suggestion2.price | money}}</div>
+            <a href="{{suggestion2.url}}" class="pdp_accessories-ATC">SHOP NOW</a>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+</div>

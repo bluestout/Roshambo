@@ -1,0 +1,40 @@
+
+<style>
+    ._{{section.id}}-newsletter{
+        background-color: {{section.settings.backgroundColor}};
+    }
+</style>
+
+<div class="_{{section.id}}-newsletter newsletter-section">
+    <div class="klaviyo-form-W2bkN3"></div>
+</div>
+
+{% schema %}
+    {
+        "name": "Newsletter Section",
+        "settings": [
+            {
+                "type": "color",
+                "id": "backgroundColor",
+                "label": "Section Background Color",
+                "default": "#1cbbb4"
+            },
+            {
+                "type": "text",
+                "id": "newsletterTitle",
+                "label": "Newsletter Heading"
+            },
+            {
+                "type": "text",
+                "id": "newsletterSubTitle",
+                "label": "Newsletter Sub-Heading"
+            }
+        ],
+        "presets": [
+            {
+                "category": "Mediacarry",
+                "name":"Newsletter Section"
+            }
+        ]
+    }
+{% endschema %}

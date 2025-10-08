@@ -1,0 +1,122 @@
+<div class="special-vto-icon-wrap" style="background-color: {{section.settings.Background}}">
+ <div class="special-vto-head">
+   <h3>{{ section.settings.heading }}</h3>
+ </div>
+    <div class="Icon-w-text-column-container">
+
+        {% for block in section.blocks %}
+            {% if block.type == "column" %}
+                <div class="icon-container">
+
+                    <img class="icon-image lazyload" data-src="{{block.settings.column_image | img_url: '300x'}}">
+
+                    <span class="icon-title">{{block.settings.column_title}}</span>
+
+                    <span class="icon-description">{{block.settings.column_description}}</span>
+
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+  <div class="button_try_on text-center"><a href="javascript:void(0)" class="btn-scan btn btn-border btn-top btn-mediacarry" retake="false">Get Started</a></div>
+<style>
+  .special-vto-head {
+    text-align: center;
+}
+.special-vto-icon-wrap .Icon-w-text-column-container {
+    margin-top: 0px;
+}
+.special-vto-head h3 {
+    text-align: center;
+    margin-top: 48px;
+    font-weight: bold !important;
+    color: #1cbbb4;
+}
+  .special-vto-icon-wrap span.icon-description {
+    width: 100% !important;
+}
+  .special-vto-icon-wrap .icon-container {
+    width: 100%;
+}
+  .icon-container img.icon-image.lazyload {
+    max-width: 120px;
+}
+  img.icon-image {
+    max-width: 100%;
+    border-radius: 50%;
+    border: solid 8px #1cbbb4;
+    background-color: transparent !important;
+}
+</style>
+</div>
+
+{% schema %}
+
+{
+
+    "name": "VTO Icon",
+
+    "settings": [
+
+        {
+
+            "type": "color",
+
+            "id": "Background",
+
+            "label": "Background Color"
+
+        },
+                {
+
+                    "type": "text",
+
+                    "id": "heading",
+
+                    "label": "Heading"
+
+                }
+
+    ],
+
+    "blocks":[
+
+        {
+
+            "type": "column",
+
+            "name": "column",
+
+            "limit": 4,
+
+            "settings":[
+
+                {
+
+                    "type": "image_picker",
+
+                    "id": "column_image",
+
+                    "label": "Column Image"
+
+                },
+
+                {
+
+                    "type": "textarea",
+
+                    "id": "column_description",
+
+                    "label": "Column Description"
+
+                }
+
+            ]
+
+        }
+
+    ]
+}
+
+{% endschema %}

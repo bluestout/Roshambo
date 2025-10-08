@@ -1,0 +1,156 @@
+<div class="container-indent">
+  {% include "product_page_1_gallery" type: "mobile" %}
+  <div class="container container-fluid-mobile">
+    <div class="row">
+      {% include "product_page_1_gallery" type: item.gallery_type %}
+      <div class="col-6">
+      	{% include "product_page_1_description" %}
+      </div>
+    </div>
+    {% if template == "product.sunglasses2" %}
+    <h4 class="pr_desc">{{product.description}}</h4>
+      <div class="row" style="padding:20px">
+        <div class="pdp_accordions-outer">
+      
+          {% if product.metafields['productAccordion']['productInfo'] %}
+            <button class="pdp_accordion-button">
+             MORE PRODUCT INFO<span id="plus"></span><span id="minus"></span>
+            </button>
+            <div class="pdp_accordion-content" style="display: block;">
+              {{product.metafields['productAccordion']['productInfo']}}
+            </div>
+          {% endif %}
+          {% if product.metafields['productAccordion']['how_to_order'] %}
+            <button class="pdp_accordion-button {% if product.metafields['accordion_open']['how_to_order'] == true %}pdp_accordion--active{% endif %}">
+              HOW TO ORDER<span id="plus"></span><span id="minus"></span>
+            </button>
+            <div class="pdp_accordion-content" {% if product.metafields['accordion_open']['how_to_order'] == true %} style="display: block;" {% endif %}>
+              {{product.metafields['productAccordion']['how_to_order']}}
+            </div>
+          {% endif %}
+          {% if product.metafields['productAccordion']['add_ons'] %}
+            <button class="pdp_accordion-button {% if product.metafields['accordion_open']['add_ons'] == true %}pdp_accordion--active{% endif %}">
+              ADD-ONS & UPGRADES<span id="plus"></span><span id="minus"></span>
+            </button>
+            <div class="pdp_accordion-content" {% if product.metafields['accordion_open']['add_ons'] == true %} style="display: block;" {% endif %}>
+              {{product.metafields['productAccordion']['add_ons']}}
+            </div>
+          {% endif %}
+          {% if product.metafields['productAccordion']['guarantees'] %}
+            <button class="pdp_accordion-button {% if product.metafields['accordion_open']['guarantees'] == true %}pdp_accordion--active{% endif %}">
+              GUARANTEES<span id="plus"></span><span id="minus"></span>
+            </button>
+            <div class="pdp_accordion-content" {% if product.metafields['accordion_open']['guarantees'] == true %} style="display: block;" {% endif %}>
+              {{product.metafields['productAccordion']['guarantees']}}
+            </div>
+          {% endif %}
+          {% if product.metafields['productAccordion']['sizeDetails'] %}
+            <button class="pdp_accordion-button {% if product.metafields['accordion_open']['sizeDetails'] == true %} pdp_accordion--active {% endif %}">
+              SIZE DETAILS<span id="plus"></span><span id="minus"></span>
+            </button>
+            <div class="pdp_accordion-content" {% if product.metafields['accordion_open']['sizeDetails'] == true %} style="display: block;" {% endif %}>
+              {{product.metafields['productAccordion']['sizeDetails']}}
+            </div>
+          {% endif %}
+
+          {% if product.metafields['productAccordion']['suggestedProducts'] %}
+          <button class="pdp_accordion-button {% if product.metafields['accordion_open']['sizeDetails'] == true %} pdp_accordion--active {% endif %}">
+            SUGGESTED PRODUCTS<span id="plus"></span><span id="minus"></span>
+          </button>
+          <div class="pdp_accordion-content" {% if product.metafields['accordion_open']['sizeDetails'] == true %} style="display: block;" {% endif %}>
+              {% assign phandles = product.metafields['productAccordion']['suggestedProducts'] | split: ',' %}
+              <div class="suggested-products">
+              {% for handle in phandles %}
+                {% assign suggestedProduct = all_products[handle] %}
+                <div class="pdp_accessories-product">
+                  <div class="pdp_accessories-product_inner">
+                    <img src="{{suggestedProduct.featured_image | img_url: '1160x' }}">
+                    <div class="pdp_accessories-productInfo">
+                      <div class="pdp_accessories-productTitle">{{suggestedProduct.title}}</div>
+                      <div class="pdp_accessories-productPrice">{{suggestedProduct.price | money}}</div>
+                      <button class="pdp_accessories-ATC" {% if suggestedProduct.available %}onclick="addItemToCart('{{suggestedProduct.selected_or_first_available_variant.id}}', 1)"{% endif %} {% if suggestedProduct.available == false %}disabled{% endif %} >ADD TO CART</button>
+
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+          
+          {% if product.template_suffix == 'screen-time' and section.settings.show_screentime_accordion %}
+            <button class="pdp_accordion-button pdp_accordion--active">
+              {{section.settings.screentime_accordion_title}}
+            </button>
+            <div class="pdp_accordion-content" style="display: block;">
+              {% if section.settings.screentime_accordion_text %}
+                {{section.settings.screentime_accordion_text}}
+              {% endif %}
+              {% if section.settings.screentime_accordion_image %}
+                <img src="{{section.settings.screentime_accordion_image | img_url: '1024x'}}">
+              {% endif %}
+              {% if section.settings.show_screentime_accordion_video and section.settings.screentime_accordion_video != '' %}
+                <video controls muted src="{{section.settings.screentime_accordion_video}}"></video>
+              {% endif %}
+              {% if section.settings.screentime_accordion_youtube %}
+                <div class="pdp_accordion-embed">
+                  <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/{{section.settings.screentime_accordion_youtube}}" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+      
+          {% if template != "product.sunglasses2" %}
+          <div class="mob-pdp_accordion">
+            <div class="pdp_upsell-suggestion_outer">
+              {% assign suggestionBlocks = section.blocks | where: 'type', 'productSuggestion' %}
+      
+              {% for sggBlock in suggestionBlocks %}
+      
+                {% if product.handle == sggBlock.settings.selectedProduct %}
+                    {% include 'product-page-suggestions',
+                      text: block.settings.productSuggestionText,
+                      product1: sggBlock.settings.selectedAccessory1,
+                      product2: sggBlock.settings.selectedAccessory2,
+                      showSuggestion1: sggBlock.settings.showSuggestion1,
+                      showSuggestion2: sggBlock.settings.showSuggestion2,
+                    %}
+                {% endif %}
+              {% endfor %}
+      
+            </div>
+          </div>
+          {% endif %}
+      
+          <!-- FREE KIT MESSAGE -->
+          {% if product.template_suffix == 'prescription' %}
+            <div class="free_kit-outer free_gift-mobile">
+              <div class="free_kit-flextop">
+                <div class="free_kit-imagebox">
+                  <img src="{{settings.freeKitImage | img_url: '600x'}}">
+                </div>
+                <div class="free_kit-textbox">
+                  <div class="free_kit-title_flex">
+                    <span class="free_kit-title">{{settings.freeKitTitle}}</span>
+                    <a href="{{settings.freeKitURL}}" class="free_kit-ATC">{{settings.freeKitATCText}}</a>
+                  </div>
+                  {% comment %} <span class="free_kit-paragraph">{{settings.freeKitPara}}</span> {% endcomment %}
+                </div>
+              </div>
+              {% comment %} <span class="free_kit-disclaimer">{{settings.freeKitDisc}}</span> {% endcomment %}
+            </div>
+          {% endif %}
+        </div>
+      </div>     
+    {% endif %}
+
+  </div>
+</div>

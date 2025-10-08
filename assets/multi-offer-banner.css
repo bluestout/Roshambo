@@ -1,0 +1,183 @@
+.multi-banner-outer{
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.multi-banner-title{
+    width: 100%;
+    padding: 6px 0;
+    text-align: center;
+    border: none;
+    background-color: transparent !important;
+    /* font-family: "Cocogoose"; */
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: .025em;
+}
+
+.multi-banner-title svg{
+    width: 16px;
+    height: 16px;
+    margin-left: 6px;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.multi-banner-title:hover{
+    background-color: transparent !important;
+}
+
+/* .multi-banner--active + .multi-banner-content{
+    display: block !important;
+} */
+
+.multi-banner--active svg{
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+.multi-banner-content{
+    width: 100%;
+    height: max-content;
+    display: none;
+}
+
+.multi-banner-content-inner{
+    width: 100%;
+    margin: 0 auto;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    white-space: normal;
+}
+
+.banner-offer{
+    width: 240px;
+    min-width: 240px;
+    padding: 20px;
+    display: block;
+    transition: all 0.5s ease-in-out;
+}
+
+.banner-offer:hover{
+    transform: scale(1.1); 
+}
+
+.banner-offer-outer{
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+}
+
+.banner-offer-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.banner-offer-content{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.banner-offer-content-info{
+    position: absolute;
+    width: calc(100% - 20px);
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+}
+
+.banner-offer-content-info *{
+    width: 100%;
+    text-align: center;
+    display: block;
+    /* font-family: "Cocogoose"; */
+    margin-bottom: 10px;
+}
+
+.banner-offer-subtitle{
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.banner-offer-title{
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.banner-offer-link,
+.banner-offer-link:hover{
+    font-size: 15px !important;
+    font-weight: 500;
+    text-decoration: underline !important;
+    line-height: 1.2;
+}
+
+@media(max-width: 1000px){
+    .multi-banner-content-inner{
+        justify-content: flex-start;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+    }
+}
+
+@media(max-width: 900px){
+    .multi-banner-title{
+        width: 100%;
+        padding: 2vw 0;
+        text-align: center;
+        border: none;
+        background-color: transparent !important;
+        font-family: "Cocogoose";
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .multi-banner-title svg{
+        width: 20px;
+        height: 20px;
+        margin-left: 1vw;
+    }
+
+    .banner-offer-content{
+        border-radius: 10px;
+    }
+
+    .banner-offer-content *{
+        width: 100%;
+        text-align: center;
+        display: block;
+        /* font-family: "Cocogoose"; */
+        margin-bottom: 10px;
+        white-space: normal;
+    }
+    
+    .multi-banner-content{
+        padding-bottom: 10px;
+    }
+
+    .multi-banner-content-inner{
+        padding: 10px;
+    }
+
+    .banner-offer{
+        width: 190px;
+        min-width: 190px;
+        padding: 10px;
+        display: block;
+        transition: all 0.5s ease-in-out;
+    }
+    
+}

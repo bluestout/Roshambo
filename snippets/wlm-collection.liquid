@@ -1,0 +1,80 @@
+{%- assign w_continue = 'no' -%}
+{% assign wlmHideItem_Collection = false %}{% assign wlmLockedTags9881 = false %}
+{% assign wlmLockedTags9882 = false %}
+{% assign wlmLockedTags10275 = false %}
+{% assign wlmLockedTags10276 = false %}
+{% assign wlmLockedTags24698 = false %}
+{% assign wlmLockedTags84398 = false %}
+{% assign wlmLockedTags124768 = false %}
+{% assign wlmLockedTags124769 = false %}
+{% assign wlmLockedTags158201 = false %}
+{% assign wlmLockedTags205939 = false %}
+{% assign wlmLockedTags205940 = false %}
+{% assign wlmLockedTags205942 = false %}
+{% assign wlmLockedTags205943 = false %}
+
+
+{% assign wlmLockedTags9881 = false %}
+{% assign wlmLockedTags9882 = false %}
+{% assign wlmLockedTags10275 = false %}
+{% assign wlmLockedTags10276 = false %}
+{% assign wlmLockedTags24698 = false %}
+{% assign wlmLockedTags84398 = false %}
+{% assign wlmLockedTags124768 = false %}
+{% assign wlmLockedTags124769 = false %}
+{% assign wlmLockedTags158201 = false %}
+{% assign wlmLockedTags205939 = false %}
+{% assign wlmLockedTags205940 = false %}
+{% assign wlmLockedTags205942 = false %}
+{% assign wlmLockedTags205943 = false %}
+{% for tag in customer.tags %}
+{% if tag == 'wholesale' %}{% assign wlmLockedTags9881 = true %}{% endif %}
+{% if tag == 'int-wholesale' %}{% assign wlmLockedTags9882 = true %}{% endif %}
+{% if tag == 'wholesale' %}{% assign wlmLockedTags10275 = true %}{% endif %}
+{% if tag == 'int-wholesale' %}{% assign wlmLockedTags10276 = true %}{% endif %}
+{% if tag == 'Taylin' %}{% assign wlmLockedTags24698 = true %}{% endif %}
+{% if tag == 'WPDTest' %}{% assign wlmLockedTags84398 = true %}{% endif %}
+{% if tag == 'wholesale' %}{% assign wlmLockedTags124768 = true %}{% endif %}
+{% if tag == 'int-wholesale' %}{% assign wlmLockedTags124769 = true %}{% endif %}
+{% if tag == 'wholesale' %}{% assign wlmLockedTags158201 = true %}{% endif %}
+{% if tag == 'wholesale' %}{% assign wlmLockedTags205939 = true %}{% endif %}
+{% if tag == 'int-wholesale' %}{% assign wlmLockedTags205940 = true %}{% endif %}
+{% if tag == 'wholesale' %}{% assign wlmLockedTags205942 = true %}{% endif %}
+{% if tag == 'int-wholesale' %}{% assign wlmLockedTags205943 = true %}{% endif %}
+{% endfor %}
+
+
+{% if wlm-collection.id == 85480767569  %}
+{% unless customer %}
+{% assign wlmHideItem_Collection = true %}
+{% else %}
+{% unless wlmLockedTags124768 or wlmLockedTags124769 %}{% assign wlmHideItem_Collection = true %}
+{% endunless %}
+{% endunless %}
+{% endif %}
+
+
+{% if wlm-collection.id == 85916287057  %}
+{% unless customer %}
+{% assign wlmHideItem_Collection = true %}
+{% else %}
+{% unless wlmLockedTags10275 or wlmLockedTags10276 %}{% assign wlmHideItem_Collection = true %}
+{% endunless %}
+{% endunless %}
+{% endif %}
+
+
+{% if wlm-collection.id == 161474117713  %}
+{% unless customer %}
+{% assign wlmHideItem_Collection = true %}
+{% else %}
+{% unless wlmLockedTags24698 %}{% assign wlmHideItem_Collection = true %}
+{% endunless %}
+{% endunless %}
+{% endif %}
+
+
+
+{% if wlmHideItem_Collection == true %}{% continue %}{% endif %}
+
+{%- if wlm_is_render == 'yes' -%}{{- w_continue -}}{%-endif-%}

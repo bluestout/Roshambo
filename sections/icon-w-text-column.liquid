@@ -1,0 +1,119 @@
+<div style="background-color: {{section.settings.Background}}">
+
+    <div class="Icon-w-text-column-container">
+
+        {% for block in section.blocks %}
+            {% if block.type == "column" %}
+                <div class="icon-container">
+
+                    <img class="icon-image lazyload" data-src="{{block.settings.column_image | img_url: '300x'}}">
+
+                    <span class="icon-title">{{block.settings.column_title}}</span>
+
+                    <span class="icon-description">{{block.settings.column_description}}</span>
+
+                    <a class="icon-link" href="{{block.settings.column_link}}">Read More</a>
+
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% schema %}
+
+{
+
+    "name": "Icon w/ text column",
+
+    "settings": [
+
+        {
+
+            "type": "color",
+
+            "id": "Background",
+
+            "label": "Background Color"
+
+        }
+
+    ],
+
+    "blocks":[
+
+        {
+
+            "type": "column",
+
+            "name": "column",
+
+            "limit": 6,
+
+            "settings":[
+
+                {
+
+                    "type": "image_picker",
+
+                    "id": "column_image",
+
+                    "label": "Column Image"
+
+                },
+
+                {
+
+                    "type": "text",
+
+                    "id": "column_title",
+
+                    "label": "Column Title"
+
+                },
+
+                {
+
+                    "type": "textarea",
+
+                    "id": "column_description",
+
+                    "label": "Column Description"
+
+                },
+
+                {
+
+                    "type": "url",
+
+                    "id": "column_link",
+
+                    "label": "Column Link"
+
+                }
+
+            ]
+
+        }
+
+    ],
+
+    "presets": [
+
+        {
+
+            "category": "Mediacarry",
+
+            "name":"icon with text column"
+
+        }
+
+    ]
+
+    
+
+}
+
+{% endschema %}

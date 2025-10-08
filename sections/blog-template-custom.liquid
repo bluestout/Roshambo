@@ -1,0 +1,201 @@
+{%- assign item = section.settings -%}
+{% comment %} Wholesale_Club_Item_Prices Start {% endcomment %}
+{% if item.product %}{% assign base_product = item.product %}{% else %}{% assign base_product = item %}{% endif %}
+{% if item.variant %}{% assign base_variant = item.variant %}{% else %}{% assign base_variant = item.selected_or_first_available_variant %}{% endif %}
+
+{% if shop.metafields.sawholesale['base_price'] == blank %}
+  {% assign base_price = 'compare_at_price' %}
+{% else %}
+  {% assign base_price = shop.metafields.sawholesale['base_price'] %}
+{% endif %}
+
+{% assign saw_discount = 0 %}{% assign saw_has_discount = false %}
+
+{% if customer.tags != blank %}
+  {% for mf in base_product.metafields.sawholesale %}
+    {% capture product_customer_tag %}{{ mf | first | replace: 'discount_', '' }}{% endcapture %}
+    {% if customer.tags contains product_customer_tag %}
+      {% assign saw_has_discount = true %}
+      {% assign discount_key = product_customer_tag | prepend: 'discount_' %}
+      {% assign price_key = product_customer_tag | prepend: 'price_' %}
+      {% assign saw_discount = base_product.metafields.sawholesale[discount_key] | divided_by: 100.0 %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% assign saw_discount = 1 | minus: saw_discount %}
+
+{% if base_price == 'price' or base_variant.compare_at_price == blank  or base_variant.compare_at_price == 0 or base_variant.compare_at_price < base_variant.price %}
+  {% assign saw_variant_compare_at_price = base_variant.price %}
+{% else %}
+  {% assign saw_variant_compare_at_price = base_variant.compare_at_price %}
+{% endif %}
+
+{% assign cpe = shop.metafields.sawholesale['cpe'] | default: "true" %}
+{% if base_variant.metafields.sawholesale[price_key] != blank and cpe == "true" %}
+  {% assign saw_variant_price = base_variant.metafields.sawholesale[price_key] %}
+{% else %}
+  {% assign saw_variant_price = saw_variant_compare_at_price | times: saw_discount %}
+{% endif %}
+
+{% if saw_has_discount == false or saw_variant_price >= saw_variant_compare_at_price %}
+  {% assign WCItem_OriginalPrice = item.original_price %}
+  {% assign WCItem_FinalPrice = item.final_price %}
+  {% assign WCItem_Price = item.price %}
+  {% assign WCItem_PriceMin = item.price_min %}
+  {% assign WCItem_PriceMax = item.price_max %}
+  {% assign WCItem_CompareAtPrice = item.compare_at_price %}
+  {% assign WCItem_CompareAtPriceMin = item.compare_at_price_min %}
+  {% assign WCItem_CompareAtPriceMax = item.compare_at_price_max %}
+  {% assign WCItem_OriginalLinePrice = item.original_line_price %}
+  {% assign WCItem_FinalLinePrice = item.final_line_price %}
+  {% assign WCItem_LinePrice = item.line_price %}
+{% else %}
+  {% assign WCItem_OriginalPrice = saw_variant_compare_at_price %}
+  {% assign WCItem_FinalPrice = saw_variant_price %}
+  {% assign WCItem_Price = saw_variant_price %}
+  {% assign WCItem_PriceMin = item.price_min | times: saw_discount %}
+  {% assign WCItem_PriceMax = item.price_max | times: saw_discount %}
+  {% assign WCItem_CompareAtPrice = saw_variant_compare_at_price %}
+  {% if base_product.compare_at_price_min != 0 %}{% assign WCItem_CompareAtPriceMin = base_product.compare_at_price_min %}{% else %}{% assign WCItem_CompareAtPriceMin = base_product.price_min %}{% endif %}
+  {% if base_product.compare_at_price_max != 0 %}{% assign WCItem_CompareAtPriceMax = base_product.compare_at_price_max %}{% else %}{% assign WCItem_CompareAtPriceMax = base_product.price_max %}{% endif %}
+  {% assign WCItem_OriginalLinePrice = WCItem_OriginalPrice | round | times: item.quantity %}
+  {% assign WCItem_FinalLinePrice = WCItem_FinalPrice | round | times: item.quantity %}
+  {% assign WCItem_LinePrice = WCItem_Price | round | times: item.quantity %}
+{% endif %}
+{% comment %} Wholesale_Club_Item_Prices End {% endcomment %}
+
+{%- paginate blog.articles by item.max_posts -%}
+    <div class="blogs-outer">
+        <div class="blogs-inner">
+            <div class="blogs-section_title">
+                <span>THE LATEST HAPPENINGS WITH ROSHAMBO</span>
+            </div>
+            <div class="blogs-content_flex">
+                <div class="blogs-content">
+                    <div class="blogs-content_listings">
+                        {%- for article in blog.articles limit:item.max_posts -%}
+                            <div class="blogs-article_listing">
+                                <div class="blogs-article_content">
+                                    <a href="{{article.url}}" class="article_content-imagebox">
+                                        <img src="{{article.image.src | img_url: '1024x1024'}}">
+                                    </a>
+                                    <div class="article_content-content">
+                                        <div class="article_content-title"><span>{{article.title}}</span></div>
+                                        <div class="article_content-description">{{article.excerpt}}</div>
+                                        <a href="{{article.url}}" class="article_content-button">READ MORE</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {%- endfor -%}
+
+                    </div>
+                </div>
+                
+                <button onclick="showBlogSidebar()" class="blogs-toggle_sidebar-mobile">{% render 'icon-chevron-right' %}</button>
+                <div class="blogs-sidebar">
+                    <button onclick="hideBlogSidebar()" class="blog_sidebar-close">{% render 'icon-close-X' %}</button>
+                    {% unless item.aboutText == "" %}
+                        <div class="blog_sidebar-title">About</div>
+                        <div class="blog_sidebar-content">
+                            {{item.aboutText}}
+                        </div>
+                    {% endunless %}
+                    <div class="blog_sidebar-title">Newsletter Signup</div>
+                    <div class="blog_sidebar-content">
+                        <div class="newsletter-text">{{item.newsletterText}}</div>
+                        <button onclick="displayNewsletterModal()" class="newsletter-button">{{item.newsletterButtonText}}</button>
+                    </div> 
+                    <!-- <div class="blog_sidebar-title">Recent Posts</div>
+                    <div class="blog_sidebar-content">
+                        {% assign sortedBlogs = blog.articles | sort: 'date' | reverse %}
+                        {% for article in sortedBlogs limit:item.max_recent %}
+                            <div class="blog_sidebar-article">
+                                <span class="sidebar_article-title">{{article.title}}</span>
+                                <div class="sidebar_article-excerpt">{{article.excerpt}}</div>
+                                <span class="sidebar_article-author">By {{article.author}} on {{article.created_at | date: "%b %d, %y"}}</span>
+                                <a href="{{article.url}}" class="sidebar_article-button">View More</a>
+                            </div>
+                        {% endfor %}
+                    </div> -->
+                </div>
+            </div>
+            {%- if paginate.pages > 1 -%}
+                {%- include 'pagination' -%}
+            {%- endif -%}
+        </div>
+    </div>
+    <div id="blog_newsletter-modal">
+        <div class="blog_newsletter-inner">
+            <div class="blog_newsletter-content">
+                <a href="javascript:void(0)" onclick="hideNewsletterModal()" class="blog_newsletter-close"><img width="" height="" alt="" src="https://www.roshambo.com/cdn/shop/files/Close_288b8570-c371-4dca-9bf5-c9a3bf6dcb89.svg?v=1691828122" /></a>
+                <div class="klaviyo-form-WvBbHw"></div>
+            </div>
+        </div>
+    </div>
+    {%- endpaginate -%}
+{% schema %}
+    {
+        "name": "Blog Custom Template",
+        "settings": [
+            {
+                "type": "range",
+                "id": "max_posts",
+                "min": 1,
+                "max": 10,
+                "step": 1,
+                "label": "Maximum Blog Posts Per Page",
+                "default": 5
+            },
+            {
+                "type": "header",
+                "content": "Blogs Sidebar Options"
+            },
+            {
+                "type": "text",
+                "id": "blogsText",
+                "label": "Blogs List",
+                "info": "Enter blog names seperated by `,`"
+            },
+            {
+                "type": "header",
+                "content": "About Sidebar Options"
+            },
+            {
+                "type": "richtext",
+                "id": "aboutText",
+                "label": "About Block Text",
+                "default": "<p></p>"
+            },
+            {
+                "type": "header",
+                "content": "Newsletter Sidebar Options"
+            },
+            {
+                "type": "richtext",
+                "id": "newsletterText",
+                "label": "Newsletter Block Text",
+                "default": "<p></p>"
+            },
+            {
+                "type": "text",
+                "id": "newsletterButtonText",
+                "label": "Newsletter Modal Button",
+                "default": "Subscribe"
+            },
+            {
+                "type": "header",
+                "content": "Recent Articles Sidebar Options"
+            },
+            {
+                "type": "range",
+                "id": "max_recent",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "Maximum Recent Articles in Sidebar",
+                "default": 1
+            }
+        ]
+    }
+{% endschema %}

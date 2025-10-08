@@ -1,0 +1,280 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {}
+    },
+    "3d5d5baf-1572-4d6e-ae95-5e215a1a43b8": {
+      "type": "homepage-hero-banner",
+      "blocks": {
+        "da68fa04-3b25-4e2b-8710-0990ec2a5732": {
+          "type": "slide",
+          "settings": {
+            "use_banner_image": true,
+            "banner_image": "shopify://shop_images/prescription-glasses-banner.jpg",
+            "banner_slide_url": "https://www.roshambo.com/collections/prescription",
+            "use_banner_video": false,
+            "youtube_embed": ""
+          }
+        }
+      },
+      "block_order": [
+        "da68fa04-3b25-4e2b-8710-0990ec2a5732"
+      ],
+      "settings": {
+        "banner_autoplay_gap": 6000
+      }
+    },
+    "b8e8351f-0253-434c-9234-9579d3297cab": {
+      "type": "home-image-grid-items",
+      "blocks": {
+        "template--16049215504554__b8e8351f-0253-434c-9234-9579d3297cab-1675246167872f9b53-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/baby-round-glasses.jpg",
+            "title": "Baby",
+            "text": "AGES 0-2",
+            "link": "https://www.roshambo.com/collections/baby-prescription-glasses"
+          }
+        },
+        "template--16049215504554__b8e8351f-0253-434c-9234-9579d3297cab-1675246167872f9b53-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/toddler-wayfarer-glasses.jpg",
+            "title": "Toddler",
+            "text": "Ages 2-4",
+            "link": "https://www.roshambo.com/collections/toddler-prescription-glasses"
+          }
+        },
+        "template--16049215504554__b8e8351f-0253-434c-9234-9579d3297cab-1675246167872f9b53-2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/POPs-Kids-Camo2_e2b5084c-c337-43a3-9ebf-985ff99b06a4.gif",
+            "title": "Junior",
+            "text": "Ages 5-10",
+            "link": "https://www.roshambo.com/collections/kids-prescription-glasses"
+          }
+        },
+        "template--16049215504554__b8e8351f-0253-434c-9234-9579d3297cab-1675246167872f9b53-3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/bueller-adult-prescription.jpg",
+            "title": "Teen & Adult Small",
+            "text": "",
+            "link": "https://www.roshambo.com/collections/teen-glasses-prescription-glasses-for-teens"
+          }
+        },
+        "template--16049215504554__b8e8351f-0253-434c-9234-9579d3297cab-1675246167872f9b53-4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/adult-round-glasses-purple.jpg",
+            "title": "Adult Large",
+            "text": "",
+            "link": "https://www.roshambo.com/collections/adult-prescription-glasses"
+          }
+        }
+      },
+      "block_order": [
+        "template--16049215504554__b8e8351f-0253-434c-9234-9579d3297cab-1675246167872f9b53-0",
+        "template--16049215504554__b8e8351f-0253-434c-9234-9579d3297cab-1675246167872f9b53-1",
+        "template--16049215504554__b8e8351f-0253-434c-9234-9579d3297cab-1675246167872f9b53-2",
+        "template--16049215504554__b8e8351f-0253-434c-9234-9579d3297cab-1675246167872f9b53-3",
+        "template--16049215504554__b8e8351f-0253-434c-9234-9579d3297cab-1675246167872f9b53-4"
+      ],
+      "settings": {
+        "title": "Five Sizes For The Whole Family"
+      }
+    },
+    "ba8baaa8-ccff-4ea4-a363-5766425d44a7": {
+      "type": "home-image-text",
+      "blocks": {
+        "template--16049215504554__ba8baaa8-ccff-4ea4-a363-5766425d44a7-16752460786e03d28f-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pops.jpg",
+            "title": "POPS MAGNETIC GLASSES",
+            "link": "https://www.roshambo.com/collections/pops-magnetic-snap-on-glasses"
+          }
+        },
+        "template--16049215504554__ba8baaa8-ccff-4ea4-a363-5766425d44a7-16752460786e03d28f-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/try-on-kit.png",
+            "title": "FREE Home Try-on Kit",
+            "link": "https://www.roshambo.com/collections/frame-try-on-kits/products/tryonkit"
+          }
+        }
+      },
+      "block_order": [
+        "template--16049215504554__ba8baaa8-ccff-4ea4-a363-5766425d44a7-16752460786e03d28f-0",
+        "template--16049215504554__ba8baaa8-ccff-4ea4-a363-5766425d44a7-16752460786e03d28f-1"
+      ],
+      "settings": {}
+    },
+    "fa3cb1e4-8879-4e53-908a-cde1e4988edc": {
+      "type": "sunglasses-icon-text",
+      "blocks": {
+        "0ce8bb4b-9ea8-4364-8d6e-e3ea755ecefb": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Bayside_Icon_e9c6eee9-f17c-41c5-a56e-9191525708e1.png",
+            "column_title": "Bayside",
+            "icon_link": "https://www.roshambo.com/collections/bayside-prescription"
+          }
+        },
+        "0b241469-4310-4084-a542-78c5e5a30eb2": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Malibu_Sands-white.png",
+            "column_title": "Malibu Sands",
+            "icon_link": "https://www.roshambo.com/collections/malibu-sands-prescription"
+          }
+        },
+        "98e8e4ac-1dbd-47aa-9ed3-53e13bec0365": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Hot_Sundae-white.png",
+            "column_title": "Hot Sundae",
+            "icon_link": "https://www.roshambo.com/collections/heart-prescription-glasses"
+          }
+        },
+        "79f8b4ec-b0d3-4f8b-8fed-7f8ed8ced151": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Bendees_Icon_f6d7ecc6-1b37-4c76-ae0f-2015e58d9e7b.png",
+            "column_title": "Bendees",
+            "icon_link": "https://www.roshambo.com/collections/bendees-baby-glasses"
+          }
+        },
+        "a61a6719-3b59-47ff-a01a-5c6561c4fd5f": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/pops-icon.png",
+            "column_title": "POPS",
+            "icon_link": "https://www.roshambo.com/collections/pops-magnetic-snap-on-glasses"
+          }
+        }
+      },
+      "block_order": [
+        "0ce8bb4b-9ea8-4364-8d6e-e3ea755ecefb",
+        "0b241469-4310-4084-a542-78c5e5a30eb2",
+        "98e8e4ac-1dbd-47aa-9ed3-53e13bec0365",
+        "79f8b4ec-b0d3-4f8b-8fed-7f8ed8ced151",
+        "a61a6719-3b59-47ff-a01a-5c6561c4fd5f"
+      ],
+      "settings": {
+        "title": "FLEXIBLE PRESCRIPTION GLASSES",
+        "text": "<p><strong>Our children's prescription line is now available in 5 adorable styles!</strong></p><p>Choose from our flexible frame styles great for sporty, active kids on-the-go, or our newest styles for babies (Bendees) and kids (Pops). Try any of our frames on at home with our<a href=\"https://www.roshambo.com/products/glasses-home-tryon-kits\"> <span style=\"text-decoration:underline\">Try-On Kits</span></a> to make sure they are the perfect fit before you buy!</p>",
+        "button_text": "Shop All Styles",
+        "button_url": "https://www.roshambo.com/collections/prescription"
+      }
+    },
+    "cecd1b0e-eea0-40a1-8840-45542cd14007": {
+      "type": "image-w-text-row",
+      "settings": {
+        "backgroundColor": "#1cbbb4",
+        "sectionImage": "shopify://shop_images/glasses-sm.png",
+        "titleColor": "#ffffff",
+        "textboxTitle": "Durable. Flexible. Stylish.",
+        "paragraphColor": "#000000",
+        "textboxParagraph": "Roshambo Eyewear is a family-owned business that provides affordable, unbreakable prescription glasses for kids. <br><br>All Roshambo frames are BPA, phthalate, lead & latex free, and are made in Italy! Plus, they are virtually unbreakable... we offer a full damage replacement guarantee if you or your child happen to break them!",
+        "linkColor": "#ff2392",
+        "textboxLinkText": "WATCH 'EM BEND",
+        "textboxLinkURL": "https://www.roshambo.com/pages/product-information"
+      }
+    },
+    "5dfaf5ec-18fd-4769-a124-86302dafe447": {
+      "type": "icon-w-text-column",
+      "blocks": {
+        "cc27d5f9-9c0b-49a9-9ae2-0d7cbd94e675": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/italy_icon_864db9a6-b52b-4db9-a638-709f83a0ef41.png",
+            "column_title": "Made in Italy",
+            "column_description": "Our high-quality, flexible frames\nare made in Italy and assembed in the United States. Available in 5 sizes!",
+            "column_link": "https://www.roshambo.com/pages/product-information"
+          }
+        },
+        "56a16575-86db-43f0-9d5e-e02cefdc467b": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/safety-tested_3f32cf51-21e0-4163-87b5-e180a47122ca.png",
+            "column_title": "Toxin Free",
+            "column_description": "Our frames are BPA, phthalate, lead and latex free, and are small parts tested as safe for babies.",
+            "column_link": "https://www.roshambo.com/pages/product-information"
+          }
+        },
+        "c8b13660-aeae-44c6-8dea-14afecdd7acb": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/replace_d4787806-8117-499d-bef3-37ef108e2668.png",
+            "column_title": "HSA/FSA",
+            "column_description": "We accept FSA and HSA cards for payment, and you may also be able to get your glasses reimbursed by your insurance.",
+            "column_link": "https://www.roshambobaby.com/pages/contact-us-faq#reamaze#0#/kb/prescription-glasses/can-i-use-my-flexible-spending-account-fsa-or-health-savings-account-hsa-to-pay-for-my-prescription-glasses"
+          }
+        }
+      },
+      "block_order": [
+        "cc27d5f9-9c0b-49a9-9ae2-0d7cbd94e675",
+        "56a16575-86db-43f0-9d5e-e02cefdc467b",
+        "c8b13660-aeae-44c6-8dea-14afecdd7acb"
+      ],
+      "settings": {
+        "Background": "#d1fdff"
+      }
+    },
+    "79497636-9f09-460f-922b-4532b022bd49": {
+      "type": "homepage-2x2-content",
+      "blocks": {
+        "ef134f00-e18d-4412-85b8-3b3d459cda7d": {
+          "type": "text",
+          "settings": {
+            "youtube_link": "-i6NzlJ-W68",
+            "title": "Try on Frames at Home!",
+            "description": "Don't know what size glasses to order? Try on any Roshambo frame sizes and styles at home for 7 days! Peace of mind that your unbreakable glasses will fit you and your kids perfectly.",
+            "image": "shopify://shop_images/tryon-kit-banner.jpg",
+            "collection": "frame-try-on-kits",
+            "button_text": "GET A FREE TRY ON KIT",
+            "image_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "ef134f00-e18d-4412-85b8-3b3d459cda7d"
+      ],
+      "settings": {}
+    },
+    "fef479a4-1c30-4682-b586-01892ffeb06d": {
+      "type": "index-videomodal",
+      "settings": {
+        "topoffset": true,
+        "fullwidth": false,
+        "image": "shopify://shop_images/Screenshot_2023-12-13_144738.png",
+        "imageicon": "shopify://shop_images/youtube-play.png",
+        "link": "https://www.tiktok.com/@overtime/video/7277969568461589806",
+        "externallink": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "3d5d5baf-1572-4d6e-ae95-5e215a1a43b8",
+    "b8e8351f-0253-434c-9234-9579d3297cab",
+    "ba8baaa8-ccff-4ea4-a363-5766425d44a7",
+    "fa3cb1e4-8879-4e53-908a-cde1e4988edc",
+    "cecd1b0e-eea0-40a1-8840-45542cd14007",
+    "5dfaf5ec-18fd-4769-a124-86302dafe447",
+    "79497636-9f09-460f-922b-4532b022bd49",
+    "fef479a4-1c30-4682-b586-01892ffeb06d"
+  ]
+}

@@ -1,0 +1,83 @@
+<script>
+    function pageReady(e){
+        e.media='all';
+        setTimeout(() => {
+
+            setTimeout(() => {
+                let flickityNodeList = document.querySelectorAll('[data-flickity]')
+                for(let i = 0; i < flickityNodeList.length; i++){
+                let flkty = Flickity.data(flickityNodeList[i]);
+                if(flkty){
+                    flkty.destroy();
+                    new Flickity(flickityNodeList[i],JSON.parse(flickityNodeList[i].getAttribute("data-flickity")))
+
+                }else{
+                    new Flickity(flickityNodeList[i]);
+                }
+            }
+            }, 1000);
+            
+
+            setTimeout(() => {
+                $('.upsell-carousel').slick('refresh')
+                document.getElementById('preloader-css').remove();
+                document.querySelector('.preloader').style.opacity = 0;
+            }, 200);
+
+            setTimeout(() => {
+                document.querySelector('.preloader').style.display = 'none'; 
+            }, 300);
+
+            
+
+        }, 500);
+
+        setTimeout(() => {
+            setTimeout(() => {
+                setMaxHeightOfCartDrawer();
+                {% if template contains "product" %}
+                    $('#smallGallery').slick('refresh');
+                {% else %}
+                {% endif %}
+            }, 300);
+        }, 1000);
+    }
+
+    function setMaxHeightOfCartDrawer(){
+        let bottom_height = document.querySelector('.ajax-cart-drawer__button-and-subtotal').offsetHeight;
+        let top_height = document.querySelector('.cart-header').offsetHeight;
+        document.querySelector('.js-ajax-cart-drawer-content').style.height = `Calc(100% - ${bottom_height + top_height}px)`
+    }
+
+</script>
+
+{% if settings.show_preloader == false %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(() => {
+            setTimeout(() => {
+                setMaxHeightOfCartDrawer();
+                {% if template contains "product" %}
+                    $('#smallGallery').slick('refresh');
+                {% else %}
+                {% endif %}
+            }, 300);
+        }, 1000);
+
+        function setMaxHeightOfCartDrawer(){
+            let bottom_height = document.querySelector('.ajax-cart-drawer__button-and-subtotal').offsetHeight;
+            let top_height = document.querySelector('.cart-header').offsetHeight;
+            document.querySelector('.js-ajax-cart-drawer-content').style.height = `Calc(100% - ${bottom_height + top_height}px)`
+        }
+
+    });
+
+</script>
+
+{% endif %}
+
+    
+
+<link rel="stylesheet" href="{{ 'theme.css' | asset_url}}" {% if settings.show_preloader == true %} media="print" onload="pageReady(this)"{% endif %}>
+{% if settings.use_rtl %}{{ 'style-rtl.css' | asset_url | stylesheet_tag }}{% endif %}

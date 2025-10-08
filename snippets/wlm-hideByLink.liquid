@@ -1,0 +1,22 @@
+{% assign wlmHideLinks=false %}
+{% assign wlmHideLinks=false %}
+{% unless customer %}
+{% assign wlmHideLinks = true %}
+{% else %}
+{% unless wlmLockedTags24698 %}{% assign wlmHideLinks = true %}{% endunless %}
+{% if wlmHideLinks %}
+<script type='text/javascript'>
+wlm.arrHideLinks.push('a[href$="/collections/taylin-hidden"],a[href*="/collections/taylin-hidden/"],a[href*="/collections/taylin-hidden?"],a[href*="/collections/taylin-hidden#"]');
+</script><style type='text/css' class='wlm-auto-hl-styles'>a[href$="/collections/taylin-hidden"],a[href*="/collections/taylin-hidden/"],a[href*="/collections/taylin-hidden?"],a[href*="/collections/taylin-hidden#"]{ display: none !important; }</style>{% endif %}
+{% else %}
+{% assign wlmHideLinks = true %}
+<script type='text/javascript'>
+wlm.arrHideLinks.push('a[href$="/collections/taylin-hidden"],a[href*="/collections/taylin-hidden/"],a[href*="/collections/taylin-hidden?"],a[href*="/collections/taylin-hidden#"]');
+</script><style type='text/css' class='wlm-auto-hl-styles'>a[href$="/collections/taylin-hidden"],a[href*="/collections/taylin-hidden/"],a[href*="/collections/taylin-hidden?"],a[href*="/collections/taylin-hidden#"]{ display: none !important; }</style>{% endunless %}
+{% if wlmHideLinks %}
+<script type='text/javascript'>
+wlm.arrHideLinks.push('a[href$="/collections/taylin-hidden"],a[href*="/collections/taylin-hidden/"],a[href*="/collections/taylin-hidden?"],a[href*="/collections/taylin-hidden#"]');
+</script><style type='text/css' class='wlm-auto-hl-styles'>a[href$="/collections/taylin-hidden"],a[href*="/collections/taylin-hidden/"],a[href*="/collections/taylin-hidden?"],a[href*="/collections/taylin-hidden#"]{ display: none !important; }</style>
+{% endif %}
+
+

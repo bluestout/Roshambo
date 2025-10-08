@@ -1,0 +1,390 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {}
+    },
+    "homepage_slick_slider_RNzWXw": {
+      "type": "homepage-slick-slider",
+      "blocks": {
+        "block_PAqJNp": {
+          "type": "block",
+          "settings": {
+            "home-image": "shopify://shop_images/slide1_7b20d0c6-9f6f-4380-86c7-25905adc8628.png",
+            "home-url": "shopify://collections/accessories"
+          }
+        },
+        "block_jAHXMX": {
+          "type": "block",
+          "settings": {
+            "home-image": "shopify://shop_images/slide2_93987842-15ab-4d3a-994a-715529a9ef67.jpg",
+            "home-url": ""
+          }
+        },
+        "block_Qnc6eP": {
+          "type": "block",
+          "settings": {
+            "home-image": "shopify://shop_images/slide3_6fbfbf96-28c6-4ddc-badf-e4d53290864b.jpg",
+            "home-url": ""
+          }
+        },
+        "block_iLhxfy": {
+          "type": "block",
+          "settings": {
+            "home-image": "shopify://shop_images/slide4_61d04f43-80a0-49df-8a55-78194fd367a7.jpg",
+            "home-url": ""
+          }
+        }
+      },
+      "block_order": [
+        "block_PAqJNp",
+        "block_jAHXMX",
+        "block_Qnc6eP",
+        "block_iLhxfy"
+      ],
+      "settings": {}
+    },
+    "3d5d5baf-1572-4d6e-ae95-5e215a1a43b8": {
+      "type": "homepage-hero-banner",
+      "blocks": {
+        "da68fa04-3b25-4e2b-8710-0990ec2a5732": {
+          "type": "slide",
+          "settings": {
+            "use_banner_image": true,
+            "banner_image": "shopify://shop_images/Screenshot_2023-01-18_at_5.03.17_PM.png",
+            "banner_slide_url": "",
+            "use_banner_video": false,
+            "youtube_embed": ""
+          }
+        },
+        "29a993bb-1ae2-4a84-91bf-16ac96c60cae": {
+          "type": "slide",
+          "settings": {
+            "use_banner_image": true,
+            "banner_image": "shopify://shop_images/flexible-sunglasses-banner2.jpg",
+            "banner_slide_url": "https://www.roshambo.com/collections/flexible-sunglasses",
+            "use_banner_video": false,
+            "youtube_embed": ""
+          }
+        },
+        "09d331a2-c8e0-4f43-b96c-3e57876ec53b": {
+          "type": "slide",
+          "settings": {
+            "use_banner_image": true,
+            "banner_image": "shopify://shop_images/recycled2_879cee59-edf4-419a-a4d6-2cb7c9bdf600.jpg",
+            "banner_slide_url": "https://www.roshambo.com/blogs/news/sustainable-recycled-sunglasses",
+            "use_banner_video": false,
+            "youtube_embed": ""
+          }
+        },
+        "80316a60-e162-4419-883f-8bf83ae9abda": {
+          "type": "slide",
+          "settings": {
+            "use_banner_image": true,
+            "banner_image": "shopify://shop_images/blippi-slider10_e866994f-d9bc-47bb-88f4-0301f48ede40.jpg",
+            "banner_slide_url": "https://www.roshambo.com/collections/blippi",
+            "use_banner_video": false,
+            "youtube_embed": ""
+          }
+        }
+      },
+      "block_order": [
+        "da68fa04-3b25-4e2b-8710-0990ec2a5732",
+        "29a993bb-1ae2-4a84-91bf-16ac96c60cae",
+        "09d331a2-c8e0-4f43-b96c-3e57876ec53b",
+        "80316a60-e162-4419-883f-8bf83ae9abda"
+      ],
+      "disabled": true,
+      "settings": {
+        "banner_autoplay_gap": 6000
+      }
+    },
+    "dc97bd39-9b81-449d-8e93-ddcadf359658": {
+      "type": "sunglasses-icon-text",
+      "blocks": {
+        "22651c57-6561-42eb-b95e-4154e0586ea3": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Bayside_Icon_e9c6eee9-f17c-41c5-a56e-9191525708e1.png",
+            "column_title": "Bayside",
+            "icon_link": "https://www.roshambo.com/collections/bayside"
+          }
+        },
+        "0f4f34c2-20cd-4c21-b21d-0b38c0f5499a": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Malibu_Sands_Icon_2aa1608d-e59b-4e3f-985e-299e167a9d2d.png",
+            "column_title": "Malibu Sands",
+            "icon_link": "https://www.roshambo.com/collections/malibu-sands"
+          }
+        },
+        "620c9c32-1508-48e0-b210-aa12f519dfdb": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Hot_Sundae_Icon_9f5d701d-6619-46fc-8611-3f4010c7f975.png",
+            "column_title": "Hot Sundae",
+            "icon_link": "https://www.roshambo.com/collections/hot-sundae"
+          }
+        },
+        "5fdbea87-110f-4999-abf0-789e831b36a2": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/The_Max_Icon_528e904d-684a-4b8e-8aad-505a2e1d81c8.png",
+            "column_title": "The Max",
+            "icon_link": "https://www.roshambo.com/collections/shield-sunglasses"
+          }
+        }
+      },
+      "block_order": [
+        "22651c57-6561-42eb-b95e-4154e0586ea3",
+        "0f4f34c2-20cd-4c21-b21d-0b38c0f5499a",
+        "620c9c32-1508-48e0-b210-aa12f519dfdb",
+        "5fdbea87-110f-4999-abf0-789e831b36a2"
+      ],
+      "settings": {
+        "title": "Flexible Polarized Sunglasses",
+        "text": "<p><strong>Our signature line of bendable, flexible frames. Now available in 4 styles!</strong></p><p>Roshambo flexible polarized sunglasses are proudly made in Italy and assembled in the United States. These bendable, ultra light frames are BPA, phthalate, lead & latex free, and are small parts tested as safe for babies! Plus, they are virtually unbreakable - we offer a one year full damage and lens replacement guarantee.</p>",
+        "button_text": "Shop All Styles",
+        "button_url": "https://www.roshambo.com/collections/flexible-sunglasses"
+      }
+    },
+    "06605a8f-fb60-472f-a929-8ca7e212f05c": {
+      "type": "home-image-text",
+      "blocks": {
+        "template--16049215242410__06605a8f-fb60-472f-a929-8ca7e212f05c-1674213785b80328ae-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/junior-hearts-all.jpg",
+            "title": "Shop Heart Shades",
+            "link": "https://www.roshambo.com/collections/hot-sundae"
+          }
+        },
+        "template--16049215242410__06605a8f-fb60-472f-a929-8ca7e212f05c-1674213785b80328ae-1": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/blippi-sunglasses-blue.png",
+            "title": "Shop Blippi Glasses",
+            "link": "https://www.roshambo.com/collections/blippi"
+          }
+        },
+        "36b0ef4d-70c6-4973-8261-f5efac43b4a8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/earth-tones.gif",
+            "title": "Earth Tone Shades",
+            "link": "https://www.roshambo.com/collections/gender-neutral-sunglasses-colors"
+          }
+        }
+      },
+      "block_order": [
+        "template--16049215242410__06605a8f-fb60-472f-a929-8ca7e212f05c-1674213785b80328ae-0",
+        "template--16049215242410__06605a8f-fb60-472f-a929-8ca7e212f05c-1674213785b80328ae-1",
+        "36b0ef4d-70c6-4973-8261-f5efac43b4a8"
+      ],
+      "settings": {}
+    },
+    "6fe22af0-84aa-4b50-8a0e-422512c3613c": {
+      "type": "home-image-grid-items",
+      "blocks": {
+        "template--16049215242410__6fe22af0-84aa-4b50-8a0e-422512c3613c-1674213932cd25d428-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/baby-size.png",
+            "title": "Baby",
+            "text": "Ages 0 - 2",
+            "link": "https://www.roshambo.com/collections/baby-shades"
+          }
+        },
+        "802f82a8-3cfa-4edf-a479-23b06ed04f27": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/toddler-size.png",
+            "title": "Toddler",
+            "text": "Ages 2 - 4",
+            "link": "https://www.roshambo.com/collections/toddler-shades"
+          }
+        },
+        "template--16049215242410__6fe22af0-84aa-4b50-8a0e-422512c3613c-1674213932cd25d428-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/junior-size.png",
+            "title": "Junior",
+            "text": "Ages 5-10",
+            "link": "https://www.roshambo.com/collections/junior-shades"
+          }
+        },
+        "0526c9d6-3d2a-4c8d-9c99-261bdb849d1b": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/teen-size.png",
+            "title": "Teen & Adult Small",
+            "text": "",
+            "link": "https://www.roshambo.com/collections/teen"
+          }
+        },
+        "49884c4a-3714-42bd-9483-e1c1b57a286c": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/adult-size.png",
+            "title": "Adult Large",
+            "text": "",
+            "link": "https://www.roshambo.com/collections/adult"
+          }
+        }
+      },
+      "block_order": [
+        "template--16049215242410__6fe22af0-84aa-4b50-8a0e-422512c3613c-1674213932cd25d428-1",
+        "802f82a8-3cfa-4edf-a479-23b06ed04f27",
+        "template--16049215242410__6fe22af0-84aa-4b50-8a0e-422512c3613c-1674213932cd25d428-0",
+        "0526c9d6-3d2a-4c8d-9c99-261bdb849d1b",
+        "49884c4a-3714-42bd-9483-e1c1b57a286c"
+      ],
+      "settings": {
+        "title": "Five Sizes For The Whole Family"
+      }
+    },
+    "bbbaaad4-c44d-410e-a6ec-9e856291c5a6": {
+      "type": "homepage-grid-banner",
+      "disabled": true,
+      "settings": {
+        "bannerIMG1": "shopify://shop_images/Screenshot_2023-01-18_at_5.04.33_PM.png",
+        "buttonText1": "",
+        "buttonLink1": "",
+        "buttonText2": "",
+        "buttonLink2": "",
+        "buttonText3": "",
+        "buttonLink3": "",
+        "buttonText4": "",
+        "buttonLink4": "",
+        "buttonText5": "",
+        "buttonLink5": "",
+        "buttonText6": "",
+        "buttonLink6": ""
+      }
+    },
+    "cecd1b0e-eea0-40a1-8840-45542cd14007": {
+      "type": "image-w-text-row",
+      "settings": {
+        "backgroundColor": "#1cbbb4",
+        "sectionImage": "shopify://shop_images/Twist-Shades-sm_600x_6a7bb744-49d6-4112-a782-78a98d1eebcc.png",
+        "titleColor": "#ffffff",
+        "textboxTitle": "Durable. Flexible. Stylish.",
+        "paragraphColor": "#000000",
+        "textboxParagraph": "Roshambo Eyewear is a family-owned business that provides affordable Italian-made polarized sunglasses, prescription glasses, and screen time glasses for the entire family. Our unbreakable frames are durable enough for kids, but stylish enough for adults too. With 5 sizes to choose from, we know you can find the perfect fit just for you!   All Roshambo frames are proudly made in Italy and assembled in the United States. They are BPA, phthalate, lead & latex free, and are small parts tested as safe for babies! Plus, they are virtually unbreakable...we offer a full damage replacement guarantee if you or your child happen to break them!",
+        "linkColor": "#ff2392",
+        "textboxLinkText": "WATCH 'EM BEND",
+        "textboxLinkURL": "https://www.roshambo.com/pages/product-information"
+      }
+    },
+    "47ab7eba-0c38-4f79-b3a4-88aec56d7f2a": {
+      "type": "home-image-text",
+      "blocks": {
+        "template--16049215242410__47ab7eba-0c38-4f79-b3a4-88aec56d7f2a-1674307040457b806b-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/youth-white-blue.jpg",
+            "title": "SHOP SPORTS WRAPS",
+            "link": "https://www.roshambo.com/collections/ludicrous-speed"
+          }
+        },
+        "template--16049215242410__47ab7eba-0c38-4f79-b3a4-88aec56d7f2a-1674307040457b806b-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/kids-ski-goggles8.jpg",
+            "title": "Shop Snow Goggles",
+            "link": "https://www.roshambo.com/collections/ludicrous-speed"
+          }
+        }
+      },
+      "block_order": [
+        "template--16049215242410__47ab7eba-0c38-4f79-b3a4-88aec56d7f2a-1674307040457b806b-0",
+        "template--16049215242410__47ab7eba-0c38-4f79-b3a4-88aec56d7f2a-1674307040457b806b-1"
+      ],
+      "settings": {}
+    },
+    "0c7c133a-165d-4029-8389-a332fbc7cb9c": {
+      "type": "icon-w-text-column",
+      "blocks": {
+        "208208e1-cc95-49ca-b9b4-3f752c7e819b": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/italy_icon_864db9a6-b52b-4db9-a638-709f83a0ef41.png",
+            "column_title": "Made in Italy",
+            "column_description": "Our high-quality, flexible frames\nare made in Italy and assembed in the United States. Available in 5 sizes!",
+            "column_link": "https://www.roshambo.com/blogs/news/sustainable-roshambo-shades"
+          }
+        },
+        "10c00abf-d6fb-40f3-a0a2-8b1f569304c4": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/safety-tested_3f32cf51-21e0-4163-87b5-e180a47122ca.png",
+            "column_title": "Safety Tested",
+            "column_description": "Our frames are BPA, phthalate, lead and latex free, and are small parts tested as safe for babies.",
+            "column_link": "https://www.roshambo.com/pages/product-information#safety-certified"
+          }
+        },
+        "d0cd847f-af18-4986-9237-9a82c99c1379": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/replace_d4787806-8117-499d-bef3-37ef108e2668.png",
+            "column_title": "Replacement",
+            "column_description": "We offer a free replacement guarantee if your frames break, or if you scratch a lens!",
+            "column_link": "https://www.roshambo.com/pages/warranty-registration-guarantee"
+          }
+        }
+      },
+      "block_order": [
+        "208208e1-cc95-49ca-b9b4-3f752c7e819b",
+        "10c00abf-d6fb-40f3-a0a2-8b1f569304c4",
+        "d0cd847f-af18-4986-9237-9a82c99c1379"
+      ],
+      "settings": {
+        "Background": "#d1fdff"
+      }
+    },
+    "79497636-9f09-460f-922b-4532b022bd49": {
+      "type": "homepage-2x2-content",
+      "blocks": {
+        "22281b01-d9bc-4208-be43-a00289aa860b": {
+          "type": "text",
+          "settings": {
+            "youtube_link": "5Z09uVC03IU",
+            "title": "Are they really unbreakable?",
+            "description": "Our frames are a soft rubbery material like silicone but sturdier. Our secret blend is free of all the nasty stuff (BPA, phthalate, lead, latex, etc.)! And because they're so flexible and bendable, it's virtually impossible to break them. So bend away and enjoy your sunnies! ",
+            "image": "shopify://shop_images/guarantee_561e2b4a-5e27-4c88-840d-da9b15c38191.png",
+            "collection": "flexible-sunglasses",
+            "button_text": "SHOP FLEXIBLE SHADES",
+            "image_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "22281b01-d9bc-4208-be43-a00289aa860b"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "homepage_slick_slider_RNzWXw",
+    "3d5d5baf-1572-4d6e-ae95-5e215a1a43b8",
+    "dc97bd39-9b81-449d-8e93-ddcadf359658",
+    "06605a8f-fb60-472f-a929-8ca7e212f05c",
+    "6fe22af0-84aa-4b50-8a0e-422512c3613c",
+    "bbbaaad4-c44d-410e-a6ec-9e856291c5a6",
+    "cecd1b0e-eea0-40a1-8840-45542cd14007",
+    "47ab7eba-0c38-4f79-b3a4-88aec56d7f2a",
+    "0c7c133a-165d-4029-8389-a332fbc7cb9c",
+    "79497636-9f09-460f-922b-4532b022bd49"
+  ]
+}

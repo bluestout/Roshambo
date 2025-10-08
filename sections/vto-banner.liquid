@@ -1,0 +1,112 @@
+<div class="hero_banner-outer" sku="{{section.settings.SKU }}" heading="{{section.settings.heading }}" subheading="{{section.settings.subheading }}" label="{{section.settings.label_data_1 }}" url="{{section.settings.url_product }}">
+    <div class="hero_banner-inner hide-mobile" >
+      <img src="{{section.settings.banner_image_desktop | img_url: 'master'}}">
+    </div>
+    <div class="hero_banner-inner hide-desktop" >
+      <img src="{{section.settings.banner_image_mobile | img_url: 'master'}}">
+      <h2>{{section.settings.Title_under_image}}</h2>
+      <p>{{section.settings.description}}</p>
+    </div>
+</div>
+
+
+
+{% schema %}
+
+    {
+
+        "name": "Homepage Hero Banner",
+
+        "settings": [
+                          {
+
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+
+                },
+                {
+
+                    "type": "text",
+                    "id": "subheading",
+                    "label": "Sub heading"
+
+                },
+                {
+
+                    "type": "text",
+                    "id": "SKU",
+                    "label": "SKU for VTO"
+
+                },
+                          {
+
+                    "type": "text",
+                    "id": "label_data_1",
+                    "label": "Label",
+                    "default": "Baby (ages 0-2)"
+
+                },
+                          {
+
+                    "type": "url",
+                    "id": "url_product",
+                    "label": "URL Product"
+
+                },
+                    {
+
+                        "type": "header",
+
+                        "content": "Image Desktop"
+
+                    },
+                    {
+
+                        "type": "image_picker",
+
+                        "id": "banner_image_desktop",
+
+                        "label": "Image"
+
+                    },
+                    {
+
+                        "type": "header",
+
+                        "content": "Image Mobile"
+
+                    },
+                    {
+
+                        "type": "image_picker",
+
+                        "id": "banner_image_mobile",
+
+                        "label": "Image"
+
+                    },
+                    {
+
+                        "type": "text",
+
+                        "id": "Title_under_image",
+
+                        "label": "Title Under Image"
+
+                    },
+                    {
+
+                        "type": "textarea",
+
+                        "id": "description",
+
+                        "label": "description"
+
+                    }
+
+        ]
+        
+    }
+
+{% endschema %}

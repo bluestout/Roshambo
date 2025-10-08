@@ -1,0 +1,539 @@
+<div id="loader" class="loader"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+$("#loader").show();
+var htmlToInsert = `
+<div class="rubeycode"> 
+<div data-rebuy-id="112279" data-rebuy-shopify-product-ids="{{ product.id }}"></div>
+</div>`;
+$(".tt-row-custom-01").after(htmlToInsert);
+$("#loader").hide();
+});
+</script>
+<style>
+.rubeycode {border-top: 1px solid #ccc;margin-top: 40px; }
+.loader {display: none;border: 8px solid #000;border-top: 8px solid #000;
+border-radius: 50%;width: 50px;height: 50px;animation: spin 2s linear infinite;}
+@keyframes spin {0% { transform: rotate(0deg); }100% { transform: rotate(360deg); }}
+
+  p#safe-checkout-icons {
+    display: none;
+}
+
+  h4#safe-checkout-heading {
+    display: none;
+}
+</style>
+
+
+
+{% comment %} Wholesale_Club_Product_Prices Start {% endcomment %}
+{% assign base_product = product %}
+{% assign base_variant = product.selected_or_first_available_variant %}
+
+{% if shop.metafields.sawholesale['base_price'] == blank %}
+  {% assign base_price = 'compare_at_price' %}
+{% else %}
+  {% assign base_price = shop.metafields.sawholesale['base_price'] %}
+{% endif %}
+
+{% assign saw_discount = 0 %}{% assign saw_has_discount = false %}
+
+{% if customer.tags != blank %}
+  {% for mf in base_product.metafields.sawholesale %}
+    {% capture product_customer_tag %}{{ mf | first | replace: 'discount_', '' }}{% endcapture %}
+    {% if customer.tags contains product_customer_tag %}
+      {% assign saw_has_discount = true %}
+      {% assign discount_key = product_customer_tag | prepend: 'discount_' %}
+      {% assign price_key = product_customer_tag | prepend: 'price_' %}
+      {% assign saw_discount = base_product.metafields.sawholesale[discount_key] | divided_by: 100.0 %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% assign saw_discount = 1 | minus: saw_discount %}
+
+{% if base_price == 'price' or base_variant.compare_at_price == blank  or base_variant.compare_at_price == 0 or base_variant.compare_at_price < base_variant.price %}
+  {% assign saw_variant_compare_at_price = base_variant.price %}
+{% else %}
+  {% assign saw_variant_compare_at_price = base_variant.compare_at_price %}
+{% endif %}
+
+{% assign cpe = shop.metafields.sawholesale['cpe'] | default: "true" %}
+{% if base_variant.metafields.sawholesale[price_key] != blank and cpe == "true" %}
+  {% assign saw_variant_price = base_variant.metafields.sawholesale[price_key] %}
+{% else %}
+  {% assign saw_variant_price = saw_variant_compare_at_price | times: saw_discount %}
+{% endif %}
+
+{% if saw_has_discount == false or saw_variant_price >= saw_variant_compare_at_price %}
+  {% assign WCProduct_Price = base_product.price %}
+  {% assign WCProduct_ComparePrice = base_product.compare_at_price %}
+  {% assign WCProduct_PriceMin = base_product.price_min %}
+  {% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}
+  {% assign WCProduct_PriceMax = base_product.price_max %}
+  {% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}
+  {% assign WCProduct_VariantPrice = base_variant.price %}
+  {% assign WCProduct_VariantComparePrice = base_variant.compare_at_price %}
+{% else %}   
+  {% assign WCProduct_Price = saw_variant_price %}
+  {% assign WCProduct_PriceMin = base_product.price_min | times: saw_discount %}
+  {% assign WCProduct_PriceMax = base_product.price_max | times: saw_discount %}
+  {% assign WCProduct_ComparePrice = saw_variant_compare_at_price %}
+  {% if base_product.compare_at_price_min != 0 %}{% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}{% else %}{% assign WCProduct_ComparePriceMin = base_product.price_min %}{% endif %}
+  {% if base_product.compare_at_price_max != 0 %}{% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}{% else %}{% assign WCProduct_ComparePriceMax = base_product.price_max %}{% endif %}
+  {% assign WCProduct_VariantPrice = saw_variant_price %}
+  {% assign WCProduct_VariantComparePrice = saw_variant_compare_at_price %}
+{% endif %}
+{% comment %} Wholesale_Club_Product_Prices End {% endcomment %}
+{%- comment -%}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{%- endcomment -%}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+<div itemscope itemtype="http://schema.org/Product"
+     class="product_page_template product_page_mobile_slider_no_margin_top"
+     data-prpageprhandle="{{ product.handle }}"
+     data-sectionname="productpagesection">
+  <meta itemprop="name" content="{{ product.title }}">
+  <meta itemprop="url" content="{{  shop.url | append: product.url }}">
+  {%- if product.featured_image -%}
+  {%- assign image_size = product.featured_image.width | append: 'x' -%}
+  <link itemprop="image" content="{{ product.featured_image.src | img_url: image_size | prepend: "https:" }}">
+  {%- endif -%}
+  <meta itemprop="description" content="{{ product.description | strip_html }}">
+  {%- if current_variant.sku != blank -%}
+  <meta itemprop="sku" content="{{ current_variant.sku }}">
+  {%- endif -%}
+  <meta itemprop="brand" content="{{ product.vendor }}">
+  {%- for variant in product.variants -%}
+{% comment %} Wholesale_Club_Product_Prices Start {% endcomment %}
+{% assign base_product = product %}
+{% assign base_variant = variant %}
+
+{% if shop.metafields.sawholesale['base_price'] == blank %}
+  {% assign base_price = 'compare_at_price' %}
+{% else %}
+  {% assign base_price = shop.metafields.sawholesale['base_price'] %}
+{% endif %}
+
+{% assign saw_discount = 0 %}{% assign saw_has_discount = false %}
+
+{% if customer.tags != blank %}
+  {% for mf in base_product.metafields.sawholesale %}
+    {% capture product_customer_tag %}{{ mf | first | replace: 'discount_', '' }}{% endcapture %}
+    {% if customer.tags contains product_customer_tag %}
+      {% assign saw_has_discount = true %}
+      {% assign discount_key = product_customer_tag | prepend: 'discount_' %}
+      {% assign price_key = product_customer_tag | prepend: 'price_' %}
+      {% assign saw_discount = base_product.metafields.sawholesale[discount_key] | divided_by: 100.0 %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% assign saw_discount = 1 | minus: saw_discount %}
+
+{% if base_price == 'price' or base_variant.compare_at_price == blank  or base_variant.compare_at_price == 0 or base_variant.compare_at_price < base_variant.price %}
+  {% assign saw_variant_compare_at_price = base_variant.price %}
+{% else %}
+  {% assign saw_variant_compare_at_price = base_variant.compare_at_price %}
+{% endif %}
+
+{% assign cpe = shop.metafields.sawholesale['cpe'] | default: "true" %}
+{% if base_variant.metafields.sawholesale[price_key] != blank and cpe == "true" %}
+  {% assign saw_variant_price = base_variant.metafields.sawholesale[price_key] %}
+{% else %}
+  {% assign saw_variant_price = saw_variant_compare_at_price | times: saw_discount %}
+{% endif %}
+
+{% if saw_has_discount == false or saw_variant_price >= saw_variant_compare_at_price %}
+  {% assign WCProduct_Price = base_product.price %}
+  {% assign WCProduct_ComparePrice = base_product.compare_at_price %}
+  {% assign WCProduct_PriceMin = base_product.price_min %}
+  {% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}
+  {% assign WCProduct_PriceMax = base_product.price_max %}
+  {% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}
+  {% assign WCProduct_VariantPrice = base_variant.price %}
+  {% assign WCProduct_VariantComparePrice = base_variant.compare_at_price %}
+{% else %}   
+  {% assign WCProduct_Price = saw_variant_price %}
+  {% assign WCProduct_PriceMin = base_product.price_min | times: saw_discount %}
+  {% assign WCProduct_PriceMax = base_product.price_max | times: saw_discount %}
+  {% assign WCProduct_ComparePrice = saw_variant_compare_at_price %}
+  {% if base_product.compare_at_price_min != 0 %}{% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}{% else %}{% assign WCProduct_ComparePriceMin = base_product.price_min %}{% endif %}
+  {% if base_product.compare_at_price_max != 0 %}{% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}{% else %}{% assign WCProduct_ComparePriceMax = base_product.price_max %}{% endif %}
+  {% assign WCProduct_VariantPrice = saw_variant_price %}
+  {% assign WCProduct_VariantComparePrice = saw_variant_compare_at_price %}
+{% endif %}
+{% comment %} Wholesale_Club_Product_Prices End {% endcomment %}
+
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    {%- if variant.sku != blank -%}
+    <meta itemprop="sku" content="{{ variant.sku }}">
+    {%- endif -%}
+    <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+    <meta itemprop="price" content="{{ WCProduct_VariantPrice | divided_by: 100.00 }}">
+    <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}">
+    <link itemprop="url" href="{{ shop.url | append: variant.url }}">
+    <meta itemprop="priceValidUntil" content="{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' | uri_encode | replace:'+','%20' }}">
+  </div>
+  {%- endfor -%}
+
+  {% section 'product-template' %}
+</div>
+
+
+
+<div class="container">
+  {% render 'okendo-reviews-widget', product: product %}
+</div>
+
+{% include "modal-video" %}
+<script>
+  global_quantity = {};
+  {% for variant in product.variants %}
+{% comment %} Wholesale_Club_Product_Prices Start {% endcomment %}
+{% assign base_product = product %}
+{% assign base_variant = variant %}
+
+{% if shop.metafields.sawholesale['base_price'] == blank %}
+  {% assign base_price = 'compare_at_price' %}
+{% else %}
+  {% assign base_price = shop.metafields.sawholesale['base_price'] %}
+{% endif %}
+
+{% assign saw_discount = 0 %}{% assign saw_has_discount = false %}
+
+{% if customer.tags != blank %}
+  {% for mf in base_product.metafields.sawholesale %}
+    {% capture product_customer_tag %}{{ mf | first | replace: 'discount_', '' }}{% endcapture %}
+    {% if customer.tags contains product_customer_tag %}
+      {% assign saw_has_discount = true %}
+      {% assign discount_key = product_customer_tag | prepend: 'discount_' %}
+      {% assign price_key = product_customer_tag | prepend: 'price_' %}
+      {% assign saw_discount = base_product.metafields.sawholesale[discount_key] | divided_by: 100.0 %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% assign saw_discount = 1 | minus: saw_discount %}
+
+{% if base_price == 'price' or base_variant.compare_at_price == blank  or base_variant.compare_at_price == 0 or base_variant.compare_at_price < base_variant.price %}
+  {% assign saw_variant_compare_at_price = base_variant.price %}
+{% else %}
+  {% assign saw_variant_compare_at_price = base_variant.compare_at_price %}
+{% endif %}
+
+{% assign cpe = shop.metafields.sawholesale['cpe'] | default: "true" %}
+{% if base_variant.metafields.sawholesale[price_key] != blank and cpe == "true" %}
+  {% assign saw_variant_price = base_variant.metafields.sawholesale[price_key] %}
+{% else %}
+  {% assign saw_variant_price = saw_variant_compare_at_price | times: saw_discount %}
+{% endif %}
+
+{% if saw_has_discount == false or saw_variant_price >= saw_variant_compare_at_price %}
+  {% assign WCProduct_Price = base_product.price %}
+  {% assign WCProduct_ComparePrice = base_product.compare_at_price %}
+  {% assign WCProduct_PriceMin = base_product.price_min %}
+  {% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}
+  {% assign WCProduct_PriceMax = base_product.price_max %}
+  {% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}
+  {% assign WCProduct_VariantPrice = base_variant.price %}
+  {% assign WCProduct_VariantComparePrice = base_variant.compare_at_price %}
+{% else %}   
+  {% assign WCProduct_Price = saw_variant_price %}
+  {% assign WCProduct_PriceMin = base_product.price_min | times: saw_discount %}
+  {% assign WCProduct_PriceMax = base_product.price_max | times: saw_discount %}
+  {% assign WCProduct_ComparePrice = saw_variant_compare_at_price %}
+  {% if base_product.compare_at_price_min != 0 %}{% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}{% else %}{% assign WCProduct_ComparePriceMin = base_product.price_min %}{% endif %}
+  {% if base_product.compare_at_price_max != 0 %}{% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}{% else %}{% assign WCProduct_ComparePriceMax = base_product.price_max %}{% endif %}
+  {% assign WCProduct_VariantPrice = saw_variant_price %}
+  {% assign WCProduct_VariantComparePrice = saw_variant_compare_at_price %}
+{% endif %}
+{% comment %} Wholesale_Club_Product_Prices End {% endcomment %}
+
+  {% if variant.inventory_policy == "continue" %}
+  	global_quantity[{{ variant.id }}] = 'continue' + {{ variant.inventory_quantity }};
+  {% else %}
+  	global_quantity[{{ variant.id }}] = {{ variant.inventory_quantity }};
+  {% endif %}
+  {% endfor %}
+    
+  {% if product.available and settings.satc_show %}
+    window.addEventListener('DOMContentLoaded', function() {
+      $(document).ready(function(){
+        $('.btn-addtocart').length && $('.tt-fixed-product-wrapper').length && initStickyAddToCart();
+      })
+    });
+
+    function initStickyAddToCart(){
+      $('.tt-back-to-top').length && $('.tt-back-to-top').remove();
+
+      var b = $('.btn-addtocart').first(),
+          p = $('.tt-fixed-product-wrapper'),
+          q = $('.tt-product-single-info'),
+          c = q.find('.tt-input-counter').first();
+
+      $(window).resize(isatcResize);
+      $(window).scroll(isatcScrollHandler);
+      isatcResize();
+      isatcScrollHandler();
+
+      $('body').on('click', '.tt-fixed-product-wrapper .plus-btn', function(e){
+        c.find('.plus-btn').trigger('click');
+        p.find('.tt-input-counter').replaceWith(c.clone());
+      })
+      $('body').on('click', '.tt-fixed-product-wrapper .minus-btn', function(e){
+        c.find('.minus-btn').trigger('click');
+        p.find('.tt-input-counter').replaceWith(c.clone());
+      })
+      $('body').on('click', '.tt-fixed-product-wrapper .btn', function(e){
+        e.preventDefault();
+        b.trigger('click');
+      })
+      $('body').on('change', '.tt-fixed-product-wrapper .tt-input-counter input', function(e){
+        c.find('input').val($(this).val()).trigger('change');
+        p.find('.tt-input-counter').replaceWith(c.clone());
+      })
+      $('body').on('click focusout', '.tt-fixed-product-wrapper select', function(e){
+        if(e.type == 'click' && !p.find('form').hasClass('formactive')){
+          p.find('form').addClass('formactive');
+          return false;
+        }
+        p.find('form').removeClass('formactive');
+      })
+      $('body').on('change', '.tt-fixed-product-wrapper select', function(e){
+        setTimeout(function(){
+          p.find('.btn').replaceWith($('.btn-addtocart').first().clone().removeClass('btn-lg btn-addtocart addtocart-js').addClass('stickyaddtocart'));
+          p.find('.tt-price').replaceWith(q.find('.tt-price').first().clone());
+        }, 200)
+      })
+      
+      function isatcResize(){
+        if($('.select_options').length) return false;
+        var h = p.innerHeight() - 4;
+        $('.for-footer-blocks').last().css('padding-bottom', h);
+      }
+      function isatcScrollHandler(){
+        if($(window).scrollTop() > b.offset().top){
+          if(p.hasClass('atdshowed') || $('.select_options').length) return false;
+          var c_ = c.clone();
+          p.addClass('atdshowed').find('.tt-input-counter').replaceWith(c_);
+          p.find('.tt-price').replaceWith(q.find('.tt-price').first().clone());
+          p.find('.btn').replaceWith($('.btn-addtocart').first().clone().removeClass('btn-lg btn-addtocart addtocart-js').addClass('stickyaddtocart'));
+          $('.tt-promo-fixed').length && $('.tt-promo-fixed').css('bottom', p.innerHeight()+20);
+          p.fadeIn(200);
+        }
+        else{
+          if(!p.hasClass('atdshowed') || $('.select_options').length) return false;
+          $('.tt-promo-fixed').length && $('.tt-promo-fixed').css('bottom', '');
+          p.removeClass('atdshowed').fadeOut(200);
+        }
+      }
+    }
+  {% endif %}
+</script>
+
+<script>
+  var players = {},
+      playersMob = {},
+      mobileslider = false,
+      youapiinited = false,
+      armodels = {};
+
+  window.Shopify.loadFeatures([
+    {
+      name: 'model-viewer-ui',
+      version: '1.0',
+      onLoad: setupModelViewerUi
+    }
+  ]);
+  function setupModelViewerUi(){
+    $('body').find('model-viewer').each(function(){
+      if(!$(this).closest('.notstarted').length){
+        var i = $(this).closest('[data-slick-index]').length ? $(this).closest('[data-slick-index]').attr('data-slick-index') : '';
+        armodels[i+$(this).attr('data-model-id')] = new Shopify.ModelViewerUI($(this)[0]);
+        i == '' && armodels[i+$(this).attr('data-model-id')].play();
+      }
+    })
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    $('[data-item-type]').length && initPrGalItemType();
+    $('.notstarted').length && $('.notstarted').on('click', function(e){
+      $(this).unbind('click');
+      $(this).removeClass('notstarted');
+    })
+  });
+  window.addEventListener('resize', function(){
+    if($(window).width() < 576){
+      mediaresizetomobile($('.mediaholder'));
+      mediaresizetomobile($('.product-images-static'));
+    }
+    else{
+      if(mobileslider){
+        $('.tt-mobile-product-slider').find('video').each(function(){
+          $(this)[0].pause();
+        })
+        stopYouVideos(playersMob);
+      }
+      $('[data-item-type]').length && getMediaGalleryItem($('[data-item-type]').first().closest('ul').find('.zoomGalleryActive'));
+    }
+  });
+  window.addEventListener("mobile-slider-initialized", function(e){
+    mobileslider = e.detail;
+    if(mobileslider.find('.pt-product-media-external').length == 0 || !youapiinited) return false;
+    collectPlayersMob(mobileslider);
+  });
+  function mediaresizetomobile($obj){
+    if(!$obj.length) return false;
+    $obj.find('video').each(function(){
+      $(this)[0].pause();
+    })
+    stopYouVideos(players);
+  }
+
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  function onYouTubeIframeAPIReady() {
+    collectPlayersDesk($('.mediaholder'));
+    collectPlayersDesk($('.product-images-static'));
+    youapiinited = true;
+    mobileslider && collectPlayersMob(mobileslider);
+  }
+  function collectPlayersDesk($obj){
+    if(!$obj.length) return false;
+    $obj.find('.pt-product-media-external').each(function(){
+      var $this = $(this),
+          videoId = $this.attr('data-video-id');
+      players[videoId] = new YT.Player($this.find('iframe')[0], {videoId: videoId});
+    });
+  }
+  function collectPlayersMob($obj){
+    $obj.find('.pt-product-media-external').each(function(){
+      var $this = $(this),
+          videoId = $this.attr('data-video-id'),
+          i = $this.parent().attr('data-slick-index');
+      playersMob[i+videoId] = new YT.Player($this.find('iframe')[0], {videoId: videoId});
+    });
+
+    $obj.on('beforeChange', function(event, slick, currentSlide, nextSlide){
+      if(currentSlide == nextSlide) return true;
+      var p = $(this).find('[data-slick-index="'+currentSlide+'"]'),
+          v = false;
+
+      v = p.find('.pt-product-media-external');
+      if(v.length){
+        var videoId = v.attr('data-video-id');
+        playersMob[currentSlide+videoId].pauseVideo();
+      }
+      v = p.find('.pt-product-media-internal');
+      if(v.length){
+        v.find('video')[0].pause();
+      }
+    });
+    $obj.on('afterChange', function(event, slick, currentSlide){
+      var $this = $(this);
+
+      var p = $this.find('[data-slick-index="'+currentSlide+'"]'),
+          v = false;
+
+      v = p.find('.pt-product-media-external');
+      if(v.length){
+        var videoId = v.attr('data-video-id');
+        playersMob[currentSlide+videoId].playVideo();
+      }
+      v = p.find('.pt-product-media-internal');
+      if(v.length){
+        v.find('video')[0].play();
+      }
+      v = p.find('.pt-product-media-model');
+      if(v.length && v.find('model-viewer').attr('reveal') != "auto"){
+        armodels[currentSlide+v.find('model-viewer').attr('data-model-id')].play();
+      }
+    });
+  }
+  function initPrGalItemType(){
+    $('[data-item-type]').click(function(e){
+      getMediaGalleryItem($(this));
+    })
+  }
+
+  /**/
+
+  function getMediaGalleryItem($this){
+    if(!$this.attr('data-item-type')) return false;
+    if($this.attr('data-item-type') == 'image'){
+      //$(".zoom-product").attr('src', $this.attr('data-image')).attr('data-zoom-image', $this.attr('data-zoom-image'));
+      showMediaHolderOnProductPage(false)
+      return true;
+    }
+    showMediaHolderOnProductPage(true, $this.attr('data-target'));
+  }
+  function showMediaHolderOnProductPage(val, attr){
+    val = val || false;
+    var $mh = $('.mediaholder'),
+        $mhall = $mh.find('[data-target-id]'),
+        $mhcur = $mh.find('[data-target-id='+attr+']');
+
+    $mhall.length && $mhall.hide();
+    $mh.find('video').each(function(){
+      $(this)[0].pause();
+    })
+
+    stopYouVideos(players);
+
+    if(val){
+      $('.mediaimageholder').hide();
+      $mh.show();
+      $mhcur.show();
+
+      $mhcur.find('video').length && $mhcur.find('video')[0].play();
+
+      var y = $mhcur.find('iframe');
+      if(y.length){
+        var videoId = $mhcur.attr('data-video-id');
+        players[videoId].playVideo();
+      }
+    }
+    else{
+      $('.mediaimageholder').show();
+      $mh.hide();
+    }
+  }
+  function stopYouVideos(players){
+    if(Object.keys(players).length === 0) return false;
+    Object.keys(players).forEach(function(key) {
+      if (typeof players[key].pauseVideo === "function") { 
+        players[key].pauseVideo();
+      }
+    });
+  }
+  /* arrows for big image in gallery */
+  window.addEventListener("desktop-slider-initialized", function(e){
+    var $this = e.detail;
+    if(!$('#custom-product-item').length) return false;
+    var l = $this.find('.slick-slide').length-1;
+    $('#custom-product-item').addClass('tt-show');
+    $('#custom-product-item').find('.slick-next').on('click',function(e){
+      var c = Number($this.find('.zoomGalleryActive').parent().attr('data-slick-index')) + 1;
+      c = c > l ? 0 : c;
+      $this.find('[data-slick-index="'+c+'"] a').trigger('click');
+    });
+    $('#custom-product-item').find('.slick-prev').on('click',function(e){
+      var c = Number($this.find('.zoomGalleryActive').parent().attr('data-slick-index')) - 1;
+      c = c <= -1 ? l : c;
+      $this.find('[data-slick-index="'+c+'"] a').trigger('click');
+    });
+  });
+</script>
+
+
+<style>
+ul.tt-options-swatch {
+  justify-content: flex-start;
+}
+</style>

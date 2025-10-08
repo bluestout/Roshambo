@@ -1,0 +1,49 @@
+{%- comment -%}
+Documentation - http://docs.shopify.com/support/your-website/navigation/creating-a-breadcrumb-navigation
+{%- endcomment -%}
+{% assign breadcrumb = '' %}
+{%- unless template == 'index' -%}
+<div class="tt-breadcrumb">
+  <div class="container{% if settings.breadcrumbs_fullwidth %}-fluid{% endif %}">
+    <ul>
+      <li><a class="" href="/">Home </a>
+      {%- if template contains 'product' -%}
+
+        {%- if collection -%}            
+          {%- if collection.handle -%}
+          {%- capture url -%}/collections/{{ collection.handle }}{%- endcapture -%}
+          <a class="crumb_mc" href="{{url}}">{{ collection.title }}</a>
+          {%- endif -%}
+        {%- endif -%}
+
+        <a class="crumb_mc" href="javascript:void(0);">{{ product.title }}</a>
+
+      {%- elsif template contains 'collection' and collection.handle -%}
+      {%- if current_tags -%}
+      {%- capture url -%}/collections/{{ collection.handle }}{%- endcapture -%}
+      <a class="crumb_mc" href="{{url}}">{{ collection.title}}</a>
+      {%- else -%}
+      <a class="crumb_mc" href="javascript:void(0);">{{ collection.title | capitalize }}</a>
+      {%- endif -%}
+
+      {%- elsif template == 'article' -%}
+        <a class="crumb_mc" href="{{ blog.url }}">blogs</a>
+        <a class="crumb_mc" href="javascript:void(0);">{{ article.title }}</a>
+      {%- elsif template contains 'customers' and template != "customers/account" -%}
+        {%- assign account = 'customer.account.title_main' | t -%}
+        <a class="crumb_mc" href="/account">{{ account | capitalize }}</a>
+        <a class="crumb_mc" href="javascript:void(0);">{{ page_title }}</a>
+
+      {%- elsif template contains 'page' -%}
+        <a class="crumb_mc" href="javascript:void(0);">{{ page.title }}</a>
+
+      {%- elsif template contains 'blog' -%}
+        <a class="crumb_mc" href="javascript:void(0);">Blog</a>
+      {%- else -%}
+        <a class="crumb_mc" href="javascript:void(0);">{{ page_title }}</a>
+      {%- endif -%}
+    </ul>
+  </li>
+  </div>
+</div>
+{%- endunless -%}

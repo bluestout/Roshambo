@@ -1,0 +1,259 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {}
+    },
+    "3d5d5baf-1572-4d6e-ae95-5e215a1a43b8": {
+      "type": "homepage-hero-banner",
+      "blocks": {
+        "92410ea9-5dd0-47dd-8078-fe6a0f83c04e": {
+          "type": "slide",
+          "settings": {
+            "use_banner_image": true,
+            "banner_image": "shopify://shop_images/sports-launch.jpg",
+            "banner_slide_url": "https://www.roshambo.com/collections/ludicrous-speed-sport",
+            "use_banner_video": false,
+            "youtube_embed": ""
+          }
+        },
+        "da68fa04-3b25-4e2b-8710-0990ec2a5732": {
+          "type": "slide",
+          "settings": {
+            "use_banner_image": true,
+            "banner_image": "shopify://shop_images/goggles-launch_4025cf88-5af0-4c27-8f18-e71634488b42.jpg",
+            "banner_slide_url": "",
+            "use_banner_video": false,
+            "youtube_embed": ""
+          }
+        }
+      },
+      "block_order": [
+        "92410ea9-5dd0-47dd-8078-fe6a0f83c04e",
+        "da68fa04-3b25-4e2b-8710-0990ec2a5732"
+      ],
+      "settings": {
+        "banner_autoplay_gap": 6000
+      }
+    },
+    "e4215feb-f44e-46da-b5b0-56c1c07adf86": {
+      "type": "new-text-block",
+      "settings": {
+        "title": "LUDICROUS SPEED SPORTS EYEWEAR",
+        "text": "<p><strong>Light speed, too slow? We're gonna have to go right to Ludicrous Speed! </strong></p><p>Introducing our new line of sport glasses and snow goggles for kids, teens and adults! These wraparound sunglasses and interchangeable magnetic goggles are perfect for sports, biking, skiing, sledding and any high intensity activity... Prepare for Ludicrous Speed!</p>",
+        "button_text": "SHOP SPORTS COLLECTION",
+        "button_url": "shopify://collections/ludicrous-speed"
+      }
+    },
+    "e3a92091-fb5c-4308-b3ce-5fb9bd843a58": {
+      "type": "index-section-products",
+      "settings": {
+        "section_class": "no-margin",
+        "top_offset": "normal",
+        "custom_classes": "",
+        "fullwidth": false,
+        "nopaddings": false,
+        "hideallelementsonindex": false,
+        "show_title": true,
+        "title_to_left": false,
+        "boxed_title": false,
+        "text1": "SHOP LUDICROUS SPEED",
+        "text2": "The best kids sports eyewear in the galaxy!",
+        "text3": "",
+        "use_title_as_link": true,
+        "show_button": false,
+        "button_text": "SHOP SPORTS",
+        "collection": "ludicrous-speed",
+        "items_always_in_center": false,
+        "limit": "8",
+        "items": "3",
+        "default_carousel": false,
+        "boxed_buttons": false,
+        "show_oneproduct_in_mobile": false,
+        "use_adaptive_height": true,
+        "toshow": "4",
+        "step": "2",
+        "module_autoplay": false,
+        "delay_time": "7000"
+      }
+    },
+    "cdb804ea-7b4c-47f7-bdf7-ccc041f92bc3": {
+      "type": "home-image-text",
+      "blocks": {
+        "template--16049215373482__cdb804ea-7b4c-47f7-bdf7-ccc041f92bc3-16752460786e03d28f-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/sports-wrap-black-adult1.jpg",
+            "title": "Shop Sports Wraps",
+            "link": "https://www.roshambo.com/collections/ludicrous-speed-sport"
+          }
+        },
+        "template--16049215373482__cdb804ea-7b4c-47f7-bdf7-ccc041f92bc3-16752460786e03d28f-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pink-rainbow-goggles.jpg",
+            "title": "Shop Snow Goggles",
+            "link": "https://www.roshambo.com/collections/ludicrous-speed-snow"
+          }
+        }
+      },
+      "block_order": [
+        "template--16049215373482__cdb804ea-7b4c-47f7-bdf7-ccc041f92bc3-16752460786e03d28f-0",
+        "template--16049215373482__cdb804ea-7b4c-47f7-bdf7-ccc041f92bc3-16752460786e03d28f-1"
+      ],
+      "settings": {}
+    },
+    "7427afa6-94d3-4a01-9752-25c073bd6dac": {
+      "type": "home-image-grid-items",
+      "blocks": {
+        "template--16049215373482__7427afa6-94d3-4a01-9752-25c073bd6dac-1675246167872f9b53-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/kids-sports.png",
+            "title": "Kids",
+            "text": "Ages 5-10",
+            "link": "https://www.roshambo.com/collections/ludicrous-speed"
+          }
+        },
+        "template--16049215373482__7427afa6-94d3-4a01-9752-25c073bd6dac-1675246167872f9b53-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/teen-sports.png",
+            "title": "Teen",
+            "text": "Ages 11-15",
+            "link": "https://www.roshambo.com/collections/ludicrous-speed"
+          }
+        },
+        "template--16049215373482__7427afa6-94d3-4a01-9752-25c073bd6dac-1675246167872f9b53-2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/adult-sports.png",
+            "title": "Adult",
+            "text": "",
+            "link": "https://www.roshambo.com/collections/ludicrous-speed"
+          }
+        }
+      },
+      "block_order": [
+        "template--16049215373482__7427afa6-94d3-4a01-9752-25c073bd6dac-1675246167872f9b53-0",
+        "template--16049215373482__7427afa6-94d3-4a01-9752-25c073bd6dac-1675246167872f9b53-1",
+        "template--16049215373482__7427afa6-94d3-4a01-9752-25c073bd6dac-1675246167872f9b53-2"
+      ],
+      "settings": {
+        "title": "Sizes for the whole family"
+      }
+    },
+    "cecd1b0e-eea0-40a1-8840-45542cd14007": {
+      "type": "image-w-text-row",
+      "settings": {
+        "backgroundColor": "#1cbbb4",
+        "sectionImage": "shopify://shop_images/ludicrous-speed-sunglasses.png",
+        "titleColor": "#ffffff",
+        "textboxTitle": "Your Speed: Ludicrous.",
+        "paragraphColor": "#000000",
+        "textboxParagraph": "This is the sports eyewear collection light years in the making. From snow-capped mountains to sun-drenched beaches, we have you covered with our new Ludicrous Speed sports collection. For the summer: ultra-light, Italian made, flexible, polarized wraparound shades for the field, bike, track and training. For the winter: the raddest magnetic shield snow goggles on the market... with magic transitioning low light to dark shield included, customizable with 5 polarized mirror shield colors to match any mood. Swap the shield and your raise your swag meter in seconds.",
+        "linkColor": "#ff2392",
+        "textboxLinkText": "GET THE SCOOP",
+        "textboxLinkURL": "https://www.roshambo.com/blogs/news/prescription-snow-goggles-and-sports-wrap-inserts-maximum-domination"
+      }
+    },
+    "0cf56ca2-a755-4030-8e1b-4610aff97ba4": {
+      "type": "home-image-text",
+      "blocks": {
+        "template--16049215373482__0cf56ca2-a755-4030-8e1b-4610aff97ba4-16752460786e03d28f-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/toddler-collection4.png",
+            "title": "Shop Kids Sunglasses",
+            "link": "https://www.roshambo.com/collections/all-products"
+          }
+        },
+        "template--16049215373482__0cf56ca2-a755-4030-8e1b-4610aff97ba4-16752460786e03d28f-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/adult-collection5.png",
+            "title": "Shop Adult Sunglasses",
+            "link": "https://www.roshambo.com/collections/adult"
+          }
+        }
+      },
+      "block_order": [
+        "template--16049215373482__0cf56ca2-a755-4030-8e1b-4610aff97ba4-16752460786e03d28f-0",
+        "template--16049215373482__0cf56ca2-a755-4030-8e1b-4610aff97ba4-16752460786e03d28f-1"
+      ],
+      "settings": {}
+    },
+    "5dfaf5ec-18fd-4769-a124-86302dafe447": {
+      "type": "icon-w-text-column",
+      "blocks": {
+        "54ce01cd-7103-4f5f-a5a9-d34480242aa9": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/italy_icon_864db9a6-b52b-4db9-a638-709f83a0ef41.png",
+            "column_title": "Made in Italy",
+            "column_description": "Our high-quality, flexible frames\nare made in Italy and assembled in the United States.",
+            "column_link": "https://www.roshambo.com/pages/product-information"
+          }
+        },
+        "bfcbc8f6-1b0c-458f-8165-d45ed8647ad0": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/safety-tested_3f32cf51-21e0-4163-87b5-e180a47122ca.png",
+            "column_title": "Safety Tested",
+            "column_description": "Our frames are BPA, phthalate, lead and latex free, and virtually unbreakable.",
+            "column_link": "https://www.roshambobaby.com/pages/product-information/#safety-certified"
+          }
+        }
+      },
+      "block_order": [
+        "54ce01cd-7103-4f5f-a5a9-d34480242aa9",
+        "bfcbc8f6-1b0c-458f-8165-d45ed8647ad0"
+      ],
+      "settings": {
+        "Background": "#d1fdff"
+      }
+    },
+    "79497636-9f09-460f-922b-4532b022bd49": {
+      "type": "homepage-2x2-content",
+      "blocks": {
+        "09f70d8d-cbd3-439c-9896-a0a581351d9f": {
+          "type": "text",
+          "settings": {
+            "youtube_link": "N9C45mqQYUg",
+            "title": "Kids Snow Goggles",
+            "description": "These anti-fog, anti-glare, UV400 protective interchangeable snow goggles feature magnetic lenses, so you can swap out your shield color for the day (or night)! Perfect for sledding, skiing, skating or any fun winter activity.",
+            "image": "shopify://shop_images/goggles-kids_7059fca8-ff93-4f06-9cee-5b80ab659816.jpg",
+            "collection": "ludicrous-speed",
+            "button_text": "SHOP SPORTS EYEWEAR",
+            "image_color": "#6a5acd"
+          }
+        }
+      },
+      "block_order": [
+        "09f70d8d-cbd3-439c-9896-a0a581351d9f"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "3d5d5baf-1572-4d6e-ae95-5e215a1a43b8",
+    "e4215feb-f44e-46da-b5b0-56c1c07adf86",
+    "e3a92091-fb5c-4308-b3ce-5fb9bd843a58",
+    "cdb804ea-7b4c-47f7-bdf7-ccc041f92bc3",
+    "7427afa6-94d3-4a01-9752-25c073bd6dac",
+    "cecd1b0e-eea0-40a1-8840-45542cd14007",
+    "0cf56ca2-a755-4030-8e1b-4610aff97ba4",
+    "5dfaf5ec-18fd-4769-a124-86302dafe447",
+    "79497636-9f09-460f-922b-4532b022bd49"
+  ]
+}

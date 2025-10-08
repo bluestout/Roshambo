@@ -1,0 +1,309 @@
+{% capture tabshideallelements %}{% if template == "collection.collectiontabshorizontal" and template_ == "index" and settings.hideallelementsonindex %}true{% else %}false{% endif %}{% endcapture %}
+{% if settings.hideallelementsonindex and template == 'index' or tabshideallelements == "true" %}
+<div class="respimgsize tt-product product-parent">
+  <div class="tt-imaage-box">
+    <a href="{{ product.url | within: collection }}">
+      {%- assign main_url_image = main_url_image | product_img_url: url_images_size -%}
+      {%- if settings.use_cached_images %}{%- assign main_url_image = main_url_image | split: '?' | first -%}{%- endif -%}
+      <span class="tt-img">
+        <img class="lazyload"
+             data-mainimageratio = '{{ product.featured_image.aspect_ratio }}'
+             data-mainimage="{{ product.featured_image | product_img_url: '100x100' | replace: '100x100', 'respimgsize' }}"
+             alt="{{ product.featured_image.alt | escape }}"/>
+      </span>
+      {%- if hover_url_image != '' -%}
+      {%- assign hover_url_image = hover_url_image | product_img_url: url_images_size -%}
+      {%- if settings.use_cached_images %}{%- assign hover_url_image = hover_url_image | split: '?' | first -%}{%- endif -%}
+      <span class="tt-img-roll-over">
+        <img class="lazyload" src="{{ hover_url_image }}" alt="{{ hover_url_image_alt }}"/>
+      </span>
+      {%- endif -%}
+    </a>
+  </div>
+</div>
+{% else %}
+
+{% comment %}
+If object is an article, it has an author attribute
+{% endcomment %}
+
+{% if product.author %}
+  {% assign cover_image = product.image %}
+  {% assign lifestyle_image = product.image %}
+{% else %}
+  {% assign cover_image = product.featured_image %}
+  {% assign lifestyle_image = product.images[1] %}
+{% endif %}
+<div class="respimgsize tt-product product-parent options-js{% if settings.center_product_information %} thumbprod-center{% endif %}{% if settings.show_product_without_hover %} product-nohover{% endif %}"
+data-lifestyle="{{ lifestyle_image | img_url: '500x'}}"
+data-main="{{ cover_image | img_url: '500x' }}"
+>
+
+  <div class="tt-image-box" onClick="window.location.href = '{{ product.url | within: collection }}'">
+    <a class="tt-img-parent collection_image" href="{{ product.url | within: collection }}">
+      {%- assign main_url_image = main_url_image | product_img_url: url_images_size -%}
+      {%- if settings.use_cached_images %}{%- assign main_url_image = main_url_image | split: '?' | first -%}{%- endif -%}
+      <span class="tt-img">
+        {% comment %}
+        If object is an article, it has an author attribute
+        {% endcomment %}
+
+        {% if product.author %}
+          {% assign thumb_image = product.image %}
+        {% else %}
+          {% assign thumb_image = product.featured_image %}
+        {% endif %}
+        <img class="lazyload"
+             src="{{ thumb_image | product_img_url: '250x'}}"
+             alt="{{ thumb_image.alt | escape }}"/>
+      </span>
+      {%- if hover_url_image != '' -%}
+        {%- assign hover_url_image = hover_url_image | product_img_url: url_images_size -%}
+        {%- if settings.use_cached_images %}{%- assign hover_url_image = hover_url_image | split: '?' | first -%}{%- endif -%}
+          <span class="tt-img-roll-over">
+            <img class="lazyload" src="{{ hover_url_image }}" alt="{{ hover_url_image_alt }}"/>
+          </span>
+        {%- endif -%}
+
+        <span class="tt-label-location">
+        {%- if product_meta.icon_new != 'disable' -%}{%- if date_difference < date_limit or product_meta.icon_new == 'always' -%}<span class="tt-label-new">{{ 'products.general.new' | t }}</span>{%- assign shownewicon = true -%}{%- endif -%}{%- endif -%}
+
+        {%- if product_meta.icon_sale != 'disable' and settings.show_sale_badge_product -%}
+        {%- if sale_on -%}
+        {%- assign mc = pr_variant.compare_at_price | money_without_currency | replace: ',', '' -%}
+        {%- assign mo = WCProduct_PriceMin | money_without_currency | replace: ',', '' -%}
+        {%- assign percent = mc | minus: mo | times: 100.0 | divided_by: mc | round | append: '%' -%}
+        {%- endif -%}
+        <span class="tt-label-sale"{% unless sale_on %} style="display: none;"{% endunless %}>{{ 'products.general.sale_html' | t }} <span class="thumb_percent">{{ percent }}</span></span>
+        {%- endif -%}
+
+        {%- unless product.available or product.author -%}<span class="tt-label-our-stock">{{ 'products.general.unavailable' | t }}</span>{%- endunless -%}
+        {%- unless product_meta.featured == blank -%}<span class="tt-label-our-fatured">{{ product_meta.featured }}</span>{%- endunless -%}
+      </span>
+    </a>
+
+    {%- unless settings.catalogue_mode -%}
+    {%- if product_meta.countdown != blank and settings.show_product_countdown -%}
+      <div class="tt-countdown_box tt-type-02">
+        <div class="tt-countdown_inner">
+          <div class="tt-countdown" data-date="{{ product_meta.countdown }}"></div>
+        </div>
+      </div>
+    {%- endif -%}
+    {%- endunless -%}
+  </div>
+
+  <div class="tt-description">
+    {%- if settings.show_product_vendor or settings.show_product_type or settings.product_item_show_rating -%}
+    <div class="tt-row">
+
+      {%- if settings.show_product_vendor or settings.show_product_type -%}
+      <ul class="tt-add-info">
+        {%- if settings.show_product_vendor -%}
+        <li>
+          <a href="/collections/{% if collection == blank %}all{% else %}{{ collection.handle }}{% endif %}/{{ product.vendor | handle }}"
+            class="text-uppercase"
+            >{{ product.vendor }}
+          </a>
+        </li>
+        {%- endif -%}
+        {%- if settings.show_product_type -%}
+          <li>
+            <a href="/collections/{{ product.type | handle }}"
+              class="text-uppercase"
+              >{{ product.type }}
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
+      {%- endif -%}
+
+      {%- unless settings.catalogue_mode -%}
+      {%- if settings.product_item_show_rating -%}
+      {% comment %}
+        <div class="tt-rating" data-url="{{ product.url | within: collection }}">
+          {%- if settings.selectedreviewaapp == 'alireviewapp' -%}
+          <div product-id="{{ product.id }}" class="arv-collection arv-collection--{{ product.id }}"></div>
+          {%- else  %}
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+          {%- endif -%}
+        </div>
+      {% endcomment %}
+    {% comment %}  {% render 'okendo-reviews-product-rating-summary', product: product %} {% endcomment %}
+      {%- endif -%}
+      {%- endunless -%}
+
+    </div>
+    {%- endif -%}
+
+    <h2 class="tt-title prod-thumb-title-color">
+      <a href="{{ product.url | within: collection }}">
+        {%- if settings.truncate_product_title -%}
+        {{ product.title | strip_html | truncatewords: settings.truncate_product_title_w, settings.truncate_product_title_s }}
+        {%- else -%}
+        {{ product.title }}
+        {%- endif -%}
+      </a>
+    </h2>
+
+    {%- if product_meta.thumbnail_description != blank -%}
+      <div class="thumbnail_small_description">
+        {{ product_meta.thumbnail_description }}
+      </div>
+    {%- endif -%}
+
+    {% comment %} Wholesale_Club_Product_Prices Start {% endcomment %}
+    {% assign base_product = product %}
+    {% assign base_variant = product.selected_or_first_available_variant %}
+
+    {% if shop.metafields.sawholesale['base_price'] == blank %}
+      {% assign base_price = 'compare_at_price' %}
+    {% else %}
+      {% assign base_price = shop.metafields.sawholesale['base_price'] %}
+    {% endif %}
+
+    {% assign saw_discount = 0 %}{% assign saw_has_discount = false %}
+
+    {% if customer.tags != blank %}
+      {% for mf in base_product.metafields.sawholesale %}
+        {% capture product_customer_tag %}{{ mf | first | replace: 'discount_', '' }}{% endcapture %}
+        {% if customer.tags contains product_customer_tag %}
+          {% assign saw_has_discount = true %}
+          {% assign discount_key = product_customer_tag | prepend: 'discount_' %}
+          {% assign price_key = product_customer_tag | prepend: 'price_' %}
+          {% assign saw_discount = base_product.metafields.sawholesale[discount_key] | divided_by: 100.0 %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% assign saw_discount = 1 | minus: saw_discount %}
+
+    {% if base_price == 'price' or base_variant.compare_at_price == blank  or base_variant.compare_at_price == 0 or base_variant.compare_at_price < base_variant.price %}
+      {% assign saw_variant_compare_at_price = base_variant.price %}
+    {% else %}
+      {% assign saw_variant_compare_at_price = base_variant.compare_at_price %}
+    {% endif %}
+
+    {% assign cpe = shop.metafields.sawholesale['cpe'] | default: "true" %}
+    {% if base_variant.metafields.sawholesale[price_key] != blank and cpe == "true" %}
+      {% assign saw_variant_price = base_variant.metafields.sawholesale[price_key] %}
+    {% else %}
+      {% assign saw_variant_price = saw_variant_compare_at_price | times: saw_discount %}
+    {% endif %}
+
+    {% if saw_has_discount == false or saw_variant_price >= saw_variant_compare_at_price %}
+      {% assign WCProduct_Price = base_product.price %}
+      {% assign WCProduct_ComparePrice = base_product.compare_at_price %}
+      {% assign WCProduct_PriceMin = base_product.price_min %}
+      {% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}
+      {% assign WCProduct_PriceMax = base_product.price_max %}
+      {% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}
+      {% assign WCProduct_VariantPrice = base_variant.price %}
+      {% assign WCProduct_VariantComparePrice = base_variant.compare_at_price %}
+    {% else %}
+      {% assign WCProduct_Price = saw_variant_price %}
+      {% assign WCProduct_PriceMin = base_product.price_min | times: saw_discount %}
+      {% assign WCProduct_PriceMax = base_product.price_max | times: saw_discount %}
+      {% assign WCProduct_ComparePrice = saw_variant_compare_at_price %}
+      {% if base_product.compare_at_price_min != 0 %}{% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}{% else %}{% assign WCProduct_ComparePriceMin = base_product.price_min %}{% endif %}
+      {% if base_product.compare_at_price_max != 0 %}{% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}{% else %}{% assign WCProduct_ComparePriceMax = base_product.price_max %}{% endif %}
+      {% assign WCProduct_VariantPrice = saw_variant_price %}
+      {% assign WCProduct_VariantComparePrice = saw_variant_compare_at_price %}
+    {% endif %}
+    {% comment %} Wholesale_Club_Product_Prices End {% endcomment %}
+
+   {%- unless settings.catalogue_mode -%}
+    {%- if sale_on -%}
+    <div class="tt-price"><span class="new-price">{{ WCProduct_VariantPrice | money }}</span><span class="old-price">{{ WCProduct_VariantComparePrice | money }}</span></div>
+    {%- else -%}
+    <div class="tt-price"><span>{{ WCProduct_VariantPrice | money }}</span><span class="old-price hide"></span></div>
+    {%- endif -%}
+    {%- endunless -%}
+
+    <div class="description" style="display:none;">{%- if product_meta.small_description != blank -%}{{ product_meta.small_description }}{%- else -%}{{ product.description | strip | strip_html | truncatewords: settings.truncate_product_description, settings.truncate_product_description_last_symbols }}{%- endif -%}</div>
+
+    {%- if product.available or settings.show_unavailable_variants -%}
+      {% unless product.type == "Prescription" or product.type == "Screen Time" %}
+        {% if product.tags contains "hide_swatch" %}{% else %}
+        {%- include 'product-grid-options' -%}
+        {% endif %}
+      {% endunless %}
+    {%- endif -%}
+
+    {%- unless settings.catalogue_mode -%}
+      {%- if product.available -%}
+        {%- if settings.product_item_show_cart or settings.product_item_show_quickview -%}
+          {% comment %} if product.type == 'Screen Time' or product.type == 'Prescription' {% endcomment %}
+          <!-- disable_add_to_cart_call_to_action: {{ product.metafields.custom.disable_add_to_cart_call_to_action.value }}-->
+          {% if product.metafields.custom.disable_add_to_cart_call_to_action.value %}
+            <form id="{{product.id}}-atc" style="margin-top:15px;" action="{{ product.url }}">
+              <button  class="tt-btn-addtocart  thumbprod-button-bg">
+                <span>Shop Now</span>
+              </button>
+            </form>
+          {% else %}
+            <div
+              action="/cart/add"
+              id="{{product.id}}-atc"
+              method="post"
+              enctype="multipart/form-data"
+              style="margin-top:15px;"
+              class="no_bold_options"
+            >
+              <input type="hidden" name="id" value="{{ pr_variant.id }}">
+              {% if customer.tags contains "wholesale" %}
+                <input type="hidden" name="quantity" value="1">
+                <input class="tt-btn-addtocart thumbprod-button-bg" type="submit" value="{{ 'products.general.add_to_cart_html' | t | remove: '<span>' | remove: '</span>'}}" style="cursor: pointer;">
+              {% else %}
+
+                <button  class="tt-btn-addtocart{% unless pr_variant.available %} disable{% endunless %} {% if product.price == 0 %} {% unless product.type contains 'Prescription'%} disable {% endunless %} {% endif %} thumbprod-button-bg js-ajax-add-to-cart" {% if product.price == 0 %} {% unless product.type contains 'Prescription'%} disable {% endunless %} {% endif %}
+                  {%- if settings.show_addtocart_popup_related -%}{%- unless product.metafields.description.related_collection == blank -%}data-relatedcollection="{{ product.metafields.description.related_collection }}"{%- endunless -%}{%- endif -%}
+                  onclick="addItemToCart('{{pr_variant.id}}', 1)"
+                >
+                  {% unless pr_variant.available %}
+                    {{ 'products.general.unavailable_html' | t }}
+                  {% else %}
+                    {%
+                      if product.selected_or_first_available_variant.inventory_management == 'shopify'
+                      and product.selected_or_first_available_variant.inventory_policy == 'continue'
+                      and product.selected_or_first_available_variant.inventory_quantity <= 0
+                    %}
+                      {{ "products.general.preorder_html" | t }}
+                    {% else %}
+                      {{ 'products.general.add_to_cart_html' | t }}
+                    {% endif %}
+                  {% endunless %}
+                </button>
+              {% endif %}
+
+            </div>
+          {% endif %}
+
+        {%- endif -%}
+      {% else %}
+        <form id="{{product.id}}-atc" style="margin-top:15px;" {% if product.author %}action="{{ product.url }}"{% endif %}>
+          <button
+            class="tt-btn-addtocart {% unless pr_variant.available or product.author %} disable{% endunless %} thumbprod-button-bg"
+            {%- if settings.show_addtocart_popup_related -%}
+              {%- unless product.metafields.description.related_collection == blank -%}
+                data-relatedcollection="{{ product.metafields.description.related_collection }}"
+              {%- endunless -%}
+            {%- endif -%}
+          >
+            {% if product.author %}
+              <span>Article: {{ product.title }}</span>
+            {% else %}
+              <span>OUT OF STOCK</span>
+            {% endif %}
+          </button>
+        </form>
+      {%- endif -%}
+    {%- endunless -%}
+
+  </div>
+
+
+  <div class="tt-description onerowactions">
+  </div>
+</div>
+{% endif %}

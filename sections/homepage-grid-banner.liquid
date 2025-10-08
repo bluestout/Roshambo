@@ -1,0 +1,299 @@
+<div class="grid_banner-outer">
+
+    <div class="grid_banner-inner">
+
+        <div class="grid_column">
+
+            <div class="grid_row">
+
+                <a href="{{section.settings.buttonLink1}}" class="grid_item">
+
+                    <img class="lazyload" data-src="{{section.settings.bannerIMG1 | img_url: '300x'}}">
+
+                    <span class="grid_item-button">{{section.settings.buttonText1}}</span>
+
+                </a>
+
+            </div>
+
+            <div class="grid_row">
+
+                <a href="{{section.settings.buttonLink2}}" class="grid_item">
+
+                    <img class="lazyload" data-src="{{section.settings.bannerIMG2 | img_url: '300x'}}">
+
+                    <span class="grid_item-button">{{section.settings.buttonText2}}</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="grid_column-long">
+
+            <div class="grid_row">
+
+                <a href="{{section.settings.buttonLink3}}" class="grid_item">
+
+                    <img class="lazyload" data-src="{{section.settings.bannerIMG3 | img_url: '500x800'}}">
+
+                    <span class="grid_item-button">{{section.settings.buttonText3}}</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="grid_column-wide">
+
+            <div class="grid_row">
+
+                <a href="{{section.settings.buttonLink4}}" class="grid_item">
+
+                    <img class="lazyload" data-src="{{section.settings.bannerIMG4 | img_url: '300x'}}">
+
+                    <span class="grid_item-button">{{section.settings.buttonText4}}</span>
+
+                </a>
+
+            </div>
+
+            <div class="grid_row">
+
+                <a href="{{section.settings.buttonLink5}}" class="grid_item">
+
+                    <img class="lazyload" data-src="{{section.settings.bannerIMG5 | img_url: '300x'}}">
+
+                    <span class="grid_item-button">{{section.settings.buttonText5}}</span>
+
+                </a>
+
+            </div>
+
+            <div class="grid_row-wide">
+
+                <a href="{{section.settings.buttonLink6}}" class="grid_item">
+                    <img class="lazyload" data-src="{{section.settings.bannerIMG6 | img_url: '600x300'}}">
+                    <span class="grid_item-button">{{section.settings.buttonText6}}</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+{% schema %}
+
+    {
+
+        "name": "Homepage Grid Banner",
+
+        "settings": [
+
+            {
+
+                "type": "image_picker",
+
+                "id": "bannerIMG1",
+
+                "label": "Banner Image 1"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "buttonText1",
+
+                "label": "Image 1 Button Text"
+
+            },
+
+            {
+
+                "type": "url",
+
+                "id": "buttonLink1",
+
+                "label": "Image 1 Button Link"
+
+            },
+
+            {
+
+                "type": "image_picker",
+
+                "id": "bannerIMG2",
+
+                "label": "Banner Image 2"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "buttonText2",
+
+                "label": "Image 2 Button Text"
+
+            },
+
+            {
+
+                "type": "url",
+
+                "id": "buttonLink2",
+
+                "label": "Image 2 Button Link"
+
+            },
+
+            {
+
+                "type": "image_picker",
+
+                "id": "bannerIMG3",
+
+                "label": "Banner Image 3"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "buttonText3",
+
+                "label": "Image 3 Button Text"
+
+            },
+
+            {
+
+                "type": "url",
+
+                "id": "buttonLink3",
+
+                "label": "Image 3 Button Link"
+
+            },
+
+            {
+
+                "type": "image_picker",
+
+                "id": "bannerIMG4",
+
+                "label": "Banner Image 4"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "buttonText4",
+
+                "label": "Image 4 Button Text"
+
+            },
+
+            {
+
+                "type": "url",
+
+                "id": "buttonLink4",
+
+                "label": "Image 4 Button Link"
+
+            },
+
+            {
+
+                "type": "image_picker",
+
+                "id": "bannerIMG5",
+
+                "label": "Banner Image 5"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "buttonText5",
+
+                "label": "Image 5 Button Text"
+
+            },
+
+            {
+
+                "type": "url",
+
+                "id": "buttonLink5",
+
+                "label": "Image 5 Button Link"
+
+            },
+
+            {
+
+                "type": "image_picker",
+
+                "id": "bannerIMG6",
+
+                "label": "Banner Image 6"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "buttonText6",
+
+                "label": "Image 6 Button Text"
+
+            },
+
+            {
+
+                "type": "url",
+
+                "id": "buttonLink6",
+
+                "label": "Image 6 Button Link"
+
+            }
+
+        ],
+
+        "presets": [
+
+            {
+
+                "category": "Mediacarry",
+
+                "name":"Homepage Grid Banner"
+
+            }
+
+        ]
+
+    }
+
+{% endschema %}
+

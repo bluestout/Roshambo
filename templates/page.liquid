@@ -1,0 +1,29 @@
+<div class="container-indent">
+  <div class="container">
+    {{ page.content }}
+    
+    {% if page.title == "Measure Your Pupillary Distance" %}
+
+    <div class="Pupillary-Distance-form">
+      <img src="https://cdn.shopify.com/s/files/1/0769/0373/files/PD-Hippo.png?v=1655988422" />
+      <div class="pd-inputs">
+        <button id="meassure-pd" onclick="getPrescriptionClicked()">Measure My PD</button>
+        <input id="pd-number" type="number" placeholder="Enter Your PD" />
+        <input id="pd-email" type="email" placeholder="Email" />
+        <input id="pd-order" type="number" placeholder="Order #" />
+        <input id="pd-notes" type="text" placeholder="Notes for the Team" />
+        <button id="submit-pd" onclick="landingSubmit(this)">Submit Your PD</button>
+        <p class="confirm-message">
+          Thank you for your PD! We have sent a copy to the Roshambo Prescription team so they can start your order. A copy has been sent to you for your records.
+        </p>
+      </div>
+    </div>
+
+    <link rel="stylesheet" href="{{'pd-landing.css' | asset_url }}" />
+    <link rel="stylesheet" href="https://web.glasseson.com/css/fonts.css" />
+    <script src="https://web.cdn.glasseson.com/glasseson-2.7.9.js"></script>  
+    <div id="glasseson"></div>
+    <script src="{{'pd-tool.js' | asset_url}}"></script>
+    {% endif %}
+  </div>
+</div>

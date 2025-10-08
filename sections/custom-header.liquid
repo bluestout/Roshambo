@@ -1,0 +1,567 @@
+<div id="sideMenu">
+
+    <div class="sidemenu-inner">
+
+        <div class="close-flex">
+
+            <a href="javascript:void(0);" id="closeSideMenu" onclick="closeSideMenu()" class="custom_header-icon">{% render 'icon-close' %}</a>
+
+        </div>
+
+      	<h2 class="shop-side">SHOP</h2>
+
+        {% render 'header_bottom' | header_blocks: section.blocks | view: 'mobile'%}
+
+        <div class="sidemenu-menu_outer">
+
+            {% assign mobile_navlist = section.settings.mobile_menu_navlist %}
+
+            {% for link in linklists[mobile_navlist].links %}
+
+                <div class="sidemenu-menu_item">
+
+                    {% if link.links != blank %}
+
+                        <a href="javascript:void(0);" class="sidemenu-title sidemenu-hasChildren">{{link.title}}</a>
+
+                        <div class="sidemenu-childMenu">
+
+                            {% for childlink in link.links %}
+
+                                <a href="{{childlink.url}}" class="sidemenu-childTitle" >
+
+                                    {{childlink.title}}
+
+                                </a>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <a href="{{link.url}}" class="sidemenu-title">{{link.title}}</a>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div class="custom_header-outer">
+
+    <div class="custom_header-top">
+
+        <div class="custom-header-desktop">
+
+            <div class="custom_header-left-outer">
+
+                <a href="/">
+
+                    <img width="150px" height="100px" src="{{section.settings.topLogo | img_url:'180x180'}}"/>
+
+                </a>
+
+                <ul class="custom_header-left-menu">
+
+                    {% assign navlist = section.settings.topMenu %}
+
+                    {% for link in linklists[navlist].links %}
+
+                        <li class="custom_header-menu_item">
+
+                            {% if link.links != blank %}
+
+                                <a href="{{link.url}}" class="custom_header-menu_title has_children">{{link.title}}</a>
+
+                                <ul class="custom_header-childMenu">                                       
+
+                                    {% for childlink in link.links %}
+
+                                        <li class="custom_header-childMenu_item">
+
+                                            <a href="{{childlink.url}}" class="custom_header-childMenu_title" >
+
+                                                {{childlink.title}}
+
+                                            </a>
+
+                                        </li>
+
+                                    {% endfor %}
+
+                                </ul>
+
+                            {% else %}
+
+                                <a href="{{link.url}}" class="custom_header-menu_title">{{link.title}}</a>
+
+                            {% endif %}
+
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+            <div class="custom_header-center-outer">
+
+                <div class="custom_header-center-inner">
+
+                    <ul class="custom_header-center-menu">
+
+                        {% assign navlist = section.settings.topMenu %}
+
+                        {% for link in linklists[navlist].links %}
+
+                            <li class="custom_header-menu_item">
+
+                                {% if link.links != blank %}
+
+                                    <a href="{{link.url}}" class="custom_header-menu_title has_children">{{link.title}}</a>
+
+                                    <ul class="custom_header-childMenu">                                       
+
+                                        {% for childlink in link.links %}
+
+                                            <li class="custom_header-childMenu_item">
+
+                                                <a href="{{childlink.url}}" class="custom_header-childMenu_title" >
+
+                                                    {{childlink.title}}
+
+                                                </a>
+
+                                            </li>
+
+                                        {% endfor %}
+
+                                    </ul>
+
+                                {% else %}
+
+                                    <a href="{{link.url}}" class="custom_header-menu_title">{{link.title}}</a>
+
+                                {% endif %}
+
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="custom_header-right-outer">
+
+                <div class="custom_header-right-inner">
+
+                    <div class="header_search">
+
+                        <form action="/search" method="get" role="search" style="margin-left: {{ item.search_indent }}px;">
+
+                            <input  class="tt-search-input"
+
+                                    type="search"
+
+                                    name="q"
+
+                                    placeholder="{{ 'general.search.place_holder' | t }}"
+
+                                    aria-label="{{ 'general.search.place_holder' | t }}">
+
+                        </form>
+
+                    </div>
+
+                    <div class="custom_header-icons_outer">
+
+                        <a href="{% if customer %}/account{% else %}/account/login{% endif %}" class="custom_header-icon {% if customer %}has--account{% endif %}">{% render 'icon-account' %}</a>
+
+                        <a href="{% if customer.tags contains "wholesale" %}/cart{% else %}javascript:void(0);{% endif %}" class="custom_header-icon {% unless customer.tags contains "wholesale" %}js-ajax-cart-drawer-trigger-mobile{% endunless %}">
+
+                            {% render 'icon-cart' %}
+
+                                <span id="cart_item_count" class="cart_count">{% render 'bold-options-hybrid-cart-item-count' %}</span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="custom-header-mobile">
+
+            <div class="custom_header-left-outer">
+
+                <div class="custom_header-icons_outer"> 
+
+                    <a href="javascript:void(0);" id="openSideMenu" onclick="openSideMenu()" class="custom_header-icon">{% render 'icon-hamburger' %}</a>
+
+                    <a href="javascript:void(0);" id="closeSideMenu" onclick="closeSideMenu()" class="custom_header-icon">{% render 'icon-close' %}</a>
+
+                </div>
+
+            </div>
+
+            <a class="mobile_logo" href="/">
+
+                <img width="150px" height="100px" src="{{section.settings.topLogo | img_url:'180x180'}}"/>
+
+            </a>
+
+            <div class="custom_header-right-outer">
+
+                <div class="custom_header-icons_outer"> 
+
+                    <a href="javascript:void(0);" onclick="openSearchBar()" class="custom_header-icon">{% render 'icon-search' %}</a>
+
+                    <a href="{% if customer %}/account{% else %}/account/login{% endif %}" class="custom_header-icon {% if customer %}has--account{% endif %}">{% render 'icon-account' %}</a>
+
+                    <a href="{% if customer.tags contains "wholesale" %}/cart{% else %}javascript:void(0);{% endif %}" class="custom_header-icon {% unless customer.tags contains "wholesale" %}js-ajax-cart-drawer-trigger{% endunless %}">
+
+                        {% render 'icon-cart' %}
+
+                        <span id="cart_item_count" class="cart_count">{{ cart.item_count }}</span>
+
+                       
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+    <div id="mobileSearchBar">
+
+        <div class="mobileSearch-inner">
+
+            <form action="/search" method="get" role="search" style="margin-left: {{ item.search_indent }}px;">
+
+                <input  class="tt-search-input"
+
+                        type="search"
+
+                        name="q"
+
+                        placeholder="{{ 'general.search.place_holder' | t }}"
+
+                        aria-label="{{ 'general.search.place_holder' | t }}">
+
+            </form> 
+
+            <a href="javascript:void(0);" onclick="closeSearchbar()" class="custom_header-icon searchClose">{% render 'icon-close' %}</a>
+
+        </div>
+
+    </div>
+
+    {% render 'header_bottom' | header_blocks: section.blocks | view: 'desktop'%}
+
+</div> 
+
+
+
+{% schema %}
+
+    {
+
+        "name": "Custom Header",
+
+        "settings": [
+
+            {
+
+                "type": "link_list",
+
+                "id": "topMenu",
+
+                "label": "Header Top Menu"
+
+            },
+
+            {
+
+                "type":"image_picker",
+
+                "id":"topLogo",
+
+                "label":"Store Logo"
+
+            },
+
+            {
+
+                "type": "checkbox",
+
+                "id": "use_circle_buttons",
+
+                "label": "Use Circle Buttons on Mega Menu",
+
+                "default": true
+
+            },
+
+            {
+
+                "type": "link_list",
+
+                "id": "mobile_menu_navlist",
+
+                "label": "Mobile Menu Navigation"
+
+            },
+
+            {
+
+                "type": "header",
+
+                "content": "Desktop Color Options"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "mega_menu_background_des",
+
+                "label": "Mega Menu Background",
+
+                "default": "#FFFFFF"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "mega_menu_button_des",
+
+                "label": "Mega Menu Button Background",
+
+                "default": "#FFFFFF"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "mega_menu_button_hover_des",
+
+                "label": "Mega Menu Button Background",
+
+                "default": "#FFFFFF"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "mega_menu_button_text_des",
+
+                "label": "Mega Menu Button Background",
+
+                "default": "#000000"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "mega_menu_button_text_hover_des",
+
+                "label": "Mega Menu Button Background",
+
+                "default": "#000000"
+
+            }
+
+        ],
+
+        "blocks":[ 
+
+            {
+
+                "type": "megaMenu",
+
+                "name": "Mega Menu",
+
+                "limit": 4,
+
+                "settings":[
+
+                    {
+
+                        "type": "link_list",
+
+                        "id": "megaMenuList",
+
+                        "label": "Mega Menu"
+
+                    },
+
+                    {
+
+                        "type": "image_picker",
+
+                        "id": "megaMenuIMG",
+
+                        "label": "Mega Menu Image"
+
+                    },
+
+                    {
+
+                        "type": "image_picker",
+
+                        "id": "mega_menu_img_circle",
+
+                        "label": "Mega Menu Circle Image"
+
+                    },
+
+                    {
+
+                        "type": "text",
+
+                        "id": "megaMenuTitle",
+
+                        "label": "Mega Menu Title"
+
+                    },
+
+                    {
+
+                        "type": "checkbox",
+
+                        "id": "showAd1",
+
+                        "label": "Show Advertisement 1",
+
+                        "default": true
+
+                    },
+
+                    {
+
+                        "type": "image_picker",
+
+                        "id": "megaMenuAdIMG1",
+
+                        "label": "Mega Menu Advertisement Image 1"
+
+                    },
+
+                    {
+
+                        "type": "url",
+
+                        "id": "megaMenuAdLink1",
+
+                        "label": "Mega Menu Advertisement Link 1"
+
+                    },
+
+                    {
+
+                        "type": "checkbox",
+
+                        "id": "showAd2",
+
+                        "label": "Show Advertisement 2",
+
+                        "default": true
+
+                    },
+
+                    {
+
+                        "type": "image_picker",
+
+                        "id": "megaMenuAdIMG2",
+
+                        "label": "Mega Menu Advertisement Image 2"
+
+                    },
+
+                    {
+
+                        "type": "url",
+
+                        "id": "megaMenuAdLink2",
+
+                        "label": "Mega Menu Advertisement Link 2"
+
+                    },
+
+                    {
+
+                        "type": "checkbox",
+
+                        "id": "showAd3",
+
+                        "label": "Show Advertisement 3",
+
+                        "default": true
+
+                    },
+
+                    {
+
+                        "type": "image_picker",
+
+                        "id": "megaMenuAdIMG3",
+
+                        "label": "Mega Menu Advertisement Image 3"
+
+                    },
+
+                    {
+
+                        "type": "url",
+
+                        "id": "megaMenuAdLink3",
+
+                        "label": "Mega Menu Advertisement Link 3"
+
+                    }
+
+                ]
+
+            }
+
+            
+
+        ]
+
+        
+
+    }
+
+{% endschema %}

@@ -1,0 +1,328 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {}
+    },
+    "3d5d5baf-1572-4d6e-ae95-5e215a1a43b8": {
+      "type": "homepage-hero-banner",
+      "blocks": {
+        "da68fa04-3b25-4e2b-8710-0990ec2a5732": {
+          "type": "slide",
+          "settings": {
+            "use_banner_image": true,
+            "banner_image": "shopify://shop_images/blippi-flexible-sunglasses-banner_091a13af-6c28-4cfa-8a3c-6a823fb2eed6.jpg",
+            "banner_slide_url": "https://www.roshambo.com/collections/blippi",
+            "use_banner_video": false,
+            "youtube_embed": ""
+          }
+        },
+        "ce922ef6-af7b-488d-b234-4e76cca53311": {
+          "type": "slide",
+          "settings": {
+            "use_banner_image": true,
+            "banner_image": "shopify://shop_images/blippi-slider10_c7a665d1-50b5-42e3-b0d1-35fdfd600c79.jpg",
+            "banner_slide_url": "https://www.roshambo.com/collections/blippi",
+            "use_banner_video": false,
+            "youtube_embed": ""
+          }
+        }
+      },
+      "block_order": [
+        "da68fa04-3b25-4e2b-8710-0990ec2a5732",
+        "ce922ef6-af7b-488d-b234-4e76cca53311"
+      ],
+      "settings": {
+        "banner_autoplay_gap": 6000
+      }
+    },
+    "0c752729-5ff8-4bc5-a427-9e910fb6eee2": {
+      "type": "new-text-block",
+      "settings": {
+        "title": "BLIPPI LICENSED FLEXIBLE EYEWEAR",
+        "text": "<p><strong>Does your child love Blippi? Roshambo has partnered with Blippi to design his officially licensed Blippi eyewear!</strong></p><p>Blippi orange frames are available as sunglasses, screen time glasses, and even prescription eyewear for kids. The ultra durable, virtually unbreakable and ultra light material of our bendable frame is specially designed with kids in mind. We also offer a one year full damage replacement guarantee on our frames!</p>",
+        "button_text": "SHOP BLIPPI GLASSES",
+        "button_url": "https://www.roshambo.com/collections/blippi"
+      }
+    },
+    "cc20e34e-b0b5-417f-a6a5-1564fccf3030": {
+      "type": "home-image-text",
+      "blocks": {
+        "template--16049215111338__cc20e34e-b0b5-417f-a6a5-1564fccf3030-16747315680d249f37-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/blippi-glasses-toddler.png",
+            "title": "SHOP BLIPPI GLASSES",
+            "link": "https://www.roshambo.com/collections/blippi"
+          }
+        },
+        "template--16049215111338__cc20e34e-b0b5-417f-a6a5-1564fccf3030-16747315680d249f37-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/blippi-sunglasses-blue.png",
+            "title": "SHOP BLIPPI SUNGLASSES",
+            "link": "https://www.roshambo.com/collections/blippi"
+          }
+        }
+      },
+      "block_order": [
+        "template--16049215111338__cc20e34e-b0b5-417f-a6a5-1564fccf3030-16747315680d249f37-0",
+        "template--16049215111338__cc20e34e-b0b5-417f-a6a5-1564fccf3030-16747315680d249f37-1"
+      ],
+      "settings": {}
+    },
+    "c111c87c-79d7-4e8d-add8-34434ccb7a04": {
+      "type": "index-section-products",
+      "settings": {
+        "section_class": "",
+        "top_offset": "normal",
+        "custom_classes": "",
+        "fullwidth": false,
+        "nopaddings": false,
+        "hideallelementsonindex": false,
+        "show_title": true,
+        "title_to_left": false,
+        "boxed_title": false,
+        "text1": "SHOP THE BLIPPI COLLECTION",
+        "text2": "Blippi sunglasses and glasses in sizes for the whole family!",
+        "text3": "",
+        "use_title_as_link": true,
+        "show_button": true,
+        "button_text": "SHOP ALL BLIPPI",
+        "collection": "blippi-eyewear",
+        "items_always_in_center": false,
+        "limit": "8",
+        "items": "3",
+        "default_carousel": false,
+        "boxed_buttons": false,
+        "show_oneproduct_in_mobile": false,
+        "use_adaptive_height": true,
+        "toshow": "4",
+        "step": "2",
+        "module_autoplay": false,
+        "delay_time": "7000"
+      }
+    },
+    "c5fc4ab5-477c-4009-a13b-ed81be2b4873": {
+      "type": "home-image-grid-items",
+      "blocks": {
+        "template--16049215111338__c5fc4ab5-477c-4009-a13b-ed81be2b4873-16747322899bc52b53-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/baby-size.png",
+            "title": "BABY",
+            "text": "Ages 0 - 2",
+            "link": "https://www.roshambo.com/collections/baby-shades"
+          }
+        },
+        "template--16049215111338__c5fc4ab5-477c-4009-a13b-ed81be2b4873-16747322899bc52b53-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/toddler-size.png",
+            "title": "Toddler",
+            "text": "Ages 2 - 4",
+            "link": "https://www.roshambo.com/collections/toddler-shades"
+          }
+        },
+        "0501a577-9931-4faf-a4db-8a4f112c10db": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/junior-size.png",
+            "title": "JUNIOR",
+            "text": "Ages 5 - 10",
+            "link": "https://www.roshambo.com/collections/junior-shades"
+          }
+        },
+        "98ae2b51-f542-4b63-9f22-1875c50c3820": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/teen-size.png",
+            "title": "Teen & Adult Small",
+            "text": "",
+            "link": "https://www.roshambo.com/collections/teen"
+          }
+        },
+        "e429b655-2af8-48a0-9ab0-783bd5e22d7d": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/adult-size.png",
+            "title": "Adult Large",
+            "text": "",
+            "link": "https://www.roshambo.com/collections/adult"
+          }
+        }
+      },
+      "block_order": [
+        "template--16049215111338__c5fc4ab5-477c-4009-a13b-ed81be2b4873-16747322899bc52b53-0",
+        "template--16049215111338__c5fc4ab5-477c-4009-a13b-ed81be2b4873-16747322899bc52b53-1",
+        "0501a577-9931-4faf-a4db-8a4f112c10db",
+        "98ae2b51-f542-4b63-9f22-1875c50c3820",
+        "e429b655-2af8-48a0-9ab0-783bd5e22d7d"
+      ],
+      "settings": {
+        "title": "FIVE SIZES FOR THE WHOLE FAMILY"
+      }
+    },
+    "b42de528-c284-4cb5-8204-1450f901eeab": {
+      "type": "sunglasses-icon-text",
+      "blocks": {
+        "456c5fa8-8bab-4352-84d2-b4bdee176c67": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Bayside_Icon_e9c6eee9-f17c-41c5-a56e-9191525708e1.png",
+            "column_title": "Bayside",
+            "icon_link": "https://www.roshambo.com/collections/bayside"
+          }
+        },
+        "cb48d75b-853d-4776-b389-87dbcb2d05a9": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/shield.png",
+            "column_title": "THE MAX",
+            "icon_link": "https://www.roshambo.com/collections/shield-sunglasses"
+          }
+        },
+        "fea04541-ac85-4e68-bc24-0eff0e409a21": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Malibu_Sands_Icon_2aa1608d-e59b-4e3f-985e-299e167a9d2d.png",
+            "column_title": "Malibu Sands",
+            "icon_link": "https://www.roshambo.com/collections/malibu-sands"
+          }
+        },
+        "3edb81cb-d0d5-44d6-b71a-f54f26c7209b": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/Hot_Sundae_Icon_9f5d701d-6619-46fc-8611-3f4010c7f975.png",
+            "column_title": "Hot Sundae",
+            "icon_link": "https://www.roshambo.com/collections/hot-sundae"
+          }
+        },
+        "32285222-2ae2-4a69-8669-5fa171642859": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/sports-icon.png",
+            "column_title": "SPORTS WRAP",
+            "icon_link": "https://www.roshambo.com/collections/ludicrous-speed"
+          }
+        }
+      },
+      "block_order": [
+        "456c5fa8-8bab-4352-84d2-b4bdee176c67",
+        "cb48d75b-853d-4776-b389-87dbcb2d05a9",
+        "fea04541-ac85-4e68-bc24-0eff0e409a21",
+        "3edb81cb-d0d5-44d6-b71a-f54f26c7209b",
+        "32285222-2ae2-4a69-8669-5fa171642859"
+      ],
+      "settings": {
+        "title": "Flexible Polarized Sunglasses",
+        "text": "<p><strong>Roshambo has a variety of flexible sunglasses styles and sizes for your whole family!</strong></p><p>Roshambo flexible polarized sunglasses are proudly made in Italy and assembled in the United States. These durable, ultra light frames are BPA, phthalate, lead & latex free! Check out all the colors and sizes available to your family.</p>",
+        "button_text": "Shop Roshambo Sunglasses",
+        "button_url": "https://www.roshambo.com/collections/all-products"
+      }
+    },
+    "135a9ad5-0ec7-430b-a9c4-ce070ce0f086": {
+      "type": "image-w-text-row",
+      "settings": {
+        "backgroundColor": "#1cbbb4",
+        "sectionImage": "shopify://shop_images/Twist-Shades-sm_600x_6a7bb744-49d6-4112-a782-78a98d1eebcc.png",
+        "titleColor": "#ffffff",
+        "textboxTitle": "Durable. Flexible. Stylish.",
+        "paragraphColor": "#000000",
+        "textboxParagraph": "Roshambo Eyewear is a family-owned business that provides affordable Italian-made polarized sunglasses, prescription glasses, and screen time glasses for the entire family. Our unbreakable frames are durable enough for kids, but stylish enough for adults too. With 5 sizes to choose from, we know you can find the perfect fit just for you!   All Roshambo frames are proudly made in Italy and assembled in the United States. They are BPA, phthalate, lead & latex free, and are small parts tested as safe for babies! Plus, they are virtually unbreakable...we offer a full damage replacement guarantee if you or your child happen to break them!",
+        "linkColor": "#ff2392",
+        "textboxLinkText": "WATCH 'EM BEND",
+        "textboxLinkURL": "https://www.roshambo.com/pages/product-information"
+      }
+    },
+    "5dfaf5ec-18fd-4769-a124-86302dafe447": {
+      "type": "icon-w-text-column",
+      "settings": {
+        "Background": ""
+      }
+    },
+    "694c1679-60c3-4fb5-a383-fd0534848b06": {
+      "type": "icon-w-text-column",
+      "blocks": {
+        "6ae39869-355c-4c40-b1c6-159c30cff34b": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/italy_icon_864db9a6-b52b-4db9-a638-709f83a0ef41.png",
+            "column_title": "Made in Italy",
+            "column_description": "Our high-quality, flexible Blippi frames are made in Italy and assembled in the United States. Available in 5 sizes!",
+            "column_link": "https://www.roshambo.com/collections/blippi"
+          }
+        },
+        "38dd495b-2e49-4b35-bd07-8e3f312a0b4e": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/safety-tested_3f32cf51-21e0-4163-87b5-e180a47122ca.png",
+            "column_title": "Safety Tested",
+            "column_description": "Our frames are BPA, phthalate, lead and latex free, and are small parts tested as safe for babies.",
+            "column_link": "https://www.roshambo.com/pages/product-information"
+          }
+        },
+        "3236dd53-71fb-4d84-9e73-b5ec05f78dc7": {
+          "type": "column",
+          "settings": {
+            "column_image": "shopify://shop_images/replace_d4787806-8117-499d-bef3-37ef108e2668.png",
+            "column_title": "Replacement",
+            "column_description": "We offer a free replacement guarantee if your frames break, or if you scratch a sunglasses lens!",
+            "column_link": "https://www.roshambo.com/pages/product-information#replacement"
+          }
+        }
+      },
+      "block_order": [
+        "6ae39869-355c-4c40-b1c6-159c30cff34b",
+        "38dd495b-2e49-4b35-bd07-8e3f312a0b4e",
+        "3236dd53-71fb-4d84-9e73-b5ec05f78dc7"
+      ],
+      "settings": {
+        "Background": "#d1fdff"
+      }
+    },
+    "79497636-9f09-460f-922b-4532b022bd49": {
+      "type": "homepage-2x2-content",
+      "blocks": {
+        "69a72bb8-7368-42f5-9a2d-fbe583859fb1": {
+          "type": "text",
+          "settings": {
+            "youtube_link": "jS5oPZ54vBk",
+            "title": "Blippi Sunglasses for Kids!",
+            "description": "Did you know that our bendable, flexible frames can fit even a 1 year old!? The perfect fitting Blippi frames made just for kids in our non-toxic, ultra soft material. Blippi thinks they're SO COOL!",
+            "image": "shopify://shop_images/Blippi_65ee7917-9bd1-4930-aca7-1ecf827efd74.png",
+            "collection": "blippi",
+            "button_text": "SHOP BLIPPI SUNGLASSES",
+            "image_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "69a72bb8-7368-42f5-9a2d-fbe583859fb1"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "3d5d5baf-1572-4d6e-ae95-5e215a1a43b8",
+    "0c752729-5ff8-4bc5-a427-9e910fb6eee2",
+    "cc20e34e-b0b5-417f-a6a5-1564fccf3030",
+    "c111c87c-79d7-4e8d-add8-34434ccb7a04",
+    "c5fc4ab5-477c-4009-a13b-ed81be2b4873",
+    "b42de528-c284-4cb5-8204-1450f901eeab",
+    "135a9ad5-0ec7-430b-a9c4-ce070ce0f086",
+    "5dfaf5ec-18fd-4769-a124-86302dafe447",
+    "694c1679-60c3-4fb5-a383-fd0534848b06",
+    "79497636-9f09-460f-922b-4532b022bd49"
+  ]
+}

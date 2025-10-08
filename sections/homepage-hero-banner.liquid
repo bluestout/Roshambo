@@ -1,0 +1,276 @@
+<div class="hero_banner-outer">
+
+    {% assign block_count = section.blocks %}
+
+    {% if block_count.size > 1 %}
+
+        <div class="hero_banner-inner" 
+
+        data-flickity='{ 
+
+            "wrapAround": true, 
+
+            "cellAlign": "left", 
+
+            "contain": true,
+
+            "draggable": false,
+
+            "imagesLoaded": true, 
+
+            "prevNextButtons": true, 
+
+            "pageDots": false, 
+            
+            "lazyLoad": true,
+
+            "adaptiveHeight": true,
+
+            "autoPlay": {{section.settings.banner_autoplay_gap}}
+
+        }'>
+
+            {% for block in section.blocks %}
+
+                {% if block.settings.use_banner_image == true %}
+
+                    <a class="hero_banner-slide" {% if block.settings.banner_slide_url %} href="{{block.settings.banner_slide_url}}" {% endif %} class="hero_banner-slide">
+
+                        <div class="hero_banner-imagebox">
+
+                            <img data-flickity-lazyload="{{block.settings.banner_image | img_url: '414x115'}}">
+
+                        </div>
+
+                    </a>
+
+                {% endif %}
+
+                {% if block.settings.use_banner_video == true and block.settings.use_banner_image != true %}
+
+                    <div class="hero_banner-slide">
+
+                        <div class="hero_banner-videobox">
+
+                            <iframe
+
+                            src="{{block.settings.youtube_embed}}" 
+
+                            title="YouTube video player" 
+
+                            frameborder="0" 
+
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+
+                            allowfullscreen></iframe>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="hero_banner-inner">
+
+            {% for block in section.blocks %}
+
+                {% if block.settings.use_banner_image == true %}
+
+                    <a {% if block.settings.banner_slide_url %} href="{{block.settings.banner_slide_url}}" {% endif %} class="hero_banner-slide">
+                       {% assign image_width = block.settings.banner_image.width %}
+                      {% capture sizes %}
+                      (min-width: 1200px) calc((1200px - 10) * {{ image_width }} /  1),
+                      (min-width: 990px) calc((100vw - 10) * {{ image_width }} / 1),
+                      (min-width: 750px) calc((100vw - 10) * {{ image_width }} / 1),
+                      calc((100vw - 10) * {{ image_width }} / 3)
+                    {% endcapture %}
+                        <div class="hero_banner-imagebox">
+                                 {{
+                      block.settings.banner_image
+                      | image_url: width: 3200
+                      | image_tag:
+                        widths: '50, 75, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3200',
+                        sizes: sizes,
+                        class: 'multicolumn-card__image'
+                    }}
+                           
+
+                        </div>
+
+                    </a>
+
+                {% endif %}
+
+                {% if block.settings.use_banner_video == true and block.settings.use_banner_image != true %}
+
+                    <div class="hero_banner-slide">
+
+                        <div class="hero_banner-videobox">
+
+                            <iframe
+
+                            src="{{block.settings.youtube_embed}}" 
+
+                            title="YouTube video player" 
+
+                            frameborder="0" 
+
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+
+                            allowfullscreen></iframe>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+
+{% schema %}
+
+    {
+
+        "name": "Homepage Hero Banner",
+
+        "settings": [
+
+            {
+
+                "type": "range",
+
+                "id": "banner_autoplay_gap",
+
+                "min": 1500,
+
+                "max": 6000,
+
+                "step": 100,
+
+                "label": "Time Between Slides",
+
+                "default": 2000
+
+            }
+
+        ], 
+
+        "blocks":[
+
+            {
+
+                "type": "slide",
+
+                "name": "Banner Slide",
+
+                "settings": [
+
+                    {
+
+                        "type": "header",
+
+                        "content": "Image Option"
+
+                    },
+
+                    {
+
+                        "type": "checkbox",
+
+                        "id": "use_banner_image",
+
+                        "label": "Use Image for Slide",
+
+                        "default": true
+
+                    },
+
+                    {
+
+                        "type": "image_picker",
+
+                        "id": "banner_image",
+
+                        "label": "Slide Image"
+
+                    },
+
+                    {
+
+                        "type": "url",
+
+                        "id": "banner_slide_url",
+
+                        "label": "Slide Image URL Destination",
+
+                        "info": "Leave empty if no URL is needed"
+
+                    },
+
+                    {
+
+                        "type": "header",
+
+                        "content": "Video Option"
+
+                    },
+
+                    {
+
+                        "type": "checkbox",
+
+                        "id": "use_banner_video",
+
+                        "label": "Use Video for Slide",
+
+                        "default": false
+
+                    },
+
+                    {
+
+                        "type": "text",
+
+                        "id": "youtube_embed",
+
+                        "label": "Input YouTube Embed Source"
+
+                    }
+
+
+
+                ]
+
+            }
+
+        ],
+
+        "presets": [
+
+            {
+
+                "category": "Mediacarry",
+
+                "name": "Homepage Hero Banner"
+
+            }
+
+        ]
+
+    }
+
+{% endschema %}

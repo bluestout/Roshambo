@@ -1,0 +1,433 @@
+.tt-title-options {
+    font-family: Hind,sans-serif;
+    font-weight: 700;
+    color: #000;
+    font-size: 20px!important;
+}
+
+.tt-title-options > span {
+    font-weight: 500;
+}
+
+ul.tt-options-swatch {
+    justify-content: flex-start;
+}
+
+/* First Variant: Frame Style */
+
+.tt-swatches-container .tt-wrapper:first-child .tt-options-swatch a{
+    width: 75px !important;
+    height: 75px !important;
+    background-size: cover !important;
+}
+
+
+/* Second Variant: Frame Color */
+.tt-swatches-container .tt-wrapper:nth-child(2) .tt-options-swatch a{
+    color: transparent!important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+}
+
+.tt-swatches-container .tt-wrapper:nth-child(2) .tt-options-swatch li.active{
+    border: 3px solid #2879fe !important;
+    border-radius: 5px;
+}
+
+.tt-swatches-container .tt-wrapper:nth-child(2) .tt-options-swatch li.active a{
+    border: 2px solid white !important;
+}
+
+.tt-swatches-container .tt-wrapper:nth-child(2) .tt-options-swatch a::before{
+    border-width: 0 !important;
+}
+
+.tt-swatches-container .tt-wrapper:nth-child(2) .tt-options-swatch a::after{
+    border-width: 0 !important;
+}
+
+/* Third Variant: Len Type*/
+.prescription-inserts_class .tt-swatches-container .tt-wrapper:nth-child(3) .tt-options-swatch a{
+    font-size: 16px;
+}
+.prescription-inserts_class .tt-swatches-container .tt-wrapper:first-child .tt-options-swatch a {
+    width: 45px!important;
+    height: 45px!important;
+}
+.tt-swatches-container .tt-wrapper:nth-child(3) .tt-options-swatch a{
+    width: 125px!important;
+    height: 75px!important;
+    background-color: #eff2fa;
+    color: black !important;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.tt-swatches-container .tt-wrapper:nth-child(3) .tt-options-swatch li.active a,
+.tt-swatches-container .tt-wrapper:nth-child(3) .tt-options-swatch a:hover{
+    background-color: rgba(40, 121, 254, 0.2); /* when color base is #2879fe */
+}
+
+/* Bold Options */
+
+.bold_option_set > div:first-of-type {
+    display: none;
+}
+
+.bold_option_value {
+    padding: 0 5px !important;
+}
+
+.bold_option_swatch .bold_option_value_element{
+    border: none;
+}
+
+.bold_swatch_selected {
+
+    border: 3px solid #2879fe !important; 
+}
+
+.bold_option_set > div + div > .bold_option_element > span > label > .bold_option_value_element > .bold_option_value_swatch{
+    border:none;
+    background: #eff2fa;
+    width: 100%;
+    height: 100%;
+}
+
+.bold_option_value {
+    padding: 0px 5px;
+}
+
+.bold_option_swatch_title {
+    width: max-content !important;
+    display: none !important;
+}
+
+.bold_option_element input[type="file"] {
+    /* display: block; */
+    margin-left:10px;
+}
+
+.bold_option_element input[type=radio] {
+    margin-top: 10px;
+    margin-right: 5px;
+    border: 1px solid rgb(136, 136, 136);
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+}
+
+.bold_option_title {
+    font-family: 'Hind', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    color: black;
+    font-size: 18px !important;
+}
+
+.bold_option_set > div + div + div > .bold_option_element > span > label > .bold_option_value_element {
+    border-radius: 0;
+}
+
+/* Frame shape border */
+.bold_option_set > .bold_option:first-child > span > span > label > .bold_option_value_element {
+    border-radius: 5px;
+    border: 2px solid rgba(0,0,0,0.3);
+}
+.bold_option_set > .bold_option:first-child > span > span > label > .bold_option_value_element > .bold_option_value_swatch {
+    border-radius: 5px;
+}
+.bold_option_set > .bold_option:first-child > span > span > label > .bold_swatch_selected {
+    border: 3px solid #2879fe !important;
+}
+
+
+
+/* Lens Type size & border 
+.bold_option_set > div + div + .bold_option > span > span > label > span > .bold_option_value_swatch{
+    width: 100px;
+    height: 60px;
+}
+.bold_option_set > div + div + .bold_option > span > span > label > .bold_option_value_element {
+    border-radius: 5px;
+}
+.bold_option_set > div + div + .bold_option > span > span > label > .bold_option_value_element > span {
+    border-radius: 5px;
+}
+
+.bold_option_set > div + div + .bold_option > span > span {
+    cursor: pointer;
+}
+*/
+.bold_option_set > div + .bold_option > span > span:hover > label > .bold_option_value_element::after,
+.bold_option_set > div + div + .bold_option > span > span:hover > label > .bold_option_value_element::after {
+    background-color: rgba(40, 121, 254, 0.2); /* when color base is #2879fe */
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+.bold_option_set .bold_option_element .bold_option_value_element::after {
+  display:none !important;
+}
+.bold_option_set > div + div + .bold_option > span > span > label > .bold_option_value_element::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(40, 121, 254, 0); /* when color base is #2879fe */
+}
+
+.bold_option_set > div + div + .bold_option > span > span > label > .bold_swatch_selected::after,
+.bold_option_set > div + div + .bold_option > span > span:hover > label > .bold_option_value_element.bold_swatch_selected::after {
+    background-color: rgba(40, 121, 254, 0.2); /* when color base is #2879fe */
+    width: 100%;
+    height: 100%;
+    left: 0;
+}
+
+.bold_option_set > div + div + .bold_option > span > span > label > .bold_swatch_selected {
+    border: 3px solid #2879fe !important;
+    border-radius: 5px;
+    position: relative;
+}
+
+.bold_option_value_swatch > span{
+    background-size:100% auto;/*All bold size :(*/
+}
+
+.bold_option_element{
+    margin:0 !important;
+}
+
+.bold_option_dropdown > label {
+    display:block;
+}
+
+.bold_option_dropdown > label > span:last-child{
+    display:block;
+    width:100%;
+}
+
+.bold_option_dropdown > label > span:last-child > select{
+    width:100%;
+    padding:10px;
+}
+
+
+.bold_option_set div:nth-child(2) > span > span > label {
+    display: block;
+    cursor: pointer;
+}
+
+.bold_option_set div:nth-child(2) > span > span > label,
+.bold_option_set div:nth-child(2) .bold_option_value_swatch
+.bold_option_set div:nth-child(2) .bold_option_value_element {
+    width:40px !important; 
+    height:40px !important;
+    background:none !important;
+}
+
+
+.bold_option_set div:nth-child(2) > span > span > label > span,
+.bold_option_set div:nth-child(2) > span > span > label > span > span,
+.bold_option_set div:nth-child(2) > span > span > label > span > span > span{
+    border-radius: 6px;
+    width:40px;
+    height:40px;
+}
+
+
+.bold_option_set div:nth-child(2) > span > span > label > .bold_swatch_selected{
+    box-shadow: 0 0 2px 1px rgb(0 0 0 / 20%) !important;
+    border-width: 0;
+}
+
+.bold_option_set div:nth-child(2) > span > span > label > .bold_swatch_selected > span {
+    width: 40px;
+    height: 40px;
+    margin: -1px;
+}
+.bold_option_set div:nth-child(2) > span > span > label > .bold_swatch_selected > span > span{
+    width: 40px;
+    height: 40px;
+    margin: -1px;
+    border: 2px solid #2879fe!important;
+}
+
+
+
+.bold_option_set div:nth-child(3) > span > span{
+    width:100%;
+}
+
+
+.bold_option_set .bold_option_swatch:nth-child(3) .bold_option_value,
+.bold_option_set .bold_option_swatch:nth-child(4) .bold_option_value,
+.bold_option_set .bold_option_swatch:nth-child(5) .bold_option_value,
+.bold_option_set .bold_option_swatch:nth-child(6) .bold_option_value{
+    height: 150px;
+    width: 100%;
+    margin: 5px 0;
+}
+
+
+.bold_option_set .bold_option_swatch:nth-child(3) .bold_option_value > label,
+.bold_option_set .bold_option_swatch:nth-child(4) .bold_option_value > label,
+.bold_option_set .bold_option_swatch:nth-child(5) .bold_option_value > label,
+.bold_option_set .bold_option_swatch:nth-child(6) .bold_option_value > label{
+    display: flex !important;
+    height: 100%;
+}
+
+.bold_option_set .bold_option_swatch:nth-child(3) .bold_option_value .bold_option_value_element,
+.bold_option_set .bold_option_swatch:nth-child(4) .bold_option_value .bold_option_value_element,
+.bold_option_set .bold_option_swatch:nth-child(5) .bold_option_value .bold_option_value_element,
+.bold_option_set .bold_option_swatch:nth-child(6) .bold_option_value .bold_option_value_element{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.bold_option_set .bold_option_swatch:nth-child(3) .bold_option_value .bold_option_value_element .bold_option_value_swatch, 
+.bold_option_set .bold_option_swatch:nth-child(4) .bold_option_value .bold_option_value_element .bold_option_value_swatch,
+.bold_option_set .bold_option_swatch:nth-child(5) .bold_option_value .bold_option_value_element .bold_option_value_swatch,
+.bold_option_set .bold_option_swatch:nth-child(6) .bold_option_value .bold_option_value_element .bold_option_value_swatch{
+    border-radius: 5px;
+}
+
+@media(max-width:500px){
+    .bold_option_set .bold_option_swatch:nth-child(3) .bold_option_value,
+    .bold_option_set .bold_option_swatch:nth-child(4) .bold_option_value,
+    .bold_option_set .bold_option_swatch:nth-child(5) .bold_option_value,
+    .bold_option_set .bold_option_swatch:nth-child(6) .bold_option_value{
+        height: 90px;
+    }
+}
+
+
+.bold_option.bold_option_checkbox{
+    margin-left: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 0;
+}
+
+.bold_option.bold_option_checkbox > label .bold_option_title{
+    font-size: 18px !important;
+}
+
+.bold_option.bold_option_radio .bold_option_title::after{
+    content: ' Required for sphere powers greater than +/- 6.00 or cylinder powers greater than +/- 2.00 ';
+    display: inline;
+    font-weight: normal !important;
+}
+
+.bold_option.bold_option_checkbox > label .bold_option_value_price .money{
+    font-size: 18px !important;
+    color: #2879fe;
+}
+
+.bold_option.bold_option_checkbox > label .bold_option_value_price .money::before{
+    content: "(";
+    display: inline;
+}
+
+.bold_option.bold_option_checkbox > label .bold_option_value_price .money::after{
+    content: ")";
+    display: inline;
+}
+
+.bold_option.bold_option_uploadfile > label .bold_option_title::after{
+    content: ' Upload a file or picture of your prescription. Appointment or Expiration date must be visible. We cannot fill bifocal or prism prescriptions. ';
+    display: inline;
+    font-weight: normal !important;
+    font-size: 18px !important;
+    white-space: pre-line;
+}
+
+.bold_option.bold_option_uploadfile > label .bold_option_element{
+    display: block;
+    margin: 0.5rem 0 !important;
+}
+
+@media(max-width: 500px) {
+    .bold_option.bold_option_checkbox>label .bold_option_title,
+    .bold_option.bold_option_checkbox > label .bold_option_value_price .money{
+        font-size: 15px !important;
+    }
+    
+    .bold_option.bold_option_uploadfile > label .bold_option_title::after{
+        font-size: 14px !important;
+    }
+
+    .bold_option_title, .tt-title-options {
+        font-size: 15px !important;
+    }
+    
+}
+
+
+/*
+.bold_option_set .bold_option_swatch:nth-child(3) .bold_option_value_swatch,
+.bold_option_set .bold_option_swatch:nth-child(4) .bold_option_value_swatch,
+.bold_option_set .bold_option_swatch:nth-child(5) .bold_option_value_swatch{
+    width:520px;
+    height:150px;
+    background: #eff2fa!important;
+}
+
+
+/* Responsive Opotions 
+
+@media(min-width: 1200px){
+    .bold_option_set .bold_option_swatch:nth-child(3),
+    .bold_option_set .bold_option_swatch:nth-child(4),
+    .bold_option_set .bold_option_swatch:nth-child(5){
+        transform-origin: center left;
+        transform:scale(1);
+    }
+
+    .bold_option_set .bold_option_swatch:nth-child(5) .bold_option_value_swatch{
+        width:435px;
+    }
+}
+
+
+@media(max-width:1199px){
+    .bold_option_set .bold_option_swatch:nth-child(3),
+    .bold_option_set .bold_option_swatch:nth-child(4),
+    .bold_option_set .bold_option_swatch:nth-child(5){
+        transform-origin: center left;
+        transform:scale(0.7);
+    }
+
+    .bold_option_set .bold_option_swatch:nth-child(5) .bold_option_value_swatch{
+        width:435px;
+    }
+
+}
+
+@media(max-width:500px){
+    .bold_option_set .bold_option_swatch:nth-child(3){
+        transform-origin: top left;
+        transform:scale(0.65);
+    }
+    .bold_option_set .bold_option_swatch:nth-child(4){
+        transform-origin: top left;
+        transform:scale(0.65);
+    }
+
+    .bold_option_set .bold_option_swatch:nth-child(5){
+        transform-origin: top left;
+        transform:scale(1);
+    }
+    .bold_option_set .bold_option_swatch:nth-child(5) .bold_option_value_swatch{
+        width:320px;
+        height: 97.5px;
+    }
+
+}
+*/

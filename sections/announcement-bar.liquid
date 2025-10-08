@@ -1,0 +1,166 @@
+<link rel="stylesheet" href="{{'announcement-bar.css' | asset_url}}">
+
+{% if section.settings.show_announcement %}
+  {% if section.settings.home_page_only == false or template.name == 'index' %}
+    <style>
+      .announcement-bar {
+
+      background-color: {{ section.settings.announcement_bar_color }};
+
+      }
+
+      .announcement-bar__message {
+
+      color: {{ section.settings.announcement_bar_text_color }};
+
+      }
+    </style>
+
+    {% if section.settings.free_shipping_countdown %}
+      {% assign free_shipping_threshold = section.settings.free_shipping_threshold | times: 100 %}
+
+      {% assign shipping_remaining = free_shipping_threshold | minus: cart.total_price %}
+
+      {% assign shipping_remaining_money = shipping_remaining | money %}
+
+      {% assign free_shipping_before_threshold = section.settings.free_shipping_before_threshold_text
+        | replace: '[price]', shipping_remaining_money
+      %}
+
+      {% if shipping_remaining <= 0 %}
+        {% assign announcement = section.settings.free_shipping_after_threshold_text %}
+
+      {% else %}
+        {% assign announcement = free_shipping_before_threshold %}
+      {% endif %}
+
+    {% else %}
+      {% assign announcement = section.settings.text %}
+    {% endif %}
+
+    <div class="announcement-bar">
+      <p
+        class="announcement-bar__message"
+        {% if section.settings.free_shipping_countdown %}
+          data-thresholdMessage="{{section.settings.free_shipping_after_threshold_text}}"
+          data-threshold="{{free_shipping_threshold}}"
+          data-thresholdText="{{section.settings.free_shipping_before_threshold_text}}"
+        {% endif %}
+      >
+        {{ announcement | upcase }}
+      </p>
+    </div>
+  {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+
+  "settings": [
+    {
+      "type": "checkbox",
+
+      "id": "show_announcement",
+
+      "label": "Show Announcement",
+
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+
+      "id": "home_page_only",
+
+      "label": "Homepage Only",
+
+      "default": true
+    },
+
+    {
+      "type": "color",
+
+      "id": "announcement_bar_color",
+
+      "label": "Background Color",
+
+      "default": "#f9f9f9"
+    },
+
+    {
+      "type": "color",
+
+      "id": "announcement_bar_text_color",
+
+      "label": "Text Color",
+
+      "default": "#000000"
+    },
+
+    {
+      "type": "text",
+
+      "id": "text",
+
+      "label": "Announcement Text",
+
+      "default": "Default Announcement"
+    },
+
+    {
+      "type": "checkbox",
+
+      "id": "free_shipping_countdown",
+
+      "label": "Show Free Shipping Countdown",
+
+      "default": true
+    },
+
+    {
+      "type": "range",
+
+      "id": "free_shipping_threshold",
+
+      "label": "Free Shipping Threshold",
+
+      "min": 0,
+
+      "max": 150,
+
+      "unit": "$",
+
+      "step": 5,
+
+      "default": 75,
+
+      "visible_if": "{{ section.settings.free_shipping_countdown }}"
+    },
+
+    {
+      "type": "text",
+
+      "id": "free_shipping_before_threshold_text",
+
+      "label": "Free Shipping Text (Threshold not Reached)",
+
+      "default": "Only [price] away from free shipping",
+
+      "visible_if": "{{ section.settings.free_shipping_countdown }}"
+    },
+
+    {
+      "type": "text",
+
+      "id": "free_shipping_after_threshold_text",
+
+      "label": "Free Shipping Text (Threshold Reached)",
+
+      "default": "Congratulations you unlocked free shipping",
+
+      "visible_if": "{{ section.settings.free_shipping_countdown }}"
+    }
+  ]
+}
+{% endschema %}

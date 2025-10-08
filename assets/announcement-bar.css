@@ -1,0 +1,29 @@
+
+.announcement-bar{
+  z-index: 10;
+  position: relative;
+  text-align: center;
+}
+.announcement-bar__message {
+  display: block;
+  padding: 6px;
+  /* font-family: "Cocogoose"; */
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 !important;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+@media only screen and (min-width: 750px) {
+  .announcement-bar__message {
+    padding-left: 55px;
+    padding-right: 55px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .announcement-bar__message {
+    font-size: 12px;
+  }
+}

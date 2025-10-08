@@ -1,0 +1,261 @@
+{% if shop.metafields.lensadvisor.BASE_URL != blank %}
+    {% liquid
+        assign collectionId = ""
+        assign assignBy = "product"
+        unless request.page_type == "collection"
+            for collection in product.collections
+                if collection.metafields.lensadvisor.collection_id  != blank
+                    assign assignBy = "collection"
+                    assign collectionId = collection.metafields.lensadvisor.collection_id
+                endif
+            endfor
+        else
+            assign assignBy = "collection"
+            assign collectionId = collection.metafields.lensadvisor.collection_id
+        endunless
+    %}
+
+    <div id="{{ block.id }}" class="lensadvisor-widget">
+        <script type="application/json" data-lensadvizor-product="{{ product.id }}">{{- product | json -}}</script>
+        <lensadvizor-btn
+            type="button"
+            id="la-select-lenses-btn"
+            class="la-select-lenses-btn"
+            data-la-variant-id="{{ product.selected_or_first_available_variant.id }}"
+            data-la-product-id="{{ product.id }}"
+            data-lensadvizor-btn
+            data-flow-id="{{collectionId}}"
+            data-la-product-handle="{{ product.handle }}"
+        >
+            Select Lens and Purchase
+        </lensadvizor-btn>
+        <div class="lensadvisor-widget-container" id="lensadvisor-widget-container"></div>
+    </div>
+    <script type="text/javascript">
+        // Reload the page if back button is pressed.
+        {% if request.page_type != "product" %}
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted || window.performance && window.performance.navigation.type === 2) {
+                    window.location.reload();
+                }
+            }, false);
+        {% endif %}
+
+        String.prototype.title = function() {
+            if (this == "None" || this == "") {
+                return "-"
+            }
+            var string = this.toLowerCase()
+            string = string.replace(/(^|\s)[a-z]/g,function(f){return f.toUpperCase();});
+            string = string.replace(/_/g, " ").replace(/-/g, " ")
+            let con = ''
+            for (let i=0; i< string.split(' ').length; i++) {
+                con += ' ' + string.split(' ')[i].replace(/(^|\s)[a-z]/g,function(f){return f.toUpperCase();})
+            }
+            return con.trim()
+        }
+
+        String.prototype.generateId = function(additional) {
+            var string = this.toLowerCase()
+            string = string.replace(/(^|\s)[a-z]/g,function(f){return f.toLowerCase();});
+            string = string.replace(/_/g, "-").replace(/ /g, "-")
+            let con = ''
+            for (let i=0; i< string.split(' ').length; i++) {
+                con += '' + string.split(' ')[i].replace(/(^|\s)[a-z]/g,function(f){return f.toLowerCase();})
+            }
+            if (additional) {
+                return con.trim() + "-" + additional
+            }
+            return con.trim()
+        }
+
+        LensAdvizorBase = {
+            pageType: {{ request.page_type | json }},
+            productAvailable: {{ product.available | json }},
+            prices: {
+                "frame": {{ product.selected_or_first_available_variant.price | divided_by : 100 }},
+                "lens": null,
+                "addons": null,
+                "subtotal": {{ product.selected_or_first_available_variant.price | divided_by : 100 }}
+            },
+            defaultImage: {
+                src: "https://cdn.shopify.com/s/images/admin/no-image-large.gif?da5ac9ca38617f8fcfb1ee46268f66d451ca66b4"
+            },
+            svg: {
+                "upload": `<?xml version="1.0" encoding="iso-8859-1"?>
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;" xml:space="preserve">
+                        <g id="Upload">
+                            <path d="M372.939,264.641c-6.641,0-12.03,5.39-12.03,12.03v84.212H24.061v-84.212c0-6.641-5.39-12.03-12.03-12.03
+                                S0,270.031,0,276.671v96.242c0,6.641,5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03v-96.242
+                                C384.97,270.019,379.58,264.641,372.939,264.641z"/>
+                            <path d="M117.067,103.507l63.46-62.558v235.71c0,6.641,5.438,12.03,12.151,12.03c6.713,0,12.151-5.39,12.151-12.03V40.95
+                                l63.46,62.558c4.74,4.704,12.439,4.704,17.179,0c4.74-4.704,4.752-12.319,0-17.011l-84.2-82.997
+                                c-4.692-4.656-12.584-4.608-17.191,0L99.888,86.496c-4.752,4.704-4.74,12.319,0,17.011
+                                C104.628,108.211,112.327,108.211,117.067,103.507z"/></g>
+                </svg>`,
+                "edit": `<?xml version="1.0" encoding="iso-8859-1"?>
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 469.331 469.331" style="enable-background:new 0 0 469.331 469.331;" xml:space="preserve">
+                    <g>
+                        <path d="M438.931,30.403c-40.4-40.5-106.1-40.5-146.5,0l-268.6,268.5c-2.1,2.1-3.4,4.8-3.8,7.7l-19.9,147.4
+                            c-0.6,4.2,0.9,8.4,3.8,11.3c2.5,2.5,6,4,9.5,4c0.6,0,1.2,0,1.8-0.1l88.8-12c7.4-1,12.6-7.8,11.6-15.2c-1-7.4-7.8-12.6-15.2-11.6
+                            l-71.2,9.6l13.9-102.8l108.2,108.2c2.5,2.5,6,4,9.5,4s7-1.4,9.5-4l268.6-268.5c19.6-19.6,30.4-45.6,30.4-73.3
+                            S458.531,49.903,438.931,30.403z M297.631,63.403l45.1,45.1l-245.1,245.1l-45.1-45.1L297.631,63.403z M160.931,416.803l-44.1-44.1
+                            l245.1-245.1l44.1,44.1L160.931,416.803z M424.831,152.403l-107.9-107.9c13.7-11.3,30.8-17.5,48.8-17.5c20.5,0,39.7,8,54.2,22.4
+                            s22.4,33.7,22.4,54.2C442.331,121.703,436.131,138.703,424.831,152.403z"/>
+                    </g>
+                </svg>`,
+                "email": `<?xml version="1.0" encoding="iso-8859-1"?>
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 75.294 75.294" style="enable-background:new 0 0 75.294 75.294;" xml:space="preserve">
+                    <g>
+                        <path d="M66.097,12.089h-56.9C4.126,12.089,0,16.215,0,21.286v32.722c0,5.071,4.126,9.197,9.197,9.197h56.9
+                            c5.071,0,9.197-4.126,9.197-9.197V21.287C75.295,16.215,71.169,12.089,66.097,12.089z M61.603,18.089L37.647,33.523L13.691,18.089
+                            H61.603z M66.097,57.206h-56.9C7.434,57.206,6,55.771,6,54.009V21.457l29.796,19.16c0.04,0.025,0.083,0.042,0.124,0.065
+                            c0.043,0.024,0.087,0.047,0.131,0.069c0.231,0.119,0.469,0.215,0.712,0.278c0.025,0.007,0.05,0.01,0.075,0.016
+                            c0.267,0.063,0.537,0.102,0.807,0.102c0.001,0,0.002,0,0.002,0c0.002,0,0.003,0,0.004,0c0.27,0,0.54-0.038,0.807-0.102
+                            c0.025-0.006,0.05-0.009,0.075-0.016c0.243-0.063,0.48-0.159,0.712-0.278c0.044-0.022,0.088-0.045,0.131-0.069
+                            c0.041-0.023,0.084-0.04,0.124-0.065l29.796-19.16v32.551C69.295,55.771,67.86,57.206,66.097,57.206z"
+                        />
+                    </g>
+                </svg>`,
+                "attachment": `<svg id="clip" xmlns="http://www.w3.org/2000/svg" width="21.151" height="18.298" viewBox="0 0 21.151 18.298">
+                    <g id="Group_114" data-name="Group 114">
+                        <path id="Path_9912" data-name="Path 9912" d="M19.359,13.032a6.4,6.4,0,0,0-8.342,0L1.3,21.873a3.881,3.881,0,0,0,.075,5.856,4.884,4.884,0,0,0,6.365,0l8.8-8a2.5,2.5,0,0,0,0-3.768,3.14,3.14,0,0,0-4.144,0L3.975,23.613a.652.652,0,0,0,.019.984.821.821,0,0,0,1.063,0l8.419-7.656a1.5,1.5,0,0,1,1.979.039,1.191,1.191,0,0,1,0,1.761l-8.8,8a3.24,3.24,0,0,1-4.275-.028,2.575,2.575,0,0,1,0-3.86l9.72-8.839a4.753,4.753,0,0,1,6.271,0,3.779,3.779,0,0,1,0,5.7l-9.72,8.839a.653.653,0,0,0-.084.981.819.819,0,0,0,1.079.076.734.734,0,0,0,.084-.076l9.72-8.839A5.082,5.082,0,0,0,19.359,13.032Z" transform="translate(0 -11.486)"/>
+                    </g>
+                </svg>`,
+                "check": `<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    width="305.002px" height="305.002px" viewBox="0 0 305.002 305.002" style="enable-background:new 0 0 305.002 305.002;"
+                        xml:space="preserve">
+                    <g>
+                        <g>
+                            <path d="M152.502,0.001C68.412,0.001,0,68.412,0,152.501s68.412,152.5,152.502,152.5c84.089,0,152.5-68.411,152.5-152.5
+                                S236.591,0.001,152.502,0.001z M152.502,280.001C82.197,280.001,25,222.806,25,152.501c0-70.304,57.197-127.5,127.502-127.5
+                                c70.304,0,127.5,57.196,127.5,127.5C280.002,222.806,222.806,280.001,152.502,280.001z"/>
+                            <path d="M218.473,93.97l-90.546,90.547l-41.398-41.398c-4.882-4.881-12.796-4.881-17.678,0c-4.881,4.882-4.881,12.796,0,17.678
+                                l50.237,50.237c2.441,2.44,5.64,3.661,8.839,3.661c3.199,0,6.398-1.221,8.839-3.661l99.385-99.385
+                                c4.881-4.882,4.881-12.796,0-17.678C231.269,89.089,223.354,89.089,218.473,93.97z"/>
+                        </g>
+                    </g>
+                </svg>`,
+                'tooltip': `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" zoomAndPan="magnify" viewBox="0 0 150 149.999998" height="200" preserveAspectRatio="xMidYMid meet" version="1.0">
+                    <path fill="#000000" d="M 75 0 C 33.621094 0 0 33.621094 0 75 C 0 116.378906 33.621094 150 75 150 C 116.378906 150 150 116.378906 150 75 C 150 33.621094 116.378906 0 75 0 Z M 75 7.757812 C 112.113281 7.757812 142.242188 37.886719 142.242188 75 C 142.242188 112.113281 112.113281 142.242188 75 142.242188 C 37.886719 142.242188 7.757812 112.113281 7.757812 75 C 7.757812 37.886719 37.886719 7.757812 75 7.757812 Z M 75 31.035156 C 74.234375 31.035156 73.480469 31.109375 72.730469 31.257812 C 71.980469 31.40625 71.253906 31.628906 70.546875 31.921875 C 69.839844 32.210938 69.167969 32.570312 68.535156 32.996094 C 67.898438 33.421875 67.3125 33.902344 66.769531 34.441406 C 66.230469 34.984375 65.746094 35.570312 65.324219 36.207031 C 64.898438 36.84375 64.539062 37.511719 64.246094 38.21875 C 63.957031 38.925781 63.734375 39.652344 63.585938 40.402344 C 63.4375 41.152344 63.363281 41.910156 63.363281 42.671875 C 63.363281 43.4375 63.4375 44.195312 63.585938 44.941406 C 63.734375 45.691406 63.957031 46.421875 64.246094 47.125 C 64.539062 47.832031 64.898438 48.503906 65.324219 49.136719 C 65.746094 49.773438 66.230469 50.359375 66.769531 50.902344 C 67.3125 51.441406 67.898438 51.925781 68.535156 52.347656 C 69.167969 52.773438 69.839844 53.132812 70.546875 53.425781 C 71.253906 53.71875 71.980469 53.9375 72.730469 54.085938 C 73.480469 54.234375 74.234375 54.308594 75 54.308594 C 75.765625 54.308594 76.519531 54.234375 77.269531 54.085938 C 78.019531 53.9375 78.746094 53.71875 79.453125 53.425781 C 80.160156 53.132812 80.832031 52.773438 81.464844 52.347656 C 82.101562 51.925781 82.6875 51.441406 83.230469 50.902344 C 83.769531 50.359375 84.253906 49.773438 84.675781 49.136719 C 85.101562 48.503906 85.460938 47.832031 85.753906 47.125 C 86.042969 46.421875 86.265625 45.691406 86.414062 44.941406 C 86.5625 44.195312 86.636719 43.4375 86.636719 42.671875 C 86.636719 41.910156 86.5625 41.152344 86.414062 40.402344 C 86.265625 39.652344 86.042969 38.925781 85.753906 38.21875 C 85.460938 37.511719 85.101562 36.84375 84.675781 36.207031 C 84.253906 35.570312 83.769531 34.984375 83.230469 34.441406 C 82.6875 33.902344 82.101562 33.421875 81.464844 32.996094 C 80.832031 32.570312 80.160156 32.210938 79.453125 31.921875 C 78.746094 31.628906 78.019531 31.40625 77.269531 31.257812 C 76.519531 31.109375 75.765625 31.035156 75 31.035156 Z M 75 68.535156 C 68.535156 68.535156 63.363281 73.707031 63.363281 80.171875 L 63.363281 111.207031 C 63.363281 117.671875 68.535156 122.84375 75 122.84375 C 81.464844 122.84375 86.636719 117.671875 86.636719 111.207031 L 86.636719 80.171875 C 86.636719 73.707031 81.464844 68.535156 75 68.535156 Z M 75 68.535156 " fill-opacity="1" fill-rule="nonzero"
+                    />
+                </svg>`,
+                'preview': `<svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="none" stroke="#000" stroke-width="2" d="M12,17 C9.27272727,17 6,14.2222222 6,12 C6,9.77777778 9.27272727,7 12,7 C14.7272727,7 18,9.77777778 18,12 C18,14.2222222 14.7272727,17 12,17 Z M11,12 C11,12.55225 11.44775,13 12,13 C12.55225,13 13,12.55225 13,12 C13,11.44775 12.55225,11 12,11 C11.44775,11 11,11.44775 11,12 Z"/>
+                </svg>`,
+                'doc': `<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="700.000000pt" height="700.000000pt" viewBox="0 0 700.000000 700.000000" preserveAspectRatio="xMidYMid meet">
+                    <g transform="translate(0.000000,700.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                        <path d="M3535 6479 c-194 -29 -417 -140 -566 -281 -122 -115 -226 -266 -279 -403 -12 -33 -29 -76 -36 -95 -49 -124 -56 -414 -14 -590 27 -114 92 -258 167
+                        -369 154 -229 442 -417 703 -460 36 -5 94 -15 130 -21 68 -12 127 -9 275 16 234 40 413 133 594 308 157 153 252 318 307 536 15 60 19 111 19 260 0 162 -3
+                        196 -23 270 -23 87 -25 92 -61 170 -11 25 -25 56 -31 70 -52 120 -228 320 -355 405 -140 94 -300 159 -450 185 -61 10 -311 10 -380 -1z m280 -199 c189
+                        -29 274 -59 400 -139 79 -50 215 -181 264 -255 118 -178 190 -466 151 -606 -5 -19 -14 -62 -19 -95 -28 -180 -163 -398 -321 -520 -164 -126 -323 -183 -530
+                        -192 -121 -5 -145 -3 -235 20 -284 70 -500 245 -621 503 -59 127 -76 200 -81 361 -4 122 -2 152 17 220 61 224 153 370 317 502 129 104 267 167 418 190 140 22 164 23 240 11z"></path>
+                        <path d="M3520 4169 c-25 -5 -75 -13 -112 -18 -37 -5 -88 -15 -115 -24 -26 -8 -75 -23 -108 -33 -373 -110 -723 -373 -956 -719 -30 -44 -60 -91 -67 -105 -7
+                        -14 -23 -44 -37 -68 -13 -24 -27 -53 -31 -65 -4 -12 -15 -34 -26 -49 l-19 -28 -224 0 c-208 0 -226 -1 -259 -20 -19 -12 -38 -29 -42 -38 -5 -9 -11 -118 -14
+                        -242 l-5 -225 -230 -5 -231 -5 -32 -35 -32 -35 3 -438 2 -439 33 -29 32 -29 205 0 c112 0 215 -4 229 -10 l26 -10 0 -205 c0 -303 2 -305 230 -305 78 0 150
+                        -5 161 -10 18 -10 19 -24 19 -228 l1 -217 29 -35 29 -35 1748 -3 c961 -2 1771 0 1800 3 46 6 54 10 75 43 l23 37 0 975 c0 906 -1 983 -19 1095 -54 347 -168
+                        618 -365 868 -82 105 -235 256 -332 329 -96 73 -274 177 -364 213 -39 15 -74 30 -80 34 -5 4 -46 18 -90 30 -44 13 -98 29 -120 37 -22 8 -74 19 -115 24 -41
+                        6 -97 15 -125 20 -63 11 -435 10 -495 -1z m610 -229 c135 -33 191 -53 202 -74 7 -13 9 -84 6 -200 -5 -161 -8 -189 -31 -254 -77 -216 -275 -364 -508 -379
+                        -71 -5 -100 -2 -160 16 -193 57 -318 166 -397 348 -24 54 -25 70 -29 264 -5 230 -9 216 72 242 171 55 278 67 555 61 163 -3 223 -8 290 -24z m473 -177
+                        c194 -105 421 -317 552 -517 92 -142 190 -369 210 -491 4 -22 14 -62 23 -90 15 -44 17 -157 20 -1000 1 -522 0 -960 -3 -972 l-5 -23 -1628 2 -1627 3 0 155
+                        0 155 150 1 150 2 42 39 43 39 0 221 c0 192 2 222 16 227 9 3 111 6 228 6 l212 0 30 31 29 30 3 401 c2 221 1 421 -3 445 -3 24 -17 56 -31 73 l-25 30
+                        -227 2 -227 3 -3 218 c-2 217 -3 219 -28 252 -32 42 -44 47 -124 54 l-65 6 1 31 c4 87 235 376 417 522 76 60 222 152 242 152 8 0 14 -43 18 -142 7 -172 35
+                        -292 87 -378 5 -8 17 -29 26 -47 17 -35 140 -183 152 -183 4 0 21 -13 37 -28 61 -58 213 -128 317 -147 21 -4 42 -12 47 -19 5 -6 11 -144 13 -306 5 -320 4
+                        -314 71 -445 51 -100 154 -205 258 -264 190 -107 437 -108 624 -2 215 122 333 330 335 589 0 64 3 76 25 97 13 14 30 25 37 25 23 1 90 58 128 109 42 56 80
+                        156 80 212 0 99 -79 249 -159 302 -80 53 -125 67 -215 67 -75 0 -94 -4 -148 -30 -116 -57 -187 -147 -208 -268 -25 -140 22 -266 133 -353 27 -22 54 -39 60
+                        -39 6 0 21 -10 34 -22 21 -19 23 -30 23 -112 0 -67 -5 -105 -20 -145 -84 -219 -272 -329 -498 -291 -162 27 -306 166 -341 328 -16 77 -15 536 2 549 6 6 37
+                        16 67 23 30 6 101 34 158 62 205 100 349 277 408 502 19 73 24 115 24 221 0 116 3 145 17 145 2 0 18 -8 36 -17z m322 -779 c57 -27 85 -73 85 -142 0 -52
+                        -4 -63 -32 -95 -20 -22 -51 -42 -80 -51 -42 -14 -51 -14 -85 0 -98 41 -139 134 -97 217 17 31 53 66 83 79 29 12 92 8 126 -8z m-2631 -140 c14 -5 16 -34
+                        16 -216 0 -314 -5 -308 291 -308 103 0 199 -4 213 -10 l26 -10 0 -279 c0 -245 -2 -280 -16 -285 -9 -3 -105 -6 -215 -6 -303 0 -292 10 -299 -299 l-5 -226
+                        -270 -3 c-148 -1 -280 0 -292 3 -23 5 -23 6 -23 208 0 111 -5 218 -10 238 -19 68 -37 73 -285 79 l-220 5 -3 280 c-2 254 -1 281 15 293 12 9 73 12 217 12
+                        294 0 286 -8 286 317 0 152 3 203 13 206 18 8 542 8 561 1z"></path>
+                    </g>
+                </svg>`
+            },
+            handle: {{ handle | json }},
+            productId: {{ product.id | json }},
+            product: {{ product | json }},
+            productOptions: {{ product.options_with_values | json }},
+            selectedOrDefaultVariant: {{ product.selected_or_first_available_variant.id | json }},
+            assignBy: {{ assign_by | json }},
+            productTitle: {{ product.title | json }},
+            variantsJSON: {{ product.variants | json }},
+            variants: {},
+            collectionId: {{ collectionId | json }},
+            productDefaultImage: "{{ product.featured_image | img_url: 'master' }}",
+            BASE_URL: '{{ shop.metafields.lensadvisor.BASE_URL }}',
+            API_URL: '{{ shop.metafields.lensadvisor.BASE_URL }}/api',
+            getUrlParameter: function(param) {
+                const paramVal = new URLSearchParams(window.location.search).get(param)
+                return paramVal
+            },
+            makeRequest: function(method, url, data) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.open(method, url, false);
+                xhttp.send(data);
+                return JSON.parse(xhttp.response)
+            },
+            getAppStylesheet: function() {
+                var stylesheet = document.querySelector('#la-custom-css-injector');
+                stylesheet = stylesheet.sheet;
+                return stylesheet;
+            },
+            addStyle: function(selector, rulename, value) {
+                var stylesheet = this.getAppStylesheet();
+                var cssRules = stylesheet.cssRules || stylesheet.rules;
+                var rule = stylesheet.insertRule(selector + ' { ' + rulename + ':' + value + ';}', cssRules.length);
+            },
+            loadScript: function(src, callback) {
+                let script = document.createElement('script');
+                script.src = src;
+                if (callback) {
+                    script.onload = () => callback();
+                }
+                document.head.append(script);
+            },
+            addQueryParamsToURL: function(url, object) {
+                url += '?'
+                for (let key in object) {
+                    url += key + '=' + object[key] + '&'
+                }
+                return url
+            },
+            lightenDarkenColor: function(col, amt) {
+                col = col.replace(/^#/, '')
+                if (col.length === 3) col = col[0] + col[0] + col[1] + col[1] + col[2] + col[2]
+                let [r, g, b] = col.match(/.{2}/g);
+                ([r, g, b] = [parseInt(r, 16) + amt, parseInt(g, 16) + amt, parseInt(b, 16) + amt])
+                r = Math.max(Math.min(255, r), 0).toString(16)
+                g = Math.max(Math.min(255, g), 0).toString(16)
+                b = Math.max(Math.min(255, b), 0).toString(16)
+                const rr = (r.length < 2 ? '0' : '') + r
+                const gg = (g.length < 2 ? '0' : '') + g
+                const bb = (b.length < 2 ? '0' : '') + b
+                return `#${rr}${gg}${bb}`
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function(event) {
+            if (LensAdvizor.error) {
+                LensAdvizor.handleSettingsException.call(LensAdvizor)
+            } else {
+                if (!LensAdvizor.API_URL) {
+                    LensAdvizor = {...LensAdvizor, ...LensAdvizorBase}
+                }
+                LensAdvizor.init()
+            }
+        });
+    </script>
+
+    {% style %}
+        @-webkit-keyframes la-spin{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@keyframes la-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}.la-select-lenses-btn{font-weight:600;border:0;outline:0;width:100%;padding:12px;border-radius:5px;margin:5px 0;display:none;cursor:pointer}.la-lens-loader{position:fixed;width:100%;left:0;right:0;top:0;bottom:0;background-color:rgba(255,255,255,.7);z-index:9999;display:block}.la-lens-loader::after{content:'';display:block;width:40px;height:40px;border-style:solid;border-color:#000;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;border-top-color:transparent !important;border-width:4px;border-radius:50%;-webkit-animation:la-spin .8s linear infinite;animation:la-spin .8s linear infinite}.la-prescription-form-btn:disabled{background-color:#8585!important;cursor:not-allowed!important}
+    {% endstyle %}
+    <style type="text/css" id="la-custom-css-injector"></style>
+    <script type="text/javascript" src="
+https://cdn.shopify.com/extensions/d3c73640-8a8c-418b-8d2c-9df481b86709/4.27.0/assets/lensadvizor-widget.js"></script>
+    <link rel="stylesheet" href="
+https://cdn.shopify.com/extensions/d3c73640-8a8c-418b-8d2c-9df481b86709/4.27.0/assets/lensadvizor-widget.css">
+{% endif %}

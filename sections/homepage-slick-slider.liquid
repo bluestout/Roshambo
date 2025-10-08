@@ -1,0 +1,132 @@
+<div class="home-page-slider">
+  {% for block in section.blocks %}
+    {% if block.settings['home-image'] != blank %}
+      <div class="slider-item">
+        <a
+          href="
+            {% if block.settings.home-url != blank %}
+            {{ block.settings.home-url }}
+                      {% else %}
+                      #
+            {% endif %}
+          "
+        >
+          <img
+            src="{{ block.settings.home-image | img_url: 'master' }}"
+            alt="{{ block.settings.home-image.alt | default: 'Slider image' }}"
+            height=""
+            width=""
+          >
+        </a>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<style>
+    .home-page-slider img {
+        max-width: 100%;
+    }
+
+    .home-page-slider .slick-prev,
+    .home-page-slider .slick-next {
+        background: white;
+        z-index: 1;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+    }
+
+    .home-page-slider .slick-prev {
+        left: 13.5px;
+    }
+
+    .home-page-slider .slick-next {
+        right: 13.5px;
+    }
+
+    .home-page-slider .slick-prev:before,
+    .home-page-slider .slick-next:before {
+        opacity: 1;
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        font-size: 30px;
+        color: #333 !important;
+    }
+
+    .home-page-slider .slick-prev:before {
+        content: '\f104';
+        right: 0px;
+    }
+
+    .home-page-slider .slick-next:before {
+        content: '\f105';
+        left: 0px;
+    }
+
+
+    /* responsive */
+
+    @media(max-width:576px){
+      .home-page-slider .slick-prev:before, .home-page-slider .slick-next:before {
+      font-size: 16px;
+  }
+
+  .home-page-slider .slick-prev, .home-page-slider .slick-next {
+      height: 30px;
+      width: 30px;
+  }
+    .home-page-slider .slick-prev {
+        left: 3px;
+    }
+
+    .home-page-slider .slick-next {
+        right: 3px;
+    }
+
+    }
+</style>
+
+<script>
+      // $('.home-page-slider').slick();
+
+  $( document ).ready(function() {
+      $('.home-page-slider').slick({
+          dots: false,
+  autoplay: true,
+  autoplaySpeed: 3000,
+      infinite: true,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    });
+    });
+</script>
+
+{% schema %}
+{
+  "name": "Homepage slider",
+  "settings": [],
+"presets": [
+  {
+    "name": "Homepage slider"
+  }
+],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "home-image",
+          "label": "Add image"
+        },{
+          "type": "url",
+          "id": "home-url",
+          "label": "Add URL Destination"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

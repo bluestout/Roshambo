@@ -1,0 +1,411 @@
+<script type="text/javascript">
+$( document ).ready(function() {
+
+if ($(window).width() < 769) {
+  
+   var dataDittoMobile = $('body').find('.custom-try-on-single').html();
+  var dataRetake = $('body').find('.single-product-vto-button').html();
+   $('body').find('.custom-try-on-single, .single-product-vto-button').remove();
+  $('.custom-try-on-single-mobile').append(dataDittoMobile);
+   $('.custom-try-on-single-mobile').append(dataRetake);
+}
+  $('body').find('.btn-scan').on('click', function(){
+  console.log('Start Vto');
+  getToken();
+});
+
+
+  
+var signature = "";
+var AccessKey = "6650a4ad4107be9b";
+var scanID = "";
+var overlaySignature = "";
+var retakeStatus = "false";
+
+var check_id = getCookie('vtoscanid');
+var check_overlaySignature = getCookie('vtooverlay');
+
+var arrayLuna = { {% for variant in product.variants %} {{variant.id}}:"{{variant.metafields.custom.sku_luna}}"{% unless forloop.last %},{% endunless %}
+                {% endfor %} }
+var theID = $('.shopify-product-form input.input_variant[name="id"]').val();
+  $('body').on('click', '.tt-swatches-container li', function(){
+    console.log('body click');
+  });
+$(".tt-price.this-one").bind("DOMSubtreeModified", function() {
+  
+  var check_id = getCookie('vtoscanid');
+  if (check_id !== undefined) {
+    var NewID = $('.shopify-product-form input.input_variant[name="id"]').val();
+    if(theID != NewID){
+        theID = NewID;
+        var NewLunaID = NewID;
+        var LUNAID = arrayLuna[NewLunaID];
+        $('body').find('.custom-product-not-vto').remove();
+        if(LUNAID.length < 1){
+           $('body').find('.mediaimageholder, .tt-mobile-product-slider').removeClass('hide');
+           $('body').find('#ditto-tryon, .custom-try-on-single-button').hide();
+           $('body').find('a.vto-view').removeClass('actived');
+           $('body').find('.frame-view').addClass('actived');
+          $('body').find('.mediaimageholder').append('<div class="custom-product-not-vto">Virtual Try-On unavailable in this frame color</div>');
+          $('body').find('.tt-mobile-product-slider').append('<div class="custom-product-not-vto">Virtual Try-On unavailable in this frame color</div>')
+
+          setTimeout(function(){ 
+           $('body').find('.single-product-vto-button, .button_try_on').hide();
+          }, 1500);
+          
+        }else{
+           $('body').find('.mediaimageholder, .tt-mobile-product-slider').addClass('hide');
+           $('body').find('#ditto-tryon, .custom-try-on-single-button').show();
+           $('body').find('a.vto-view').addClass('actived');
+           $('body').find('.frame-view').removeClass('actived');
+          checkVTO(LUNAID);
+        }
+        
+    }else{
+      console.log('xx', theID);
+    }
+}
+
+  
+});
+
+
+  
+
+$('body').on('click', '.custom-try-on-single-button a', function(){
+    var getData = $(this).text();
+    console.log('getData', getData);
+    
+    if(getData == 'Frame Only'){
+        $('body').find('div#ditto-tryon, .single-product-vto-button, .button_try_on').hide();
+        $('body').find('.frame-view').addClass('actived');
+        $('body').find('.vto-view').removeClass('actived');
+        $('body').find('.mediaimageholder, .tt-mobile-product-slider').removeClass('hide');
+    }else{
+      var getNew = $('body').find('.btn-scan').attr('retake');
+      if(getNew == 'false'){
+        $('body').find('.btn-scan').click();
+      }else{
+      $('.single-product-vto-button').show();
+        $('body').find('div#ditto-tryon, .single-product-vto-button, .button_try_on').show();
+        $('body').find('.vto-view').addClass('actived');
+      $('body').find('.frame-view').removeClass('actived');
+        $('body').find('.mediaimageholder, .tt-mobile-product-slider').addClass('hide');
+      }
+    }
+});
+
+
+
+if (check_id !== undefined) {
+    setTimeout(function(){ 
+      getToken(); 
+      $('.custom-try-on-single').show();
+      $('.btn-scan').html('Retake');
+      $('.btn-scan').attr('retake', 'true');
+      $('.single-product-vto-button, .btn-scan').show();
+    }, 1000);
+    
+}else{
+  $('.btn-scan').hide();
+  $('.custom-try-on-single').show();
+  
+}
+
+
+$('.btn-retake').on('click', function(){
+  getToken();
+});
+
+
+function checkVTO(){
+
+  scanID = getCookie('vtoscanid');
+  overlaySignature = getCookie('vtooverlay');
+  console.log('overlaySignature', overlaySignature);
+  
+  if(scanID != undefined && overlaySignature != undefined){
+
+  setTimeout(function() { 
+        var get_id = $('.shopify-product-form input.input_variant[name="id"]').val();
+        let get_id_send = arrayLuna[get_id];
+        $('body').find('.custom-product-not-vto').remove();
+        if(get_id_send.length < 1){
+           $('body').find('.mediaimageholder, .tt-mobile-product-slider').removeClass('hide');
+           $('body').find('#ditto-tryon').hide();
+           $('body').find('a.vto-view').removeClass('actived');
+           $('body').find('.frame-view').addClass('actived');
+           $('body').find('.custom-try-on-single, .single-product-vto-button').hide();
+           $('body').find('.mediaimageholder').append('<div class="custom-product-not-vto">Virtual Try-On unavailable in this frame color</div>')
+          $('body').find('.tt-mobile-product-slider').append('<div class="custom-product-not-vto">Virtual Try-On unavailable in this frame color</div>')
+
+        }else{
+           $('body').find('.mediaimageholder, .tt-mobile-product-slider').addClass('hide');
+           $('body').find('#ditto-tryon').show();
+           $('body').find('a.vto-view').addClass('actived');
+           $('body').find('.frame-view').removeClass('actived');
+           $('body').find('.custom-try-on-single, .single-product-vto-button').show();
+          changeTryOnVariant(get_id_send);
+        }
+    
+    }, 500);
+    
+
+  }else if (scanID != undefined && overlaySignature == undefined){
+    reTakeSignature();
+    
+  }else{
+    initDitto();
+    console.log('initDitto');
+  }
+}
+
+
+function reTakeSignature() {
+  var check_id = getCookie('vtoscanid');
+ 
+        var get_id = $('.shopify-product-form input.input_variant[name="id"]').val();
+        let get_id_send = arrayLuna[get_id];
+        console.log('STEP => reTakeSignature', get_id_send);
+        $('body').find('.custom-product-not-vto').remove();
+        if(get_id_send.length < 1){
+           $('body').find('.mediaimageholder, .tt-mobile-product-slider').removeClass('hide');
+           $('body').find('#ditto-tryon, .button_try_on').hide();
+           $('body').find('a.vto-view').removeClass('actived');
+           $('body').find('.frame-view').addClass('actived');
+           $('body').find('.custom-try-on-single, .single-product-vto-button, .custom-try-on-single-button').hide();
+          $('body').find('.mediaimageholder').append('<div class="custom-product-not-vto">Virtual Try-On unavailable in this frame color</div>')
+          $('body').find('.tt-mobile-product-slider').append('<div class="custom-product-not-vto">Virtual Try-On unavailable in this frame color</div>')
+
+        }else{
+           $('body').find('.mediaimageholder, .tt-mobile-product-slider').addClass('hide');
+           $('body').find('#ditto-tryon, .button_try_on').show();
+           $('body').find('a.vto-view').addClass('actived');
+           $('body').find('.frame-view').removeClass('actived');
+           $('body').find('.custom-try-on-single, .single-product-vto-button, .custom-try-on-single-button').show();
+
+ $.get("/tools/token/ditto-auth-credentials/?message=" + check_id, function(response) {
+    var options = {
+      "tryOnServer": "https://vto-sandbox.partners.api.ditto.com/",
+      "domSelector": "#ditto-tryon",
+      "glassesId": get_id_send,
+      "partnerId": "roshambo",
+      "accessKey": response['X-Ditto-Access-Key-Id'],
+      "scanId": check_id,
+      "overlaySignature": response['X-Ditto-Signature'],
+      "disablePreview": false
+    };
+    var overlay = new Ditto.Overlay(
+      options,
+      {
+        initialized: function() {
+          console.log("initialized");
+        },
+        success: function() {
+          console.log("Success");
+          $('.mediaimageholder, .tt-mobile-product-slider').addClass('hide');
+          $('#ditto-tryon').show();
+          $('a.vto-view').addClass('actived');
+          $('.frame-view').removeClass('actived');
+          $('.custom-try-on-single').show();
+        },
+        failure: function() {
+          console.log("Failure");
+        },
+        onclick: function() {
+          console.log("Optional Event: Click of VTO");
+        }
+      }
+    );
+  });
+          
+        }
+
+  
+ 
+  
+}
+
+
+function getCookie (name) {
+  let value = `; ${document.cookie}`;
+  let parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+
+function initDitto(){
+  console.log('initDitto');
+  setTimeout(function() { 
+        var get_id = $('.shopify-product-form input.input_variant[name="id"]').val();
+        let get_id_send = arrayLuna[get_id];
+        console.log('get_id_send', get_id_send);
+    }, 500);
+  
+  let lastElements = document.getElementsByClassName("DittoSandbox");
+  while(lastElements.length > 0){
+    lastElements[0].parentNode.removeChild(lastElements[0]);
+  }
+  
+  let container = document.getElementById("ditto-container");
+  container.style.opacity = 1;
+  container.style.visibility = "visible";
+ 
+  var scan = new Ditto.Scan(
+  {
+    tryOnServer: "https://vto-sandbox.partners.api.ditto.com/",
+    partnerId: "roshambo",
+    font: "opensans",
+    domSelector: "#ditto-container",
+    accessKey: AccessKey,
+    partnerSignature: signature
+  },
+  {
+    success: function(response){ 
+      console.log("success scan", response.scanId);
+      scanID = response.scanId;
+      overlaySignature = response.overlaySignature;
+      console.log('overlaySignature', overlaySignature);
+        var get_id = $('.shopify-product-form input.input_variant[name="id"]').val();
+        let get_id_send = arrayLuna[get_id];
+        console.log('get_id_send', get_id_send);
+      
+      let scanContainer = document.getElementById("scan-iframe");
+      scanContainer.style.display = "none";
+      $('#ditto-tryon').addClass('scan-opened');
+
+      var overlay = new Ditto.Overlay(
+        {
+          tryOnServer: "https://vto-sandbox.partners.api.ditto.com/",
+          partnerId: "roshambo",
+          domSelector: "#ditto-tryon",
+          scanId: scanID,
+          glassesId: get_id_send,
+          overlaySignature: overlaySignature,
+          accessKey: AccessKey
+        },
+        {
+          initialized: function() {
+            console.log("initialized");
+          },
+          success: function() {
+            $('.btn-scan').html('Retake');
+            $('.btn-scan').attr('retake', 'true');
+      
+          document.cookie = "vtoscanid="+scanID+"; max-age=" + 14*24*60*60 + "; path=/;";
+          document.cookie = "vtooverlay="+overlaySignature+"; max-age=" + 1*60*60 + "; path=/;";
+          console.log("Success");
+          $('.mediaimageholder, .tt-mobile-product-slider').addClass('hide');
+          $('#ditto-tryon').show();
+          $('a.vto-view').addClass('actived');
+          $('.frame-view').removeClass('actived');
+          $('.custom-try-on-single').show();
+            
+            let x = document.getElementsByClassName("first-ditto");
+            container.style.visibility = "hidden";
+          },
+          failure: function() {
+            console.log("Failure");
+            container.style.visibility = "hidden";
+          },
+          onclick: function() {
+            console.log("Optional Event: Click of VTO");
+          }
+        }
+      );
+    },
+    failure: function(response) {
+      console.log("failure", response);
+    },
+    close: function(response) {
+      console.log("close", response);
+      container.style.visibility = "hidden";
+    }
+  }
+);
+}
+
+function getToken(){
+
+  console.log('getToken');
+  
+  var retake = $('.btn-scan').attr('retake');
+  console.log(retake);
+  if(retake == true || retake == 'true') {
+    delete_cookie('vtoscanid');
+    delete_cookie('vtooverlay');
+    jQuery('.btn-scan').attr('retake', 'false');
+    getToken();
+  }else {
+  $('#ditto-tryon').addClass('scan-opened');
+  jQuery('.btn-scan').attr('retake', 'true');
+  // Set up our HTTP request
+  var xhr = new XMLHttpRequest();
+
+  // Setup our listener to process completed requests
+  xhr.onload = function () {
+
+      // Process our return data
+      if (xhr.status >= 200 && xhr.status < 300) {
+      let response =JSON.parse(xhr.responseText);
+          signature = response["X-Ditto-Signature"];
+        
+          console.log('signature', signature);
+          checkVTO();
+      } else {
+      getToken();
+      }
+  };
+
+  // Create and send a GET request
+  // The first argument is the post type (GET, POST, PUT, DELETE, etc.)
+  // The second argument is the endpoint URL
+  xhr.open('GET', 'https://www.roshambo.com/tools/token');
+  xhr.send();
+}
+}
+
+function delete_cookie(name) {
+  document.cookie = name +'=; Expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
+  console.log('delete');
+}
+
+function changeTryOnVariant(id_model){
+  var overlaySignature = getCookie('vtooverlay');
+  if(scanID != ""){
+    let scanContainer = document.getElementById("scan-iframe");
+    if(scanContainer){
+      scanContainer.style.display = "none";
+    }
+    
+
+    var overlay = new Ditto.Overlay(
+      {
+        tryOnServer: "https://vto-sandbox.partners.api.ditto.com/",
+        partnerId: "roshambo",
+        domSelector: "#ditto-tryon",
+        scanId: scanID,
+        glassesId: id_model,
+        overlaySignature: overlaySignature,
+        accessKey: AccessKey
+      },
+      {
+        initialized: function() {
+          console.log("initialized");
+        },
+        success: function() {
+          $('.custom-try-on-single').show();
+          let x = document.getElementsByClassName("first-ditto");
+        },
+        failure: function() {
+          console.log("Failure");
+        },
+        onclick: function() {
+          console.log("Optional Event: Click of VTO");
+        }
+      }
+    );
+  }
+}
+  });
+</script>

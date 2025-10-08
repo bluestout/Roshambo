@@ -1,0 +1,179 @@
+<div class="video-grid-container container">
+
+  {% for block in section.blocks %}
+
+    {% assign mod = forloop.index | modulo: 2 %}
+
+
+
+    {% if mod == 0 %}
+
+        {% assign block_orientation = "" %}
+
+    {% else %}
+
+        {% assign block_orientation = "flex-row-reverse" %}
+
+    {% endif %}
+
+
+
+    <div class="row {{block_orientation}}">
+
+        <div class="product col-lg-6">
+
+            <div class="product_imageblock" style="background-color:{{block.settings.image_color}}">
+
+                <img id="product-photo" src="{{ block.settings.image | img_url: '1100x' }}" alt="product image" />
+
+            </div>
+
+            <div class="product_textblock">
+
+                <h4>{{ block.settings.title }}</h4>
+
+                <p>{{ block.settings.description }}</p>
+
+                {% assign collection = collections[block.settings.collection] %}
+
+                <span class="btn-mediacarry"><a href="{{collection.url}}">{{block.settings.button_text}}</a></span>
+
+            </div>
+
+        </div>
+
+        <div class="video col-lg-6">
+
+          <!-- make it so they only need to enter the identifer for the video e.g. EngW7tLk6R8 -->
+
+          <iframe width="560" height="315" loading="lazy" src="https://www.youtube.com/embed/{{block.settings.youtube_link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+        </div>
+
+    </div>
+
+    {% capture _ %}{% increment block_count %}{% endcapture %}
+
+  {% endfor %}
+
+</div>
+
+
+
+{% schema %}
+
+  {
+
+    "name": "2x2",
+
+    "settings": [
+
+    
+
+    ],
+
+    "blocks":[
+
+      {
+
+        "type": "text",
+
+        "name": "block-name",
+
+        "settings":[
+
+          {
+
+            "type": "text",
+
+            "id": "youtube_link",
+
+            "label": "Youtube Video"
+
+          }, 
+
+          {
+
+            "type": "text",
+
+            "id": "title",
+
+            "label": "Title"
+
+          },
+
+          {
+
+            "type": "text",
+
+            "id": "description",
+
+            "label": "Description"
+
+          },
+
+          {
+
+            "type": "image_picker",
+
+            "id": "image",
+
+            "label": "Image"
+
+          },
+
+          {
+
+            "type": "collection",
+
+            "id": "collection",
+
+            "label": "Collection"
+
+          },
+
+          {
+
+            "type": "text",
+
+            "id": "button_text",
+
+            "label": "Button Text"
+
+          },
+
+          {
+
+            "type": "color",
+
+            "id": "image_color",
+
+            "label": "Image Background",
+
+            "default": "#6A5ACD"
+
+          }
+
+        ]
+
+       }
+
+     ],
+
+     "presets": [
+
+       {
+
+         "category": "Mediacarry",
+
+         "name":"2x2"
+
+       }
+
+     ]
+
+    
+
+  }
+
+{% endschema %}

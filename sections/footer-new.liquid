@@ -1,0 +1,212 @@
+<style>
+
+    ._{{section.id}}-custom_footer{
+
+        background-color:{{section.settings.backgroundColor}};
+
+    }
+
+</style>
+
+
+
+<div class="_{{section.id}}-custom_footer custom_footer-outer">
+
+    <div class="custom_footer-inner">
+
+        <div class="custom_footer-left">
+
+            <div class="menu-desktop">
+
+                {% for block in section.blocks %}
+
+                    <div class="footer_menu-cell">
+
+                        <div class="footer_menu-title">
+
+                            <span>{{block.settings.menuTitle}}</span>
+
+                        </div>
+
+                        <ul class="footer_menu-menu">
+
+                            {% assign footerMenu = block.settings.menuLinkList %}
+
+                            {% for link in linklists[footerMenu].links %}
+
+                            <li class="footer_menu-menu_item">
+
+                                <a {% if link.title == 'Accessibility' %}href="#accessibi" data-acsb="trigger" {% else %}href="{{link.url}}"{% endif %} class="footer_menu-menu_title">{{link.title}}</a>
+
+                            </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="menu-mobile">
+
+                {% for block in section.blocks %}
+
+                    <div class="footer_menu-cell">
+
+                        <button class="footer_menu-title">{{block.settings.menuTitle}}<span class="footer_arrow">{% render 'icon-arrow-down' %}</span></button>
+
+                        <ul class="footer_menu-menu">
+
+                            {% assign footerMenu = block.settings.menuLinkList %}
+
+                            {% for link in linklists[footerMenu].links %}
+
+                            <li class="footer_menu-menu_item">
+
+                                <a {% if link.title == 'Accessibility' %}href="#accessibi" data-acsb="trigger" {% else %}href="{{link.url}}"{% endif %} class="footer_menu-menu_title">{{link.title}}</a>
+
+                            </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <div class="custom_footer-right">
+
+            <div class="newsletter-outer">
+
+                <div class="klaviyo-footer">
+
+                    <!-- <div class="klaviyo-form-WvBbHw"></div> -->
+                      <div class="klaviyo-form-JyhH6D"></div>
+
+                </div>
+
+                <div class="socials_container">
+
+                    <a href="https://www.tiktok.com/@roshamboeyewear" target="_blank" class="social_menu-item"><img height="" loading="lazy"  width="25" src="{{ "tiktok-removebg.png" | file_url }}"></a>
+                    
+                    <a href="https://www.instagram.com/roshambobaby" target="_blank" class="social_menu-item">{% render 'icon-instagram' %}</a>
+
+                    <a href="https://www.facebook.com/Roshambobaby/" target="_blank" class="social_menu-item">{% render 'icon-facebook' %}</a>
+
+                    <a href="https://www.pinterest.com/roshamboshades/" target="_blank" class="social_menu-item">{% render 'icon-pinterest' %}</a>
+
+                    <a href="https://www.youtube.com/channel/UC27m344Pib2gE5eorW1OE4Q" target="_blank" class="social_menu-item">{% render 'icon-youtube' %}</a>
+
+                    <a href="https://twitter.com/RoshamboBaby" target="_blank" class="social_menu-item">{% render 'icon-twitter' %}</a>
+
+                </div>
+
+            </div>
+
+            <!-- <div class="footer_logo">
+
+                <img src="{{section.settings.footerLogo | img_url: '500x'}}">
+
+            </div> -->
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+  button[part="acsb-trigger"] {
+    display: none !important;
+  }
+</style>
+
+
+{% schema %}
+
+    {
+
+        "name": "Footer",
+
+        "settings": [
+
+            {
+
+                "type": "header",
+
+                "content": "Footer"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "backgroundColor",
+
+                "label": "Footer Background Color",
+
+                "default": "#1cbbb4"
+
+            },
+
+            {
+
+                "type": "header",
+
+                "content": "Footer Logo"
+
+            }
+
+        ],
+
+        "blocks":[
+
+            {
+
+                "type": "Menu",
+
+                "name": "Footer Menu",
+
+                "settings":[
+
+                    {
+
+                        "type": "text",
+
+                        "id": "menuTitle",
+
+                        "label": "Footer Menu Title"
+
+                    },
+
+                    {
+
+                        "type": "link_list",
+
+                        "id": "menuLinkList",
+
+                        "label": "Footer Menu"
+
+                    }
+
+                ]
+
+            }
+
+        ]
+
+        
+
+    }
+
+{% endschema %}
+

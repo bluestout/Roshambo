@@ -1,0 +1,189 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {}
+    },
+    "3d5d5baf-1572-4d6e-ae95-5e215a1a43b8": {
+      "type": "homepage-hero-banner",
+      "blocks": {
+        "da68fa04-3b25-4e2b-8710-0990ec2a5732": {
+          "type": "slide",
+          "settings": {
+            "use_banner_image": true,
+            "banner_image": "shopify://shop_images/team-roshambo-2022-xmas2.jpg",
+            "banner_slide_url": "",
+            "use_banner_video": false,
+            "youtube_embed": ""
+          }
+        },
+        "1453d425-fe14-4435-a9e1-0b7ef827079e": {
+          "type": "slide",
+          "settings": {
+            "use_banner_image": true,
+            "banner_slide_url": "",
+            "use_banner_video": false,
+            "youtube_embed": ""
+          }
+        }
+      },
+      "block_order": [
+        "da68fa04-3b25-4e2b-8710-0990ec2a5732",
+        "1453d425-fe14-4435-a9e1-0b7ef827079e"
+      ],
+      "settings": {
+        "banner_autoplay_gap": 2000
+      }
+    },
+    "fa5585b7-918b-475e-a144-e414ad8e60c3": {
+      "type": "homepage-grid-banner",
+      "settings": {
+        "bannerIMG1": "shopify://shop_images/test_image.jpg",
+        "buttonText1": "",
+        "buttonLink1": "",
+        "bannerIMG2": "shopify://shop_images/test_image2.jpg",
+        "buttonText2": "",
+        "buttonLink2": "",
+        "bannerIMG3": "shopify://shop_images/test_image3.jpg",
+        "buttonText3": "",
+        "buttonLink3": "",
+        "bannerIMG4": "shopify://shop_images/test_image4.jpg",
+        "buttonText4": "",
+        "buttonLink4": "",
+        "buttonText5": "",
+        "buttonLink5": "",
+        "buttonText6": "",
+        "buttonLink6": ""
+      }
+    },
+    "cecd1b0e-eea0-40a1-8840-45542cd14007": {
+      "type": "image-w-text-row",
+      "settings": {
+        "backgroundColor": "#1cbbb4",
+        "titleColor": "#ffffff",
+        "textboxTitle": "",
+        "paragraphColor": "#000000",
+        "textboxParagraph": "",
+        "linkColor": "#ff2392",
+        "textboxLinkText": "",
+        "textboxLinkURL": ""
+      }
+    },
+    "5dfaf5ec-18fd-4769-a124-86302dafe447": {
+      "type": "icon-w-text-column",
+      "settings": {
+        "Background": ""
+      }
+    },
+    "c111c87c-79d7-4e8d-add8-34434ccb7a04": {
+      "type": "index-section-products",
+      "settings": {
+        "top_offset": "normal",
+        "custom_classes": "",
+        "fullwidth": false,
+        "nopaddings": false,
+        "hideallelementsonindex": false,
+        "show_title": true,
+        "title_to_left": false,
+        "boxed_title": false,
+        "text1": "OUR COLLECTIONS",
+        "text2": "SUMMER 2018",
+        "text3": "",
+        "use_title_as_link": true,
+        "show_button": false,
+        "button_text": "SHOW ALL",
+        "collection": "",
+        "items_always_in_center": false,
+        "limit": "8",
+        "items": "3",
+        "default_carousel": false,
+        "boxed_buttons": false,
+        "show_oneproduct_in_mobile": false,
+        "use_adaptive_height": true,
+        "toshow": "4",
+        "step": "2",
+        "module_autoplay": false,
+        "delay_time": "7000"
+      }
+    },
+    "135a9ad5-0ec7-430b-a9c4-ce070ce0f086": {
+      "type": "image-w-text-row",
+      "settings": {
+        "backgroundColor": "#1cbbb4",
+        "titleColor": "#ffffff",
+        "textboxTitle": "",
+        "paragraphColor": "#000000",
+        "textboxParagraph": "",
+        "linkColor": "#ff2392",
+        "textboxLinkText": "",
+        "textboxLinkURL": ""
+      }
+    },
+    "9cc20fea-1a65-4f02-8ea1-36a0dd08f6be": {
+      "type": "image-w-text-row",
+      "settings": {
+        "backgroundColor": "#1cbbb4",
+        "titleColor": "#ffffff",
+        "textboxTitle": "",
+        "paragraphColor": "#000000",
+        "textboxParagraph": "",
+        "linkColor": "#ff2392",
+        "textboxLinkText": "",
+        "textboxLinkURL": ""
+      }
+    },
+    "859e8d63-1ecd-4707-adca-969390b8246e": {
+      "type": "newsletter-section",
+      "settings": {
+        "backgroundColor": "#1cbbb4",
+        "newsletterTitle": "",
+        "newsletterSubTitle": ""
+      }
+    },
+    "0c7c133a-165d-4029-8389-a332fbc7cb9c": {
+      "type": "icon-w-text-column",
+      "blocks": {
+        "208208e1-cc95-49ca-b9b4-3f752c7e819b": {
+          "type": "column",
+          "settings": {
+            "column_title": "",
+            "column_description": "",
+            "column_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "208208e1-cc95-49ca-b9b4-3f752c7e819b"
+      ],
+      "settings": {
+        "Background": ""
+      }
+    },
+    "79497636-9f09-460f-922b-4532b022bd49": {
+      "type": "homepage-2x2-content",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "3d5d5baf-1572-4d6e-ae95-5e215a1a43b8",
+    "fa5585b7-918b-475e-a144-e414ad8e60c3",
+    "cecd1b0e-eea0-40a1-8840-45542cd14007",
+    "5dfaf5ec-18fd-4769-a124-86302dafe447",
+    "c111c87c-79d7-4e8d-add8-34434ccb7a04",
+    "135a9ad5-0ec7-430b-a9c4-ce070ce0f086",
+    "9cc20fea-1a65-4f02-8ea1-36a0dd08f6be",
+    "859e8d63-1ecd-4707-adca-969390b8246e",
+    "0c7c133a-165d-4029-8389-a332fbc7cb9c",
+    "79497636-9f09-460f-922b-4532b022bd49"
+  ]
+}

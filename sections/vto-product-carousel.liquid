@@ -1,0 +1,283 @@
+{%- assign name_collection = "all" -%}
+{%- assign collection = collections[name_collection] -%}
+
+<div style="margin-top:30px;" class="{% if item.top_offset == 'none' %}nomargin {% elsif item.top_offset == 'small' %}tt-offset-small {% endif %}sectionproducts{{ section.id }} {{ item.custom_classes }}">
+ <h2>{{ section.settings.heading }}</h2>
+{{ section.settings.paragraph }}
+    <div class="featured_products-flickity" {% if section.settings.enablecarousel %}data-flickity='{ "cellAlign": "left", "wrapAround": true, "pageDots": false }'{% else %}style="display:flex;justify-content: center;"{% endif %}>
+      {% for block in section.blocks %} 
+        <div class="featured_products-productCard col-6 col-md-4 {% if grid == '5' %}col-5-inrow-lg{% else %}col-lg-{{ grid }}{% endif %}">
+            <div class="">
+              <div class="respimgsize tt-product product-parent options-js thumbprod-center">
+                <img src="{{ block.settings.column_image | img_url:"master" }}" style="width:100%"/>
+                <div class="tt-description">
+                  <div class="tt-row">
+                    <h2 class="tt-title" style="margin:0 auto;width:100%">
+                      {{ block.settings.heading }}
+                    </h2>
+                    <p style="margin-right: auto;margin-left:auto;margin-top:0px;width:100%">{{ block.settings.subheading }}</p>
+                  
+                  <div class="data-dropdown-wrap">
+                    <div class="data-dropdown-content {% if forloop.index == 1 %}selected-actived{% endif %}">
+                      <a href="javascript:void(0)" class="btn btn-border btn-top btn-mediacarry">Choose Size</a>
+                      <ul class="data-dropdown-content-inner" {% if forloop.index != 1 %}style="display:none"{% endif %} heading="{{ block.settings.heading }}" subheading="{{ block.settings.subheading }}">
+                        {% if block.settings.label_data_1 %}
+                          <li sku="{{ block.settings.SKU }}" url="{{ block.settings.url_product }}">{{ block.settings.label_data_1 }}</li>
+                        {% endif %}
+                        {% if block.settings.label_data_2 %}
+                          <li sku="{{ block.settings.SKU2 }}" url="{{ block.settings.url_product2 }}">{{ block.settings.label_data_2 }}</li>
+                        {% endif %}
+                        {% if block.settings.label_data_3 %}
+                          <li sku="{{ block.settings.SKU3 }}" url="{{ block.settings.url_product3 }}">{{ block.settings.label_data_3 }}</li>
+                        {% endif %}
+                        {% if block.settings.label_data_4 %}
+                          <li sku="{{ block.settings.SKU4 }}" url="{{ block.settings.url_product4 }}">{{ block.settings.label_data_4 }}</li>
+                        {% endif %}
+                        {% if block.settings.label_data_5 %}
+                          <li sku="{{ block.settings.SKU5 }}" url="{{ block.settings.url_product5 }}">{{ block.settings.label_data_5 }}</li>
+                        {% endif %}
+                      </ul>
+                    </div>
+                  </div>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    
+<style>
+
+ul.data-dropdown-content-inner li:hover {
+    background: #ed71a8;
+}
+  .data-dropdown-wrap {
+    width: 100%;
+}
+ul.data-dropdown-content-inner {
+    padding: 0;
+}
+
+.data-dropdown-content a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+  .data-dropdown-content.selected-actived a {
+    background: #ed71a8 !important;
+    border-color: #ed71a8 !important;
+}
+ul.data-dropdown-content-inner li {
+    color: #000;
+    font-weight: 500;
+    line-height: 40px !important;
+    cursor: pointer;
+  list-style: none;
+    background: #fab0d1;
+    margin-top: -6px;
+}
+  ul.data-dropdown-content-inner li::marker{
+    display:none;
+  }
+  .data-dropdown-content {
+    margin: 0 auto;
+    max-width: 150px;
+}
+  .data-dropdown-content a {
+    max-width: 150px;
+}
+</style>
+  </div>
+
+{% schema %}
+  {
+    "name": "Products VTO",
+	"class": "index-section",
+    "settings": [
+      {
+  "type": "text",
+  "id": "heading",
+  "label": "heading"
+},
+{
+  "type": "richtext",
+  "id": "paragraph",
+  "label": "Paragraph"
+},
+{
+  "type": "checkbox",
+  "id": "enablecarousel",
+  "label": "Enabel Carousel",
+  "default": false
+}
+	],
+    "blocks": [
+        {
+
+            "type": "column",
+
+            "name": "column",
+
+            "settings":[
+
+                {
+
+                    "type": "image_picker",
+
+                    "id": "column_image",
+
+                    "label": "Column Image"
+
+                },
+                {
+
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+
+                },
+                {
+
+                    "type": "text",
+                    "id": "subheading",
+                    "label": "Sub heading"
+
+                },
+                {
+                    "type": "header",
+                    "content": "Baby (ages 0-2)"
+                },
+                {
+
+                    "type": "text",
+                    "id": "label_data_1",
+                    "label": "Label",
+                    "default": "Baby (ages 0-2)"
+
+                },
+                {
+
+                    "type": "text",
+                    "id": "SKU",
+                    "label": "SKU for VTO"
+
+                },
+                {
+
+                    "type": "url",
+                    "id": "url_product",
+                    "label": "URL Product"
+
+                },
+                {
+                    "type": "header",
+                    "content": "Toddler (ages 2-4)"
+                },
+                {
+
+                    "type": "text",
+                    "id": "label_data_2",
+                    "label": "Label",
+                    "default": "Toddler (ages 2-4)"
+
+                },
+                {
+
+                    "type": "text",
+                    "id": "SKU2",
+                    "label": "SKU for VTO"
+
+                },
+                {
+
+                    "type": "url",
+                    "id": "url_product2",
+                    "label": "URL Product"
+
+                },
+                {
+                    "type": "header",
+                    "content": "Junior (ages 5-10)"
+                },
+                {
+
+                    "type": "text",
+                    "id": "label_data_3",
+                    "label": "Label",
+                    "default": "Junior (ages 5-10)"
+
+                },
+                {
+
+                    "type": "text",
+                    "id": "SKU3",
+                    "label": "SKU for VTO"
+
+                },
+                {
+
+                    "type": "url",
+                    "id": "url_product3",
+                    "label": "URL Product"
+
+                },
+                {
+                    "type": "header",
+                    "content": "Teen / Adult Small"
+                },
+                {
+
+                    "type": "text",
+                    "id": "label_data_4",
+                    "label": "Label",
+                    "default": "Teen / Adult Small"
+
+                },
+                {
+
+                    "type": "text",
+                    "id": "SKU4",
+                    "label": "SKU for VTO"
+
+                },
+                {
+
+                    "type": "url",
+                    "id": "url_product4",
+                    "label": "URL Product"
+
+                },
+                {
+                    "type": "header",
+                    "content": "Adult Large"
+                },
+                {
+
+                    "type": "text",
+                    "id": "label_data_5",
+                    "label": "Label",
+                    "default": "Adult Large"
+
+                },
+                {
+
+                    "type": "text",
+                    "id": "SKU5",
+                    "label": "SKU for VTO"
+
+                },
+                {
+
+                    "type": "url",
+                    "id": "url_product5",
+                    "label": "URL Product"
+
+                }
+
+            ]
+
+        }
+    ]
+  }
+{% endschema %}

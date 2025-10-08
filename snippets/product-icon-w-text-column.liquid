@@ -1,0 +1,14 @@
+{% if template != "product.carro-layout" %}
+<div style="background-color: {{background_color}}">
+    <div class="Icon-w-text-column-container">
+        {% for feature in features %}
+            <div class="icon-container">
+                <img class="icon-image lazyload" data-src="{{feature.settings.column_image | img_url: '130x130'}}">
+                <span class="icon-title">{{feature.settings.column_title}}</span>
+                <span class="icon-description">{{feature.settings.column_description}}</span>
+                <a class="icon-link" href="{{feature.settings.column_link}}">Read More</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

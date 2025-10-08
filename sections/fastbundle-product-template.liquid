@@ -1,0 +1,288 @@
+  {% if product.metafields.custom.enable_vto %}
+    
+<script src="https://bsdk.api.ditto.com/default/5.0.0/en-gb/api.js"></script>
+<link rel="prefetch" type="text/javascript" href="//bsdk.api.ditto.com/default/5.0.0/en-gb/vendors.js">
+<div id="ditto-container">
+<div id="modal-background"></div>
+<button type="button" class="try-close CloseButton"><svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="CloseButton-icon"><path d="M1,1l8,8m-8,0l8,-8"></path></svg><span class="u-displayA11yHide">Close</span></button>
+</div>
+<link rel="stylesheet" href="{{'vto-style.css' | asset_url }}">
+{% render 'vto-product' %}
+  {% endif %}
+  
+{%- if product.metafields.inventory.ShappifyHidden == 'true' -%}{%- break -%}{%- endif -%}
+{%- assign product_meta = product.metafields.description -%}
+
+{%- assign sale_on = false -%}
+{%- if WCProduct_VariantComparePrice > WCProduct_VariantPrice -%}
+  {%- assign sale_on = true -%}
+{%- endif -%}
+
+{%- comment -%} Main Image URL. {%- endcomment -%}
+{%- assign main_url_image = product.featured_image -%}
+
+{%- comment -%}
+date_difference = 60 * 60 * 24 * day counter, this is new product period in seconds
+{%- endcomment -%}
+  {%- assign date_now = 'now' | date: "%s" -%}
+  {%- assign date_published = product.published_at | date: "%s" -%}
+  {%- assign date_difference = date_now | minus: date_published -%}
+  {%- assign date_limit = 86400 | times: settings.new_product_period -%}
+  {%- assign pr_variant = product.selected_or_first_available_variant -%}
+
+{%- assign item = section.settings -%}
+{% comment %} Wholesale_Club_Item_Prices Start {% endcomment %}
+{% if item.product %}{% assign base_product = item.product %}{% else %}{% assign base_product = item %}{% endif %}
+{% if item.variant %}{% assign base_variant = item.variant %}{% else %}{% assign base_variant = item.selected_or_first_available_variant %}{% endif %}
+
+{% if shop.metafields.sawholesale['base_price'] == blank %}
+  {% assign base_price = 'compare_at_price' %}
+{% else %}
+  {% assign base_price = shop.metafields.sawholesale['base_price'] %}
+{% endif %}
+
+{% assign saw_discount = 0 %}{% assign saw_has_discount = false %}
+
+{% if customer.tags != blank %}
+  {% for mf in base_product.metafields.sawholesale %}
+    {% capture product_customer_tag %}{{ mf | first | replace: 'discount_', '' }}{% endcapture %}
+    {% if customer.tags contains product_customer_tag %}
+      {% assign saw_has_discount = true %}
+      {% assign discount_key = product_customer_tag | prepend: 'discount_' %}
+      {% assign price_key = product_customer_tag | prepend: 'price_' %}
+      {% assign saw_discount = base_product.metafields.sawholesale[discount_key] | divided_by: 100.0 %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% assign saw_discount = 1 | minus: saw_discount %}
+
+{% if base_price == 'price' or base_variant.compare_at_price == blank  or base_variant.compare_at_price == 0 or base_variant.compare_at_price < base_variant.price %}
+  {% assign saw_variant_compare_at_price = base_variant.price %}
+{% else %}
+  {% assign saw_variant_compare_at_price = base_variant.compare_at_price %}
+{% endif %}
+
+{% assign cpe = shop.metafields.sawholesale['cpe'] | default: "true" %}
+{% if base_variant.metafields.sawholesale[price_key] != blank and cpe == "true" %}
+  {% assign saw_variant_price = base_variant.metafields.sawholesale[price_key] %}
+{% else %}
+  {% assign saw_variant_price = saw_variant_compare_at_price | times: saw_discount %}
+{% endif %}
+
+{% if saw_has_discount == false or saw_variant_price >= saw_variant_compare_at_price %}
+  {% assign WCItem_OriginalPrice = item.original_price %}
+  {% assign WCItem_FinalPrice = item.final_price %}
+  {% assign WCItem_Price = item.price %}
+  {% assign WCItem_PriceMin = item.price_min %}
+  {% assign WCItem_PriceMax = item.price_max %}
+  {% assign WCItem_CompareAtPrice = item.compare_at_price %}
+  {% assign WCItem_CompareAtPriceMin = item.compare_at_price_min %}
+  {% assign WCItem_CompareAtPriceMax = item.compare_at_price_max %}
+  {% assign WCItem_OriginalLinePrice = item.original_line_price %}
+  {% assign WCItem_FinalLinePrice = item.final_line_price %}
+  {% assign WCItem_LinePrice = item.line_price %}
+{% else %}
+  {% assign WCItem_OriginalPrice = saw_variant_compare_at_price %}
+  {% assign WCItem_FinalPrice = saw_variant_price %}
+  {% assign WCItem_Price = saw_variant_price %}
+  {% assign WCItem_PriceMin = item.price_min | times: saw_discount %}
+  {% assign WCItem_PriceMax = item.price_max | times: saw_discount %}
+  {% assign WCItem_CompareAtPrice = saw_variant_compare_at_price %}
+  {% if base_product.compare_at_price_min != 0 %}{% assign WCItem_CompareAtPriceMin = base_product.compare_at_price_min %}{% else %}{% assign WCItem_CompareAtPriceMin = base_product.price_min %}{% endif %}
+  {% if base_product.compare_at_price_max != 0 %}{% assign WCItem_CompareAtPriceMax = base_product.compare_at_price_max %}{% else %}{% assign WCItem_CompareAtPriceMax = base_product.price_max %}{% endif %}
+  {% assign WCItem_OriginalLinePrice = WCItem_OriginalPrice | round | times: item.quantity %}
+  {% assign WCItem_FinalLinePrice = WCItem_FinalPrice | round | times: item.quantity %}
+  {% assign WCItem_LinePrice = WCItem_Price | round | times: item.quantity %}
+{% endif %}
+{% comment %} Wholesale_Club_Item_Prices End {% endcomment %}
+
+
+{%- include item.page_design -%}
+{% case product.template_suffix %}
+  {% when "screen-time" %}
+    {% assign product_suffix = "screentime_features" %}
+    {% assign product_suffix2 = "screentime_features2" %}
+  {% when "prescription" %}
+    {% assign product_suffix = "prescription_features" %}
+    {% assign product_suffix2 = "prescription_features2" %}
+  {% when "prescription-inserts" %}
+    {% assign product_suffix = "prescription_features" %}
+    {% assign product_suffix2 = "prescription_features2" %}
+  {% when "spare-frame" %}
+    {% assign product_suffix = "prescription_features" %}
+    {% assign product_suffix2 = "prescription_features2" %}
+  {% when "sunglasses" %}
+    {% assign product_suffix = "sunglasses_features" %}
+    {% assign product_suffix2 = "sunglasses_features2" %}
+  {% when "accessories" %}
+    {% assign product_suffix = "accessories_features" %}
+    {% assign product_suffix2 = "accessories_features2" %}
+  {% when "gift-cards" %}
+    {% assign product_suffix = "giftcard_features" %}
+    {% assign product_suffix2 = "giftcard_features2" %}
+  {% when "sunglasses2" %}
+    {% assign product_suffix = "sunglasses_features" %}
+    {% assign product_suffix2 = "sunglasses_features2" %}
+  {% when "" %}
+    {% continue %}
+{% endcase %}
+
+
+{% assign product_supports = section.blocks | where: "type", product_suffix%}
+
+{% if template != "product.carro-layout" or template == "product.sunglasses2" %}
+  <div class="reviews-container">
+  </div>
+{% endif %}
+
+{% assign product_supports2 = section.blocks | where: "type", product_suffix2 %}
+
+{% if template == "product.carro-layout"%}
+{% render "carro-icon-w-text-column",  background_color: "#d1fdff" %}
+{% else %}
+{% render "product-icon-w-text-column", features: product_supports2, background_color: "#d1fdff" %}
+{% endif %}
+
+
+{% comment %} OLD SOCIAL ICONS
+{%- if item.show_share_buttons -%}
+<div class="container-indent wrapper-social-icon">
+  <div class="container text-center">
+    {%- include 'addthis' -%}
+  </div>
+</div>
+{%- endif -%}
+{% endcomment %}
+
+{%- if item.full_width_description != 'default' -%}
+  {%- if item.full_width_description == 'design_tabs_in_column' -%}
+    <div class="container-indent product_tabs">
+      <div class="container">
+        {%- include "product_page_tabs" -%}
+      </div>
+    </div>
+  {%- elsif item.full_width_description == 'design_tabs_in_row' -%}
+    {% include "product_page_tabs_horizontal" %}
+  {%- endif -%}
+{%- endif -%}
+
+
+
+{%- if item.showalireviewinrow and settings.selectedreviewaapp == 'alireviewapp' -%}
+<div class="container-indent product_tabs">
+  <div id="tab_review" class="container">
+    <div id="shopify-ali-review" product-id="{{ product.id }}"> {{ shop.metafields.review_collector.review_code }}</div>
+  </div>
+</div>
+{%- endif -%}
+
+{%- include "product-page-upsellcollection-type2" -%}
+
+{%- capture upsellcollection -%}{%- include "product-page-upsellcollection" -%}{%- endcapture -%}
+{%- assign upsellcollection = upsellcollection | strip -%}
+{{ upsellcollection }}
+
+
+{%- if item.show_custom_related -%}
+{%- assign product_meta = product.metafields.description -%}
+{%- unless product_meta.related_collection == blank -%}
+{%- assign name_collection = product_meta.related_collection -%}
+{%- assign collection = collections[name_collection] -%}
+{%- assign length = item.custom_related_length -%}
+{%- assign _pr = product.handle -%}
+<div class="container-indent">
+  <div class="container{% if item.custom_related_fullscreen %}-fluid-custom{% endif %} container-fluid-custom-mobile-padding">
+    <div class="tt-block-title{% if item.custom_related_titleincenter %} text-center{% else %} text-left{% endif %}">
+      <h2 class="tt-title-small">{{ item.custom_related_title }}</h2>
+    </div>
+    <div class="tt-carousel-products row arrow-location-right-top tt-alignment-img tt-layout-product-item" data-slick='{"slidesToShow": {{ item.custom_related_slickdesktoptoshow }}, "slidesToScroll": {{ item.custom_related_slickdesktoptoshow }}}'>
+      {%- for product in collection.products limit: length -%}
+        {% comment %} Wholesale_Club_Product_Prices Start {% endcomment %}
+        {% assign base_product = product %}
+        {% assign base_variant = product.selected_or_first_available_variant %}
+
+        {% if shop.metafields.sawholesale['base_price'] == blank %}
+          {% assign base_price = 'compare_at_price' %}
+        {% else %}
+          {% assign base_price = shop.metafields.sawholesale['base_price'] %}
+        {% endif %}
+
+        {% assign saw_discount = 0 %}{% assign saw_has_discount = false %}
+
+        {% if customer.tags != blank %}
+          {% for mf in base_product.metafields.sawholesale %}
+            {% capture product_customer_tag %}{{ mf | first | replace: 'discount_', '' }}{% endcapture %}
+            {% if customer.tags contains product_customer_tag %}
+              {% assign saw_has_discount = true %}
+              {% assign discount_key = product_customer_tag | prepend: 'discount_' %}
+              {% assign price_key = product_customer_tag | prepend: 'price_' %}
+              {% assign saw_discount = base_product.metafields.sawholesale[discount_key] | divided_by: 100.0 %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+        {% assign saw_discount = 1 | minus: saw_discount %}
+
+        {% if base_price == 'price' or base_variant.compare_at_price == blank  or base_variant.compare_at_price == 0 or base_variant.compare_at_price < base_variant.price %}
+          {% assign saw_variant_compare_at_price = base_variant.price %}
+        {% else %}
+          {% assign saw_variant_compare_at_price = base_variant.compare_at_price %}
+        {% endif %}
+
+        {% assign cpe = shop.metafields.sawholesale['cpe'] | default: "true" %}
+        {% if base_variant.metafields.sawholesale[price_key] != blank and cpe == "true" %}
+          {% assign saw_variant_price = base_variant.metafields.sawholesale[price_key] %}
+        {% else %}
+          {% assign saw_variant_price = saw_variant_compare_at_price | times: saw_discount %}
+        {% endif %}
+
+        {% if saw_has_discount == false or saw_variant_price >= saw_variant_compare_at_price %}
+          {% assign WCProduct_Price = base_product.price %}
+          {% assign WCProduct_ComparePrice = base_product.compare_at_price %}
+          {% assign WCProduct_PriceMin = base_product.price_min %}
+          {% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}
+          {% assign WCProduct_PriceMax = base_product.price_max %}
+          {% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}
+          {% assign WCProduct_VariantPrice = base_variant.price %}
+          {% assign WCProduct_VariantComparePrice = base_variant.compare_at_price %}
+        {% else %}   
+          {% assign WCProduct_Price = saw_variant_price %}
+          {% assign WCProduct_PriceMin = base_product.price_min | times: saw_discount %}
+          {% assign WCProduct_PriceMax = base_product.price_max | times: saw_discount %}
+          {% assign WCProduct_ComparePrice = saw_variant_compare_at_price %}
+          {% if base_product.compare_at_price_min != 0 %}{% assign WCProduct_ComparePriceMin = base_product.compare_at_price_min %}{% else %}{% assign WCProduct_ComparePriceMin = base_product.price_min %}{% endif %}
+          {% if base_product.compare_at_price_max != 0 %}{% assign WCProduct_ComparePriceMax = base_product.compare_at_price_max %}{% else %}{% assign WCProduct_ComparePriceMax = base_product.price_max %}{% endif %}
+          {% assign WCProduct_VariantPrice = saw_variant_price %}
+          {% assign WCProduct_VariantComparePrice = saw_variant_compare_at_price %}
+        {% endif %}
+        {% comment %} Wholesale_Club_Product_Prices End {% endcomment %}
+
+        {%- if _pr != product.handle  -%}
+        <div class="col-2 col-md-4 col-lg-3">{%- include 'product-grid-item' -%}</div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- endunless -%}
+{%- endif -%}
+
+<!-- {%- for block in section.blocks -%}
+{%- if block.type == 'recently_view_products' -%}
+<div class="container-indent recently_view_products_wokiee hide" data-item="{{ block.settings.slickdesktoptoshow }}" data-count="{{ block.settings.product_upsell_collection_count }}">
+  <div class="container{% if block.settings.fullscreen %}-fluid-custom{% endif %} container-fluid-custom-mobile-padding">
+    <div class="tt-block-title{% if block.settings.titleincenter %} text-center{% else %} text-left{% endif %}">
+      {%- if block.settings.title != '' -%}<h2 class="tt-title-small">{{ block.settings.title }}</h2>{%- endif -%}
+    </div>
+	<div class="recently_view_products-box"></div>
+  </div>
+</div>
+{%- endif -%}
+{%- endfor -%} -->
+
+{%- include "product_page_sticky_addtocart" -%}
+
+{%- include 'product-page-modals' -%}
+{% schema %}{"name": "Product pages", "settings": [{"type": "header", "content": "Page design"}, {"type": "select", "id": "page_design", "label": "Page Design", "options": [{"value": "product_page_1_design", "label": "Default design"}, {"value": "product_page_2_design", "label": "Two columns. Gallery left, content right"}, {"value": "product_page_3_design", "label": "Tree columns"}], "default": "product_page_1_design"}, {"type": "select", "id": "full_width_description", "label": "Tabs Description Type", "default": "default", "options": [{"value": "default", "label": "Default"}, {"value": "design_tabs_in_column", "label": "Full width tabs in column"}, {"value": "design_tabs_in_row", "label": "Full width tabs in row"}]}, {"type": "checkbox", "id": "showalireviewinrow", "label": "Show Ali Review in a separate row", "default": true, "info": "If ali review app enabled in settings"}, {"type": "header", "content": "General"}, {"type": "checkbox", "id": "history", "label": "Enable swatches history", "default": true, "info": "Work with browser history"}, {"type": "checkbox", "id": "show_badge_new", "label": "Show Badge New", "default": true, "info": "Work with product time and metafield editor"}, {"type": "checkbox", "id": "show_badge_featured", "label": "Show Custom Badge(Featured)", "default": true, "info": "Badge is created using a metafield editor"}, {"type": "checkbox", "id": "show_review", "label": "Show review stars", "default": true}, {"type": "checkbox", "id": "show_share_buttons", "label": "Show social buttons", "default": true}, {"type": "checkbox", "id": "show_tax_text", "label": "Show TAX text", "default": true, "info": "It will work if TAX is enabled in the settings in the Shopify admin panel"}, {"type": "checkbox", "id": "use_select_button", "label": "Show button Select Options", "default": false, "info": "When product does not have selected variant we can use select your options button"}, {"type": "header", "content": "Gallery general settings"}, {"type": "checkbox", "id": "gallery_no_zoom", "label": "Gallery zoom", "default": false}, {"type": "checkbox", "id": "gallery_scroll", "label": "Gallery scroll zoom", "default": true}, {"type": "checkbox", "id": "stickygallery", "label": "Sticky Gallery", "default": true}, {"type": "checkbox", "id": "mobiledots", "label": "Show gallery dots in mobile", "default": true}, {"type": "header", "content": "Gallery \"Default design\""}, {"type": "select", "id": "gallery_type", "label": "Gallery type", "info": "Only for page \"Default design\"", "options": [{"value": "horizontal", "label": "Horizontal"}, {"value": "vertical", "label": "Vertical"}, {"value": "four_images", "label": "Four images"}], "default": "horizontal"}, {"type": "checkbox", "id": "show_thumbnails", "label": "Show thumbnails", "default": true, "info": "Only for horizontal and vertical \"Gallery type\""}, {"type": "checkbox", "id": "show_thumbnails_arrows", "label": "Show arrow in big image", "default": true, "info": "Alert !!! Works only with thumbnails"}, {"type": "checkbox", "id": "show_thumbnails_zoom", "label": "Enable lightbox for thumbnails", "default": true, "info": "Alert !!! Works only with thumbnails"}, {"type": "header", "content": "Product main information"}, {"type": "checkbox", "id": "show_product_main_info", "label": "Show product main information", "default": true}, {"type": "checkbox", "id": "show_sku", "label": "Show product SKU", "default": true}, {"type": "checkbox", "id": "show_qiantity", "label": "Show product quantity", "default": true}, {"type": "header", "content": "Trust Badge"}, {"type": "checkbox", "id": "show_trust_badge", "label": "Show trust badge", "default": true}, {"type": "image_picker", "id": "image_l", "label": "Image"}, {"type": "text", "id": "image_max_width", "label": "Trust badge width (in pixels)", "default": "541"}, {"type": "image_picker", "id": "image_lm", "label": "Image Mobile"}, {"type": "text", "id": "image_max_width_m", "label": "Trust badge width mobile (in pixels)", "default": "541"}, {"type": "header", "content": "Options Design"}, {"type": "select", "id": "designoption1", "label": "Select design for options 1", "info": "After changing, click the Save button.", "options": [{"value": "getButtonHtml", "label": "Buttons"}, {"value": "getSelectButtonHtml", "label": "Combobox"}], "default": "getButtonHtml"}, {"type": "select", "id": "designoption2", "label": "Select design for options 2", "info": "After changing, click the Save button.", "options": [{"value": "getButtonHtml", "label": "Buttons"}, {"value": "getSelectButtonHtml", "label": "Combobox"}], "default": "getButtonHtml"}, {"type": "select", "id": "designoption3", "label": "Select design for options 3", "info": "After changing, click the Save button.", "options": [{"value": "getButtonHtml", "label": "Buttons"}, {"value": "getSelectButtonHtml", "label": "Combobox"}], "default": "getButtonHtml"}, {"type": "header", "content": "Product information"}, {"type": "checkbox", "id": "show_product_info", "label": "Show product information", "default": true}, {"type": "checkbox", "id": "show_product_vendor", "label": "Show product vendor", "default": true}, {"type": "checkbox", "id": "show_product_type", "label": "Show product type", "default": true}, {"type": "checkbox", "id": "show_product_barcode", "label": "Show product barcode", "default": true}, {"type": "checkbox", "id": "show_product_tags", "label": "Show product tags", "default": true}, {"type": "textarea", "id": "product_tab_tags", "label": "Popular product tags", "info": "Enter all popular tags in this field. Example: dress,tops,shirts"}, {"type": "checkbox", "id": "product_item_show_wishlist", "label": "Show Wishlist Button", "default": true}, {"type": "checkbox", "id": "product_item_show_compare", "label": "Show Compare Button", "default": true}, {"type": "header", "content": "Screen Time Product Template"}, {"type": "checkbox", "id": "show_screentime_accordion", "label": "Show Screen Time Product Accordion", "default": true}, {"type": "text", "id": "screentime_accordion_title", "label": "Screen Time Accordion Title", "default": "What is Blue Light?"}, {"type": "richtext", "id": "screentime_accordion_text", "label": "Screen Time Accordion Text Input", "default": "<p>Blue Light Test</p>"}, {"type": "image_picker", "id": "screentime_accordion_image", "label": "Screen Time Accordion Image"}, {"type": "text", "id": "screentime_accordion_video", "label": "Screen Time Accordion Video Source", "info": "Enter the link to video source here"}, {"type": "text", "id": "screentime_accordion_youtube", "label": "Screen Time Accordion Youtube Embed"}, {"type": "header", "content": "Gift Card Product Template"}, {"type": "checkbox", "id": "show_giftcard_accordion", "label": "Gift Card Product Accordion", "default": true}, {"type": "text", "id": "giftcard_accordion_title", "label": "Gift Card Accordion Title", "default": "HOW TO CUSTOMIZE YOUR GIFT CARD"}, {"type": "checkbox", "id": "show_giftcard_accordion_text", "label": "Show Gift Card Accordion Text", "default": true}, {"type": "richtext", "id": "giftcard_accordion_text", "label": "Gift Card Accordion Text Input", "default": "<p>Blue Light Test</p>"}, {"type": "checkbox", "id": "show_giftcard_accordion_image", "label": "Show Gift Card Accordion Image", "default": true}, {"type": "image_picker", "id": "giftcard_accordion_image", "label": "Gift Card Accordion Image"}, {"type": "checkbox", "id": "show_giftcard_accordion_video", "label": "Show Gift Card Accordion Video", "default": true}, {"type": "text", "id": "giftcard_accordion_video", "label": "Gift Card Accordion Video Source", "info": "Enter the link to video source here"}, {"type": "header", "content": "Size chart"}, {"type": "checkbox", "id": "show_sizechart", "label": "Show size chart information", "default": true}, {"type": "textarea", "id": "btnname", "label": "Button link name", "default": "Size Guide"}, {"type": "textarea", "id": "popupcontent", "label": "Modal html content", "default": "<h6 class=\"tt-title\">SIZE GUIDE</h6>\nThis is an approximate conversion table to help you find your size.\n<div class=\"tt-table-responsive-md\">\n\t<table class=\"tt-table-modal-info\">\n\t\t<thead>\n\t\t\t<tr>\n\t\t\t\t<th>Italian</th>\n\t\t\t\t<th>Spanish</th>\n\t\t\t\t<th>German</th>\n\t\t\t\t<th>UK</th>\n\t\t\t\t<th>US</th>\n\t\t\t\t<th>Japanese</th>\n\t\t\t\t<th>Chinese</th>\n\t\t\t\t<th>Russian</th>\n\t\t\t\t<th>Korean</th>\n\t\t\t</tr>\n\t\t</thead>\n\t\t<tbody>\n\t\t\t<tr>\n\t\t\t\t<td>34</td>\n\t\t\t\t<td>30</td>\n\t\t\t\t<td>28</td>\n\t\t\t\t<td>4</td>\n\t\t\t\t<td>00</td>\n\t\t\t\t<td>3</td>\n\t\t\t\t<td>155/75A</td>\n\t\t\t\t<td>36</td>\n\t\t\t\t<td>44</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>36</td>\n\t\t\t\t<td>32</td>\n\t\t\t\t<td>30</td>\n\t\t\t\t<td>6</td>\n\t\t\t\t<td>0</td>\n\t\t\t\t<td>5</td>\n\t\t\t\t<td>155/80A</td>\n\t\t\t\t<td>38</td>\n\t\t\t\t<td>44</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>38</td>\n\t\t\t\t<td>34</td>\n\t\t\t\t<td>32</td>\n\t\t\t\t<td>8</td>\n\t\t\t\t<td>2</td>\n\t\t\t\t<td>7</td>\n\t\t\t\t<td>160/84A</td>\n\t\t\t\t<td>40</td>\n\t\t\t\t<td>55</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>40</td>\n\t\t\t\t<td>36</td>\n\t\t\t\t<td>34</td>\n\t\t\t\t<td>10</td>\n\t\t\t\t<td>4</td>\n\t\t\t\t<td>9</td>\n\t\t\t\t<td>165/88A</td>\n\t\t\t\t<td>42</td>\n\t\t\t\t<td>55</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>42</td>\n\t\t\t\t<td>38</td>\n\t\t\t\t<td>36</td>\n\t\t\t\t<td>12</td>\n\t\t\t\t<td>6</td>\n\t\t\t\t<td>11</td>\n\t\t\t\t<td>170/92A</td>\n\t\t\t\t<td>44</td>\n\t\t\t\t<td>66</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>44</td>\n\t\t\t\t<td>40</td>\n\t\t\t\t<td>38</td>\n\t\t\t\t<td>14</td>\n\t\t\t\t<td>8</td>\n\t\t\t\t<td>13</td>\n\t\t\t\t<td>175/96A</td>\n\t\t\t\t<td>46</td>\n\t\t\t\t<td>66</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>46</td>\n\t\t\t\t<td>42</td>\n\t\t\t\t<td>40</td>\n\t\t\t\t<td>16</td>\n\t\t\t\t<td>10</td>\n\t\t\t\t<td>15</td>\n\t\t\t\t<td>170/98A</td>\n\t\t\t\t<td>48</td>\n\t\t\t\t<td>77</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>48</td>\n\t\t\t\t<td>44</td>\n\t\t\t\t<td>42</td>\n\t\t\t\t<td>18</td>\n\t\t\t\t<td>12</td>\n\t\t\t\t<td>17</td>\n\t\t\t\t<td>170/100B</td>\n\t\t\t\t<td>50</td>\n\t\t\t\t<td>77</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>50</td>\n\t\t\t\t<td>46</td>\n\t\t\t\t<td>44</td>\n\t\t\t\t<td>20</td>\n\t\t\t\t<td>14</td>\n\t\t\t\t<td>19</td>\n\t\t\t\t<td>175/100B</td>\n\t\t\t\t<td>52</td>\n\t\t\t\t<td>88</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>52</td>\n\t\t\t\t<td>48</td>\n\t\t\t\t<td>46</td>\n\t\t\t\t<td>22</td>\n\t\t\t\t<td>16</td>\n\t\t\t\t<td>21</td>\n\t\t\t\t<td>180/104B</td>\n\t\t\t\t<td>54</td>\n\t\t\t\t<td>88</td>\n\t\t\t</tr>\n\t\t</tbody>\n\t</table>\n</div>", "info": "If content is clear buttom link will be hide"}, {"type": "header", "content": "Shipping"}, {"type": "checkbox", "id": "show_shipping", "label": "Show shipping information", "default": true}, {"type": "textarea", "id": "btnname2", "label": "Button link name", "default": "Shipping"}, {"type": "textarea", "id": "popupcontentshipping", "label": "Modal html content", "default": "<h6 class=\"tt-title\">SHIPPING</h6>\n<ul>\n\t<li>Complimentary ground shipping within 1 to 7 business days</li>\n\t<li>In-store collection available within 1 to 7 business days</li>\n\t<li>Next-day and Express delivery options also available</li>\n\t<li>Purchases are delivered in an orange box tied with a Bolduc ribbon, with the exception of certain items</li>\n\t<li>See the delivery FAQs for details on shipping methods, costs and delivery times</li>\n</ul>\n<h6 class=\"tt-title\">RETURNS AND EXCHANGES</h6>\n<ul>\n\t<li>Easy and complimentary, within 14 days</li>\n\t<li>See conditions and procedure in our return FAQs</li>\n</ul>", "info": "If content is clear buttom link will be hide"}, {"type": "header", "content": "Message"}, {"type": "checkbox", "id": "show_message", "label": "Show message", "default": true}, {"type": "textarea", "id": "btnname3", "label": "Button link name", "default": "Ask about this product"}, {"type": "header", "content": "Product page - three columns"}, {"type": "textarea", "id": "prpage_tree_col_html", "label": "Custom html", "default": "<div class=\"tt-services-aside\">\n\t<a href=\"#\" class=\"tt-services-block\">\n\t\t<div class=\"tt-col-icon\">\n\t\t\t<i class=\"icon-f-48\"></i>\n\t\t</div>\n\t\t<div class=\"tt-col-description\">\n\t\t\t<h4 class=\"tt-title\">FREE SHIPPING</h4>\n\t\t\t<p>Free shipping on all US order or order above $99</p>\n\t\t</div>\n\t</a>\n\t<a href=\"#\" class=\"tt-services-block\">\n\t\t<div class=\"tt-col-icon\">\n\t\t\t<i class=\"icon-f-35\"></i>\n\t\t</div>\n\t\t<div class=\"tt-col-description\">\n\t\t\t<h4 class=\"tt-title\">SUPPORT 24/7</h4>\n\t\t\t<p>Contact us 24 hours a day, 7 days a week</p>\n\t\t</div>\n\t</a>\n\t<a href=\"#\" class=\"tt-services-block\">\n\t\t<div class=\"tt-col-icon\">\n\t\t\t<i class=\"icon-e-09\"></i>\n\t\t</div>\n\t\t<div class=\"tt-col-description\">\n\t\t\t<h4 class=\"tt-title\">30 DAYS RETURN</h4>\n\t\t\t<p>Simply return it within 30 days for an exchange.</p>\n\t\t</div>\n\t</a>\n</div>", "info": "For page design \"Tree columns\". [Icons](//portotheme.com/shopify/wokiee/icons)"}, {"type": "header", "content": "Custom related products"}, {"type": "checkbox", "id": "show_custom_related", "label": "Show \u0441ustom related products", "default": true, "info": "Work with the metafield product. See documentation"}, {"type": "checkbox", "id": "custom_related_fullscreen", "label": "Fullscreen", "default": false}, {"type": "checkbox", "id": "custom_related_titleincenter", "label": "Title in center", "default": false}, {"type": "textarea", "id": "custom_related_title", "label": "Custom related products title", "default": "CUSTOM PRODUCTS"}, {"type": "text", "id": "custom_related_length", "label": "Count", "default": "8", "info": "Integer"}, {"type": "text", "id": "product_reviews_heading1", "label": "Product Reviews Heading", "default": "Happy Moms & Dads!"}, {"type": "text", "id": "product_reviews_heading2", "label": "Product Reviews Sub Heading", "default": "Read Their Testimonials"}, {"type": "color", "id": "product_reviews_heading1_color", "label": "Product Reviews Heading Color", "default": "#f06c9b"}, {"type": "color", "id": "product_reviews_heading2_color", "label": "Product Reviews Sub Heading Color", "default": "#1cbbb4"}, {"type": "select", "id": "custom_related_slickdesktoptoshow", "label": "Show items in desktop", "options": [{"value": "3", "label": "3"}, {"value": "4", "label": "4"}, {"value": "5", "label": "5"}, {"value": "6", "label": "6"}], "default": "4"}], "blocks": [{"type": "tab_desc", "name": "Description Tab", "limit": 1, "settings": [{"type": "text", "id": "title", "label": "Title", "default": "DESCRIPTION"}, {"type": "checkbox", "id": "open_tab_by_default", "label": "Open tab by default", "default": false}]}, {"type": "tab_same_html", "name": "General Html Tab", "settings": [{"type": "text", "id": "title", "label": "Title", "default": "GENERAL TAB"}, {"type": "textarea", "id": "html", "label": "Custom Html"}, {"type": "checkbox", "id": "open_tab_by_default", "label": "Open tab by default", "default": false}]}, {"type": "tab_unique", "name": "Unique Tab", "settings": [{"type": "paragraph", "content": "Work with [APP metafield](https://apps.shopify.com/metafields-manager-by-hulkapps)"}, {"type": "paragraph", "content": "Namespace = description. Write your key name and use this name in metafield editor as key name."}, {"type": "text", "id": "key", "label": "Key", "default": "Key name"}, {"type": "text", "id": "title", "label": "Tab Title", "default": "UNIQUE TAB"}, {"type": "checkbox", "id": "open_tab_by_default", "label": "Open tab by default", "default": false}]}, {"type": "tab_review", "name": "Review Tab", "limit": 1, "settings": [{"type": "text", "id": "title", "label": "Title", "default": "REVIEWS"}, {"type": "checkbox", "id": "open_tab_by_default", "label": "Open tab by default", "default": false}]}, {"type": "related_products", "name": "Old. Related Products", "limit": 1, "settings": [{"type": "paragraph", "content": "Work with old shopify method by tags"}, {"type": "checkbox", "id": "fullscreen", "label": "Fullscreen", "default": false}, {"type": "checkbox", "id": "titleincenter", "label": "Title in center", "default": false}, {"type": "text", "id": "title", "label": "Title", "default": "RELATED PRODUCTS"}, {"type": "text", "id": "product_upsell_collection_count", "label": "Count", "default": "8", "info": "Integer"}, {"type": "select", "id": "slickdesktoptoshow", "label": "Show items in desktop", "options": [{"value": "3", "label": "3"}, {"value": "4", "label": "4"}, {"value": "5", "label": "5"}, {"value": "6", "label": "6"}], "default": "4"}]}, {"type": "related_products_type2", "name": "New. Related Products", "limit": 1, "settings": [{"type": "paragraph", "content": "Dynamic recommendations change and improve over time. [Learn more](https://help.shopify.com/en/themes/development/recommended-products)"}, {"type": "checkbox", "id": "fullscreen", "label": "Fullscreen", "default": false}, {"type": "checkbox", "id": "titleincenter", "label": "Title in center", "default": false}, {"type": "text", "id": "title", "label": "Title", "default": "RELATED PRODUCTS"}, {"type": "text", "id": "product_upsell_collection_count", "label": "Count", "default": "8", "info": "Integer"}, {"type": "select", "id": "slickdesktoptoshow", "label": "Show items in desktop", "options": [{"value": "3", "label": "3"}, {"value": "4", "label": "4"}, {"value": "5", "label": "5"}, {"value": "6", "label": "6"}], "default": "4"}]}, {"type": "recently_view_products", "name": "Recently Viewed Products", "limit": 1, "settings": [{"type": "checkbox", "id": "fullscreen", "label": "Fullscreen", "default": false}, {"type": "checkbox", "id": "titleincenter", "label": "Title in center", "default": false}, {"type": "text", "id": "title", "label": "Title", "default": "RECENTLY VIEWED PRODUCTS"}, {"type": "text", "id": "product_upsell_collection_count", "label": "Count", "default": "8", "info": "Integer"}, {"type": "select", "id": "slickdesktoptoshow", "label": "Show items in desktop", "options": [{"value": "3", "label": "3"}, {"value": "4", "label": "4"}, {"value": "5", "label": "5"}, {"value": "6", "label": "6"}], "default": "4"}]}, {"type": "sunglasses_features", "name": "Sunglasses Features", "limit": 3, "settings": [{"type": "image_picker", "id": "column_image", "label": "Column Image"}, {"type": "text", "id": "column_title", "label": "Column Title"}, {"type": "textarea", "id": "column_description", "label": "Column Description"}, {"type": "url", "id": "column_link", "label": "Column Link"}]}, {"type": "sunglasses_features2", "name": "Sunglasses Features 2", "limit": 3, "settings": [{"type": "image_picker", "id": "column_image", "label": "Column Image"}, {"type": "text", "id": "column_title", "label": "Column Title"}, {"type": "textarea", "id": "column_description", "label": "Column Description"}, {"type": "url", "id": "column_link", "label": "Column Link"}]}, {"type": "prescription_features", "name": "Prescription Features", "limit": 3, "settings": [{"type": "image_picker", "id": "column_image", "label": "Column Image"}, {"type": "text", "id": "column_title", "label": "Column Title"}, {"type": "textarea", "id": "column_description", "label": "Column Description"}, {"type": "url", "id": "column_link", "label": "Column Link"}]}, {"type": "prescription_features2", "name": "Prescription Features 2", "limit": 3, "settings": [{"type": "image_picker", "id": "column_image", "label": "Column Image"}, {"type": "text", "id": "column_title", "label": "Column Title"}, {"type": "textarea", "id": "column_description", "label": "Column Description"}, {"type": "url", "id": "column_link", "label": "Column Link"}]}, {"type": "screentime_features", "name": "Screen Time Features", "limit": 3, "settings": [{"type": "image_picker", "id": "column_image", "label": "Column Image"}, {"type": "text", "id": "column_title", "label": "Column Title"}, {"type": "textarea", "id": "column_description", "label": "Column Description"}, {"type": "url", "id": "column_link", "label": "Column Link"}]}, {"type": "screentime_features2", "name": "Screen Time Features 2", "limit": 3, "settings": [{"type": "image_picker", "id": "column_image", "label": "Column Image"}, {"type": "text", "id": "column_title", "label": "Column Title"}, {"type": "textarea", "id": "column_description", "label": "Column Description"}, {"type": "url", "id": "column_link", "label": "Column Link"}]}, {"type": "accessories_features", "name": "Accessories Features", "limit": 3, "settings": [{"type": "image_picker", "id": "column_image", "label": "Column Image"}, {"type": "text", "id": "column_title", "label": "Column Title"}, {"type": "textarea", "id": "column_description", "label": "Column Description"}, {"type": "url", "id": "column_link", "label": "Column Link"}]}, {"type": "accessories_features2", "name": "Accessories Features 2", "limit": 3, "settings": [{"type": "image_picker", "id": "column_image", "label": "Column Image"}, {"type": "text", "id": "column_title", "label": "Column Title"}, {"type": "textarea", "id": "column_description", "label": "Column Description"}, {"type": "url", "id": "column_link", "label": "Column Link"}]}, {"type": "giftcard_features", "name": "Giftcard Features", "limit": 3, "settings": [{"type": "image_picker", "id": "column_image", "label": "Column Image"}, {"type": "text", "id": "column_title", "label": "Column Title"}, {"type": "textarea", "id": "column_description", "label": "Column Description"}, {"type": "url", "id": "column_link", "label": "Column Link"}]}, {"type": "giftcard_features2", "name": "Giftcard Features2", "limit": 3, "settings": [{"type": "image_picker", "id": "column_image", "label": "Column Image"}, {"type": "text", "id": "column_title", "label": "Column Title"}, {"type": "textarea", "id": "column_description", "label": "Column Description"}, {"type": "url", "id": "column_link", "label": "Column Link"}]}, {"type": "product_supports", "name": "Product Support With Text", "limit": 3, "settings": [{"type": "image_picker", "id": "column_image", "label": "Column Image"}, {"type": "text", "id": "column_title", "label": "Column Title"}, {"type": "textarea", "id": "column_description", "label": "Column Description"}, {"type": "url", "id": "column_link", "label": "Column Link"}]}, {"type": "productAccessory", "name": "Product Accessory", "settings": [{"type": "product", "id": "selectedProduct", "label": "Select Product to show accessory upsells on"}, {"type": "richtext", "id": "productAccessoryText", "label": "Product Accessory Text", "default": "<p></p>"}, {"type": "checkbox", "id": "showAccessory1", "label": "Show Upsell Accessory 1", "default": true}, {"type": "product", "id": "selectedAccessory1", "label": "Select Product to Upsell on the Selected Product"}, {"type": "checkbox", "id": "showAccessory2", "label": "Show Upsell Accessory 2", "default": true}, {"type": "product", "id": "selectedAccessory2", "label": "Select Product to Upsell on the Selected Product"}, {"type": "richtext", "id": "productFramesText", "label": "Product Frames Text", "default": "<p></p>"}, {"type": "checkbox", "id": "showFrameUpsell1", "label": "Show Frame Upsell Suggestiion 1", "default": true}, {"type": "product", "id": "frameUpsell1", "label": "Select Frame Product to Upsell on the Selected Product"}, {"type": "checkbox", "id": "showFrameUpsell2", "label": "Show Frame Upsell Suggestiion 2", "default": true}, {"type": "product", "id": "frameUpsell2", "label": "Select Frame Product to Upsell on the Selected Product"}]}, {"type": "productSuggestion", "name": "Product Suggestion", "settings": [{"type": "product", "id": "selectedProduct", "label": "Select Product to show suggestion upsells on"}, {"type": "richtext", "id": "productSuggestionText", "label": "Product Accessory Text", "default": "<p></p>"}, {"type": "checkbox", "id": "showSuggestion1", "label": "Show Upsell Suggestiion 1", "default": true}, {"type": "product", "id": "selectedSuggestion1", "label": "Select Product to Upsell on the Selected Product"}, {"type": "checkbox", "id": "showSuggestion2", "label": "Show Upsell Suggestiion 2", "default": true}, {"type": "product", "id": "selectedSuggestion2", "label": "Select Product to Upsell on the Selected Product"}]}]}{% endschema %}

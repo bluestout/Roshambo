@@ -1,0 +1,54 @@
+<div class="special-vto-after-render-wrap" style="background-color: {{section.settings.Background}}">
+ <div class="special-vto-after-render-left">
+    <div class="special-vto-after-render-left-inner">
+   <h2>Virtual Try-on</h2>
+  <div class="text-after-render">
+  {{ section.settings.textafterrender }}
+  </div>
+   <h3>Your Current Selection:</h3>
+   <div class="special-vto-after-render-data">
+     <div class="special-vto-after-render-data_content">
+     <p class="collection"><span>Collection:</span></p>
+     <p class="frame_style"><span>Frame Style:</span></p>
+     <p class="frame_size"><span>Frame Size:</span></p>
+     </div>
+   </div>
+ </div>
+ </div>
+ <div class="special-vto-after-render-right">
+         <div id="ditto-tryon" class="active">
+      </div>
+ </div>
+</div>
+
+{% schema %}
+
+{
+
+    "name": "VTO after render",
+
+    "settings": [
+
+        {
+
+            "type": "color",
+
+            "id": "Background",
+
+            "label": "Background Color"
+
+        },
+        {
+
+            "type": "richtext",
+
+            "id": "textafterrender",
+
+            "label": "Text After Render"
+
+        }
+
+    ]
+}
+
+{% endschema %}

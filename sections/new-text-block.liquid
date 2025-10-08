@@ -1,0 +1,80 @@
+<div class="container icon-with-text">
+<div class="tt-block-title">
+     {% if section.settings.title != blank %}
+      <h1 class="univ_head">{{ section.settings.title }}</h1>
+     {% endif %}  
+    {% if section.settings.text != blank %}
+      <div class="tt-description">{{ section.settings.text }}</div>
+    {% endif %}  
+    </div>
+   {% if section.settings.button_text != blank %}
+      <div class="text-center">
+       <a href="{{ section.settings.button_url }}" class="prim-btn">{{ section.settings.button_text }}</a>
+      </div>
+    {% endif %}  
+</div>
+
+{% schema %}
+
+{
+    "name": "New Text Block",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+
+        },
+         {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text"
+
+        },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text"
+
+        },
+        {
+            "type": "url",
+            "id": "button_url",
+            "label": "Url"
+        }
+    ],
+    "presets": [
+        {
+            "category": "image",
+            "name":"New Text Block"
+        }
+    ]
+}
+
+{% endschema %}
+<style>
+  .text-center{    
+    justify-content: center;
+    display: flex;
+    padding:12px;
+  }
+  .prim-btn{ 
+    font-size: 14px;
+    font-weight: bold;
+    font-family:"Helvetica Neue", "Helvetica, Arial, sans-serif";
+    padding: 16px 24px;
+    font-style: normal;
+    border-radius: 4px;
+    background: #4dc8e9;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .prim-btn:hover{
+    background: #0a97b6;
+    color: #fff;
+  }
+  .prim-btn:active, .prim-btn:focus{
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #0ABDE3;
+    box-shadow: inset 0px 2px 5px rgb(34 34 34 / 20%);
+  }
+</style>

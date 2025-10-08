@@ -1,0 +1,196 @@
+<style>
+
+    ._{{section.id}}-img_text-outer{
+
+        background-color:{{section.settings.backgroundColor}};
+        margin-top:48px;
+
+    }
+
+    ._{{section.id}}-txtbox-title{
+
+        color:{{section.settings.titleColor}};
+
+    }
+
+    ._{{section.id}}-txtbox-paragraph{
+
+        color:{{section.settings.paragraphColor}};
+
+    }
+
+    ._{{section.id}}-txtbox-link{
+        font-family: 'Hind', sans-serif !important;
+        color: #0071D0;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    ._{{section.id}}-txtbox-link:hover{
+        color: #005DAA;
+        text-decoration-line: underline;
+    }
+    ._{{section.id}}-txtbox-link:active{
+        color: #004680;
+        text-decoration-line: underline;
+    }
+    ._{{section.id}}-txtbox-link:visited{
+       color:#DB0075;
+    }
+
+</style>
+
+
+
+<div class="img_text-outer _{{section.id}}-img_text-outer">
+
+    <div class="img_text-inner">
+
+        <div class="img_text-imgbox">
+
+            <img class="lazyload" data-src="{{section.settings.sectionImage | img_url: '600x'}}">
+
+        </div>
+
+        <div class="img_text-txtbox">
+
+            <span class="txtbox-title _{{section.id}}-txtbox-title">{{section.settings.textboxTitle}}</span>
+
+            <span class="txtbox-paragraph _{{section.id}}-txtbox-paragraph">{{section.settings.textboxParagraph}}</span>
+
+            <a class="txtbox-link _{{section.id}}-txtbox-link" href="{{section.settings.textboxLinkURL}}">{{section.settings.textboxLinkText}}</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% schema %}
+
+    {
+
+        "name": "Image With Text",
+
+        "settings": [
+
+            {
+
+                "type": "color",
+
+                "id": "backgroundColor",
+
+                "label": "Background Color",
+
+                "default": "#1cbbb4"
+
+            },
+
+            {
+
+                "type": "image_picker",
+
+                "id": "sectionImage",
+
+                "label": "Section Image"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "titleColor",
+
+                "label": "Title Color",
+
+                "default": "#ffffff"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "textboxTitle",
+
+                "label": "Textbox Title"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "paragraphColor",
+
+                "label": "Paragraph Color",
+
+                "default": "#000000"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "textboxParagraph",
+
+                "label": "Textbox Paragraph"
+
+            },
+
+            {
+
+                "type": "color",
+
+                "id": "linkColor",
+
+                "label": "Link Color",
+
+                "default": "#ff2392"
+
+            },
+
+            {
+
+                "type": "text",
+
+                "id": "textboxLinkText",
+
+                "label": "Textbox Link Text"
+
+            },
+
+            {
+
+                "type": "url",
+
+                "id": "textboxLinkURL",
+
+                "label": "Textbox Link URL"
+
+            }
+
+        ],
+
+        "presets": [
+
+            {
+
+                "category": "Mediacarry",
+
+                "name":"Image With Text"
+
+            }
+
+        ]
+
+    }
+
+{% endschema %}
+

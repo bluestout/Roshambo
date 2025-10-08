@@ -1,0 +1,45 @@
+ 
+<div class="col-12 col-lg-2 col-xl-12 leftColumn collection_filter_top_column{% if item_sidebar == "rightColumn" %} rightColumn{% endif %} aside{% if item_sidebar contains "hidden_closed" %} desctop-no-sidebar{% endif %}">
+
+
+  <div class="tt-btn-col-close">
+    <h3 class="flt_text" >Filters</h3>
+    <a href="#"></a>
+  </div>
+  <div class="tt-collapse open tt-filter-detach-option">
+    <div class="">
+      <div class="filters-mobile">
+        <div class="filters-row-select">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {%- capture imagefromshema -%}{%- include 'get_swatch_textures' -%}{%- endcapture -%}
+  {%- if settings.show_collectionstab -%}{%- include "collection-sidebar-collections" -%}{%- endif -%}
+
+  {%- capture value -%}
+  {%- include "collection-sidebar-filter-x" index:1 -%}{%- endcapture -%}{{ value | strip }}
+  {%- capture value -%}{%- include "collection-sidebar-filter-x" index:2 -%}{%- endcapture -%}{{ value | strip }}
+  {%- capture value -%}{%- include "collection-sidebar-filter-x" index:3 -%}{%- endcapture -%}{{ value | strip }}
+  {%- capture value -%}{%- include "collection-sidebar-filter-x" index:4 -%}{%- endcapture -%}{{ value | strip }}
+  {%- capture value -%}{%- include "collection-sidebar-filter-x" index:5 -%}{%- endcapture -%}{{ value | strip }}
+
+  {%- capture value -%}{%- include "collection-sidebar-filter-x" index:6 -%}{%- endcapture -%}{{ value | strip }}
+  {%- capture value -%}{%- include "collection-sidebar-filter-x" index:7 -%}{%- endcapture -%}{{ value | strip }}
+  {%- capture value -%}{%- include "collection-sidebar-filter-x" index:8 -%}{%- endcapture -%}{{ value | strip }}
+  {%- capture value -%}{%- include "collection-sidebar-filter-x" index:9 -%}{%- endcapture -%}{{ value | strip }}
+  {%- capture value -%}{%- include "collection-sidebar-filter-x" index:10 -%}{%- endcapture -%}{{ value | strip }}
+  
+  {%- if settings.show_collectionsbanner -%}{%- include "collection-sidebar-banner" -%}{%- endif -%}
+
+  <div class="mob_b_btns">
+    <a style="display:none" class="clr_flt" href="{{ collection.url }}">Clear Filters</a>
+    <a class="count_flt" >Show <span style="color: #fff !important;" class="tt-title-total m-listing-total-js">({%- paginate collection.products -%}{{ paginate.items }}{%- endpaginate -%})</span> Results</a>
+  </div>
+</div>
+<div class="tt-filters-options{% if item_sidebar contains "hidden_closed" %} desctop-no-sidebar{% endif %}">
+{%- include "collection-page-toolbar" -%}
+</div>
+         
