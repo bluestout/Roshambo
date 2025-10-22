@@ -171,6 +171,10 @@
     "79497636-9f09-460f-922b-4532b022bd49": {
       "type": "homepage-2x2-content",
       "settings": {}
+    },
+    "3f6226cf-c809-4eb4-897a-595a5964ac6b": {
+      "type": "reviews-carousel",
+      "settings": {}
     }
   },
   "order": [
@@ -184,6 +188,7 @@
     "9cc20fea-1a65-4f02-8ea1-36a0dd08f6be",
     "859e8d63-1ecd-4707-adca-969390b8246e",
     "0c7c133a-165d-4029-8389-a332fbc7cb9c",
-    "79497636-9f09-460f-922b-4532b022bd49"
+    "79497636-9f09-460f-922b-4532b022bd49",
+    "3f6226cf-c809-4eb4-897a-595a5964ac6b"
   ]
 }

@@ -7279,7 +7279,7 @@
           "free_shipping_countdown": false,
           "free_shipping_threshold": 55,
           "free_shipping_before_threshold_text": "You're only [price] away from free U.S. shipping!",
-          "free_shipping_after_threshold_text": "You're only [price] away from free U.S. shipping!"
+          "free_shipping_after_threshold_text": ""
         }
       },
       "multi-offer-banner": {
