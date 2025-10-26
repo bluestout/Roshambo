@@ -37,6 +37,15 @@
           -->
         </div>
       </div>
+
+      {% if section.settings.show_announcement %}
+        <div class="ajax-cart-drawer__announcement">
+          <div class="ajax-cart-drawer__announcement-content-text">
+            {{ section.settings.announcement_text }}
+          </div>
+        </div>
+      {% endif %}
+
       {% if section.settings.gift_bar == true %}
         <div class="gift-bar-container-info">
           <h6 class="amount-away">You're $<span>0.00</span> away from a FREE GIFT!</h6>
@@ -85,42 +94,42 @@
         </div>
       {% endif %}
       {% if localization.country.iso_code == 'US' %}
-      <div class="cart-note-outer {% if is_gift_product_in_cart == true %}isopen{% endif %}">
-        <div class="yo_note_adjust">
-          {% assign is_gift_product_in_cart = false %}
-          {% comment %} CHECK IF THE GIFT PRODUCT IS IN THE CART {% endcomment %}
-          {% for item in cart.items %}
-            {% if item.id == 41880794366122 %}
-              {% assign is_gift_product_in_cart = true %}
-              {% break %}
-            {% endif %}
-          {% endfor %}
+        <div class="cart-note-outer {% if is_gift_product_in_cart == true %}isopen{% endif %}">
+          <div class="yo_note_adjust">
+            {% assign is_gift_product_in_cart = false %}
+            {% comment %} CHECK IF THE GIFT PRODUCT IS IN THE CART {% endcomment %}
+            {% for item in cart.items %}
+              {% if item.id == 41880794366122 %}
+                {% assign is_gift_product_in_cart = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
 
-          <input
-            type="checkbox"
-            id="yo_note"
-            name="cart_note"
-            {% if is_gift_product_in_cart == true %}
-              checked="checked"
-            {% endif %}
-          >
-          <label
-            class="yo-cart-note-heading {% if is_gift_product_in_cart == true %}note-active{% endif %}"
-            for="yo_note"
-          ></label
-          ><span>YES! Add a Gift Note to my order</span>
+            <input
+              type="checkbox"
+              id="yo_note"
+              name="cart_note"
+              {% if is_gift_product_in_cart == true %}
+                checked="checked"
+              {% endif %}
+            >
+            <label
+              class="yo-cart-note-heading {% if is_gift_product_in_cart == true %}note-active{% endif %}"
+              for="yo_note"
+            ></label
+            ><span>YES! Add a Gift Note to my order {% render 'icon-gift' %}</span>
+          </div>
+          <!-- <button class="cart-note-heading">Add Note to Your Order</button> -->
+          <div class="cart-note-content" style="{% if is_gift_product_in_cart == true %}display: block;{% endif %}">
+            <textarea
+              maximum-scale="1"
+              id="cart-note-content"
+              placeholder="Enter a special gift note to add with your order..."
+              name="properties[Gift Message]"
+            ></textarea>
+            <button id="yo_cart_btn" onclick="youpdatecart()">Submit</button>
+          </div>
         </div>
-        <!-- <button class="cart-note-heading">Add Note to Your Order</button> -->
-        <div class="cart-note-content" style="{% if is_gift_product_in_cart == true %}display: block;{% endif %}">
-          <textarea
-            maximum-scale="1"
-            id="cart-note-content"
-            placeholder="Enter a special gift note to add with your order..."
-            name="properties[Gift Message]"
-          ></textarea>
-          <button id="yo_cart_btn" onclick="youpdatecart()">Submit</button>
-        </div>
-      </div>
       {% endif %}
 
       <div class="nvd-mini"></div>
@@ -156,9 +165,16 @@
   "settings": [
     {
       "type": "checkbox",
-      "id": "gift_bar",
-      "label": "Enable Gift Bar",
+      "id": "show_announcement",
+      "label": "Show Announcement",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "Free Shipping on Orders Over $75",
+      "visible_if": "{{ section.settings.show_announcement }}"
     },
     {
       "type": "checkbox",
