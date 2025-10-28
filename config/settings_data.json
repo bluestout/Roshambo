@@ -5932,9 +5932,7 @@
           "show_upsell": true,
           "upsell_collection": "all-products",
           "upsell_count": 3,
-          "upsell_title": "The Perfect Accessories",
-          "show_announcement": true,
-          "announcement_text": "Made in Italy, Assembled in the US ☆"
+          "upsell_title": "The Perfect Accessories"
         }
       },
       "16158296740f024a7b": {
@@ -7273,7 +7271,7 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "show_announcement": true,
+          "show_announcement": false,
           "home_page_only": false,
           "announcement_bar_color": "#8fdeda",
           "announcement_bar_text_color": "#363636",
