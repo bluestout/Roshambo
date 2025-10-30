@@ -1,236 +1,202 @@
+
 <script id="free_gifts_json" type="application/json" defer>
-  [{% for block in section.blocks %}
-      {% if block.type == "Gift_Item" %}
-      { "title" : "{{block.settings.item_name}}", "Price" : "{{block.settings.gift_product.price | divided_by: 100 }}", "threshold" : "{{block.settings.threshold}}", "variant" : "{{all_products[block.settings.gift_product].first_available_variant.id}}", "img" : "{{block.settings.gift_product.images | first | img_url : '64x'}}", "next_item_text" : "{{block.settings.next_item_text}}" }{% if forloop.last != true %},{% endif %}{% endif %}
-  {% endfor %}]
+
+    [{% for block in section.blocks %}
+        {% if block.type == "Gift_Item" %}
+        { "title" : "{{block.settings.item_name}}", "Price" : "{{block.settings.gift_product.price | divided_by: 100 }}", "threshold" : "{{block.settings.threshold}}", "variant" : "{{all_products[block.settings.gift_product].first_available_variant.id}}", "img" : "{{block.settings.gift_product.images | first | img_url : '64x'}}", "next_item_text" : "{{block.settings.next_item_text}}" }{% if forloop.last != true %},{% endif %}{% endif %}
+    {% endfor %}]
+
 </script>
 
-<!-- ajax cart modal -->
+<!--ajax cart modal-->
 <div class="ajax-cart__modal js-ajax-cart-modal">
-  <div class="ajax-cart-modal">
-    <!-- ajax cart modal close -->
-    <div class="ajax-cart-modal__close js-ajax-cart-modal-close">
-      <i class="icon icon--close" aria-hidden="true"></i>
-      <span class="icon-fallback__text">X</span>
+
+    <div class="ajax-cart-modal">
+
+        <!--ajax cart modal close-->
+        <div class="ajax-cart-modal__close js-ajax-cart-modal-close">
+            <i class="icon icon--close" aria-hidden="true"></i>
+            <span class="icon-fallback__text">X</span>
+        </div>
+        <!--end ajax cart modal close-->
+
+        <!--ajax cart modal content-->
+        <div class="ajax-cart-modal__content js-ajax-cart-modal-content"></div>
+        <!--end ajax cart modal content-->
+
     </div>
-    <!-- end ajax cart modal close -->
 
-    <!-- ajax cart modal content -->
-    <div class="ajax-cart-modal__content js-ajax-cart-modal-content"></div>
-    <!-- end ajax cart modal content -->
-  </div>
 </div>
-<!-- end ajax cart modal -->
+<!--end ajax cart modal-->
 
-<!-- ajax cart drawer -->
+<!--ajax cart drawer-->
 <div class="ajax-cart__drawer js-ajax-cart-drawer" style="  opacity: 0;">
-  <div class="ajax-cart-drawer">
+
+    <div class="ajax-cart-drawer">
+
     <div class="cart-header">
-      <div class="ajax-cart-top-heading-container">
+    <div class="ajax-cart-top-heading-container">
+          
         <div class="items-in-cart">My Shopping Cart</div>
-        <!-- ajax cart drawer close -->
+            <!--ajax cart drawer close-->
         <div class="ajax-cart-drawer__close js-ajax-cart-drawer-close">
-          <img width="14" src="https://cdn.shopify.com/s/files/1/0769/0373/files/close_icon_white.svg?v=1691040555">
-          <!--
-            i class="icon icon--close" aria-hidden="true"></i>
-            <span class="icon-fallback__text exit" style="color:#000">X</span
-          -->
+          <img width="14" src="https://cdn.shopify.com/s/files/1/0769/0373/files/close_icon_white.svg?v=1691040555" />
+            <!--i class="icon icon--close" aria-hidden="true"></i>
+            <span class="icon-fallback__text exit" style="color:#000">X</span-->
         </div>
-      </div>
-
-      {% if section.settings.show_announcement %}
-        <div class="ajax-cart-drawer__announcement">
-          <div class="ajax-cart-drawer__announcement-content-text">
-            {{ section.settings.announcement_text }}
-          </div>
-        </div>
-      {% endif %}
-
-      {% if section.settings.gift_bar == true %}
-        <div class="gift-bar-container-info">
-          <h6 class="amount-away">You're $<span>0.00</span> away from a FREE GIFT!</h6>
-          <h6 class="Next-item"></h6>
-        </div>
-        <div class="gift-bar-container">
-          <div class="gift_titles"></div>
-          <div class="gift_progress"></div>
-          <div class="gift_images"></div>
-          <div class="gift_prices"></div>
-        </div>
-      {% endif %}
+    </div> 
+    {% if section.settings.gift_bar == true %}
+    <div class="gift-bar-container-info">
+        <h6 class="amount-away">You're $<span>0.00</span> away from a FREE GIFT!</h6>
+        <h6 class="Next-item"></h6>
+    </div>
+    <div class="gift-bar-container">
+        <div class="gift_titles"></div>
+        <div class="gift_progress"></div>
+        <div class="gift_images"></div>
+        <div class="gift_prices"></div>
+    </div>
+    {% endif %}
     </div>
     <!-- ENDING -->
 
-    <div class="free-shipping-heading empty"></div>
+        <div class="free-shipping-heading empty"></div>
 
-    <div class="ajax-cart-drawer__button-and-subtotal">
-      {% if section.settings.show_upsell == true %}
-        <div class="upsell-carousel-container">
-          <div class="upsell--title">
-            <span>{{ section.settings.upsell_title }}</span>
-          </div>
-          {% assign handlesData = shop.metafields.global.cart_upsells.value | split: '#' %}
-          {% for data in handlesData %}
-            <meta name="{{data | split: '=' | first | strip}}-upsells" content="{{data | split: '=' | last | strip}}">
-          {% endfor %}
-          <div class="upsell-carousel-master">
-            <div class="upsell-carousel"></div>
-            <div class="carousel-controls">
-              <link
-                rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-                integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-                crossorigin="anonymous"
-                referrerpolicy="no-referrer"
-              >
-              <div class="carousel-controls__prev" onclick='$(".upsell-carousel").slick("slickPrev")'>
-                <i class="fa-solid fa-chevron-left"></i>
+        <div class="ajax-cart-drawer__button-and-subtotal">
+            {% if section.settings.show_upsell == true %}
+            <div class="upsell-carousel-container">
+              <div class="upsell--title">
+                <span>{{section.settings.upsell_title}}</span>
               </div>
-              <div class="carousel-controls__next" onclick='$(".upsell-carousel").slick("slickNext")'>
-                <i class="fa-solid fa-chevron-right"></i>
+                {% assign handlesData = shop.metafields.global["cart_upsells"].value | split: '#' %}
+                {% for data in handlesData %}
+                    <meta name="{{data | split: '=' | first | strip}}-upsells" content="{{data | split: '=' | last | strip}}">
+                {% endfor %}
+              <div class="upsell-carousel-master">
+                <div class="upsell-carousel">
+                </div>
+                <div class="carousel-controls">
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                    <div class="carousel-controls__prev" onclick='$(".upsell-carousel").slick("slickPrev")'>
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </div>
+                    <div class="carousel-controls__next" onclick='$(".upsell-carousel").slick("slickNext")'>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
               </div>
             </div>
-          </div>
+          {% endif %}
+            <div class="cart-note-outer">
+              <div class="yo_note_adjust">
+                
+                
+                {% assign productgiftnote = all_products['test-free-gift'] %}
+                
+                
+                
+              	<input type="checkbox" id="yo_note" name="cart_note">
+              	<label class="yo-cart-note-heading" for="yo_note"></label><span>YES! Add a Gift Note to my order</span>
+              </div>
+<!--                 <button class="cart-note-heading">Add Note to Your Order</button> -->
+                <div class="cart-note-content">
+                    <textarea maximum-scale=1 id="cart-note-content" placeholder="Enter a special gift note to add with your order..." name="properties[Message]">{% if cart.note != blank %}{{ cart.note }} {% endif %}</textarea>
+                  	<button id="yo_cart_btn" onclick="youpdatecart()">Submit</button>
+                </div>
+            </div>
+          	
+            <div class='nvd-mini'></div>
+            <div class="cart-subtotal-container">
+            <span class="subtotal-heading">Subtotal:</span>
+            <span class="subtotal-amount"></span>
+            </div>
+
+            <a href="javascript:void(0);" onclick="checkoutCart()" class="c-btn--primary button button--black button--full-width js-button js-ajax-checkout-button">
+                <span>Checkout</span>
+            </a>
+
         </div>
-      {% endif %}
-      {% if localization.country.iso_code == 'US' %}
-        <div class="cart-note-outer {% if is_gift_product_in_cart == true %}isopen{% endif %}">
-          <div class="yo_note_adjust">
-            {% assign is_gift_product_in_cart = false %}
-            {% comment %} CHECK IF THE GIFT PRODUCT IS IN THE CART {% endcomment %}
-            {% for item in cart.items %}
-              {% if item.id == 41880794366122 %}
-                {% assign is_gift_product_in_cart = true %}
-                {% break %}
-              {% endif %}
-            {% endfor %}
+        <!--end ajax cart drawer close-->
 
-            <input
-              type="checkbox"
-              id="yo_note"
-              name="cart_note"
-              {% if is_gift_product_in_cart == true %}
-                checked="checked"
-              {% endif %}
-            >
-            <label
-              class="yo-cart-note-heading {% if is_gift_product_in_cart == true %}note-active{% endif %}"
-              for="yo_note"
-            ></label
-            ><span>YES! Add a Gift Note to my order {% render 'icon-gift' %}</span>
-          </div>
-          <!-- <button class="cart-note-heading">Add Note to Your Order</button> -->
-          <div class="cart-note-content" style="{% if is_gift_product_in_cart == true %}display: block;{% endif %}">
-            <textarea
-              maximum-scale="1"
-              id="cart-note-content"
-              placeholder="Enter a special gift note to add with your order..."
-              name="properties[Gift Message]"
-            ></textarea>
-            <button id="yo_cart_btn" onclick="youpdatecart()">Submit</button>
-          </div>
-        </div>
-      {% endif %}
+        <!--ajax cart drawer content-->
+        <div class="ajax-cart-drawer__content js-ajax-cart-drawer-content" style=""></div>
+        <!--end ajax cart drawer content-->
 
-      <div class="nvd-mini"></div>
-      <div class="cart-subtotal-container">
-        <span class="subtotal-heading">Subtotal:</span>
-        <span class="subtotal-amount"></span>
-      </div>
-
-      <a
-        href="javascript:void(0);"
-        onclick="checkoutCart()"
-        class="c-btn--primary button button--black button--full-width js-button js-ajax-checkout-button"
-      >
-        <span>Checkout</span>
-      </a>
     </div>
-    <!-- end ajax cart drawer close -->
 
-    <!-- ajax cart drawer content -->
-    <div class="ajax-cart-drawer__content js-ajax-cart-drawer-content" style=""></div>
-    <!-- end ajax cart drawer content -->
-  </div>
 </div>
-<!-- end ajax cart drawer -->
+<!--end ajax cart drawer-->
 
-<!-- ajax cart overlay -->
-<div class="ajax-cart__overlay js-ajax-cart-overlay"></div>
-<!-- end ajax cart overlay -->
+<!--ajax cart overlay-->
+<div class="ajax-cart__overlay js-ajax-cart-overlay" ></div>
+<!--end ajax cart overlay-->
 
+    
 {% schema %}
-{
-  "name": "Ajax-cart",
-  "settings": [
     {
-      "type": "checkbox",
-      "id": "show_announcement",
-      "label": "Show Announcement",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "announcement_text",
-      "label": "Announcement Text",
-      "default": "Free Shipping on Orders Over $75",
-      "visible_if": "{{ section.settings.show_announcement }}"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_upsell",
-      "label": "Toggle Upsell",
-      "default": true
-    },
-    {
-      "type": "collection",
-      "id": "upsell_collection",
-      "label": "Upsell Collection"
-    },
-    {
-      "type": "range",
-      "id": "upsell_count",
-      "min": 1,
-      "max": 3,
-      "step": 1,
-      "label": "Upsell Count",
-      "default": 3
-    },
-    {
-      "type": "text",
-      "id": "upsell_title",
-      "label": "Title For Cart Upsell",
-      "default": "THE PERFECT ACCESSORIES"
+        "name": "Ajax-cart",
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "gift_bar",
+                "label": "Enable Gift Bar",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "show_upsell",
+                "label": "Toggle Upsell",
+                "default": true
+              },
+              {
+                "type": "collection",
+                "id": "upsell_collection",
+                "label": "Upsell Collection"
+              },
+              {
+                "type": "range",
+                "id": "upsell_count",
+                "min": 1,
+                "max": 3,
+                "step": 1,
+                "label": "Upsell Count",
+                "default": 3
+              },
+              {
+                "type": "text",
+                "id": "upsell_title",
+                "label": "Title For Cart Upsell",
+                "default": "THE PERFECT ACCESSORIES"
+              }
+        ],
+        "max_blocks": 3,
+        "blocks" : [
+            {
+                "name": "Gift Item",
+                "type": "Gift_Item",
+                "settings" : [
+                        {
+                            "type": "text",
+                            "id": "item_name",
+                            "label": "Item Name"
+                        },
+                        {
+                            "type": "product",
+                            "id": "gift_product",
+                            "label": "Gift Product"
+                        },
+                        {
+                            "type": "text",
+                            "id": "threshold",
+                            "label": "Threshold"
+                        },
+                        {
+                            "type": "text",
+                            "id": "next_item_text",
+                            "label": "Next Item Text"
+                        }              
+                        ]
+            }
+        ]
     }
-  ],
-  "max_blocks": 3,
-  "blocks": [
-    {
-      "name": "Gift Item",
-      "type": "Gift_Item",
-      "settings": [
-        {
-          "type": "text",
-          "id": "item_name",
-          "label": "Item Name"
-        },
-        {
-          "type": "product",
-          "id": "gift_product",
-          "label": "Gift Product"
-        },
-        {
-          "type": "text",
-          "id": "threshold",
-          "label": "Threshold"
-        },
-        {
-          "type": "text",
-          "id": "next_item_text",
-          "label": "Next Item Text"
-        }
-      ]
-    }
-  ]
-}
 {% endschema %}

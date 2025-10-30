@@ -5928,8 +5928,7 @@
         ],
         "custom_css": [],
         "settings": {
-          "show_announcement": true,
-          "announcement_text": "Made in Italy, Assembled in the US ☆",
+          "gift_bar": false,
           "show_upsell": true,
           "upsell_collection": "all-products",
           "upsell_count": 3,
@@ -7272,7 +7271,7 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "show_announcement": true,
+          "show_announcement": false,
           "home_page_only": false,
           "announcement_bar_color": "#8fdeda",
           "announcement_bar_text_color": "#363636",
