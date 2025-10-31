@@ -174,11 +174,6 @@
     {% endif %}
     <link rel="stylesheet" href="{{'custom.css' | asset_url}}">
     {{ 'custom-new.css' | asset_url | stylesheet_tag }}
-
-    {% comment %} START REBUT SMART CART - CUSTOM COMPONENT CSS {% endcomment %}
-    <link rel="stylesheet" href="{{ 'rebut-smart-cart.css' | asset_url }}">
-    {% comment %} END REBUT SMART CART - CUSTOM COMPONENT CSS {% endcomment %}
-
     {% if template != 'collection' %}
       <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     {% endif %}
