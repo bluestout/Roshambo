@@ -170,14 +170,6 @@ span.rebuy-cart__flyout-item-property-name {
   }
 }
 
-.rebuy-cart__flyout-content {
-  max-height: calc(100% - 153px) !important;
-}
-
-.rebuy-cart__flyout:has(redo-shopify-toggle) .rebuy-cart__flyout-content {
-  max-height: calc(100% - 255px) !important;
-}
-
 .cart-note--active .rebuy-rebuy-cart-note-content {
   display: block;
 }
@@ -215,4 +207,12 @@ span.rebuy-cart__flyout-item-property-name {
 
 div#rebuy-cart-note-outer .yo_note_adjust span {
   font-size: 14px;
+  display: flex;
+  gap: 7px;
+  color: #0071d0 !important;
+  font-weight: 500 !important;
+}
+
+.rebuy-cart__flyout-footer.ajax-cart-drawer__button-and-subtotal {
+  position: relative!important;
 }
