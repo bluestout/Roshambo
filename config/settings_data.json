@@ -7271,7 +7271,7 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "show_announcement": false,
+          "show_announcement": true,
           "home_page_only": false,
           "announcement_bar_color": "#8fdeda",
           "announcement_bar_text_color": "#363636",
