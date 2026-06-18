@@ -647,7 +647,7 @@
     "design_filtergroup2": "inrow",
     "title_filtergroup2": "Size",
     "filtergroup2": "frame-size-baby,\nframe-size-toddler,\nframe-size-junior,\nframe-size-teen,\nframe-size-adult",
-    "show_filtergroup3": false,
+    "show_filtergroup3": true,
     "tooltips_filtergroup3": false,
     "open_filtergroup3": false,
     "design_filtergroup3": "inrow",
@@ -6212,8 +6212,7 @@
             "settings": {
               "title": "Forest Green Frame",
               "backupTitle": "Forest Green",
-              "filterTitle": "Color: frame-color-forest-green",
-              "color_swatch": "shopify://shop_images/forestgreen.png"
+              "filterTitle": "Color: frame-color-forest-green"
             }
           },
           "327e20a3-240f-483a-b65a-57f73361f0f7": {
@@ -8473,11 +8472,6 @@
           "button_vertical_position": "lowest",
           "greeting_message": "👋 Hi, message us with any questions. We're happy to help!"
         }
-      },
-      "14280642947000332093": {
-        "type": "shopify://apps/warnify-product-warnings/blocks/main/b82106ea-6172-4ab0-814f-17df1cb2b18a",
-        "disabled": false,
-        "settings": {}
       },
       "7002299155580658037": {
         "type": "shopify://apps/reamaze-live-chat-helpdesk/blocks/reamaze-config/ef7a830c-d722-47c6-883b-11db06c95733",
