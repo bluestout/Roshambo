@@ -8,7 +8,7 @@
       {%- if name_collection == blank -%}{%- assign name_collection = "all" -%}{%- endif -%}
       {%- assign collection = collections[name_collection] -%}
       
-      {%- cycle = "", '<div class="divider visible-xs"></div>', '<div class="divider visible-sm visible-xs"></div>' -%}
+      {%- cycle nil, '<div class="divider visible-xs"></div>', '<div class="divider visible-sm visible-xs"></div>' -%}
       <div class="col-sm-6 col-md-{{ section.settings.items }}">
         <h6 class="tt-title-sub">{{ b_i.text1 }}</h6>
         <div class="tt-layout-vertical-listing">
@@ -229,4 +229,15 @@
     }
   ]
 }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{%- cycle = "", ''<div class="divider visible-xs"></div>'', ''<div class="divider
+    visible-sm visible-xs"></div>'' -%}'
+  to: '{%- cycle nil, ''<div class="divider visible-xs"></div>'', ''<div class="divider
+    visible-sm visible-xs"></div>'' -%}'
+  position: 427..539
+{%- endcomment -%}

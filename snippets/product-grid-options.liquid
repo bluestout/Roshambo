@@ -316,7 +316,7 @@
           original: <span class="options-color-image"></span><a href="#" {% c %}class="options-color{{ tagborder }} options-color-image lazyload" data-src="{{ texture_style }}"  {% endc %} style="background-color:{{ tag }}" data-tooltip="{{ tag }}"></a>
           {% endcomment %}
         {%- if texture_style != '' -%}
-          {% render 'data-color-swatches' | color: tag, tooltip: tooltip  %}
+          {% render 'data-color-swatches', color: tag, tooltip: tooltip %}
         {%- elsif curcol == '' -%}{% comment %}<a href="#">{{ tag }}</a> dont show anything or else it will be an empty unknown block{% endcomment %}
         {%- else -%}
         <span></span><a href="#" class="options-color{{ tagborder }}" style="background:{{ curcol }}" data-tooltip="{{ tooltip }}"></a>
@@ -444,3 +444,13 @@
 </div>
 {%- endunless -%}{%- endif -%}
 {% endif %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'data-color-swatches' | color: tag, tooltip: tooltip  %}"
+  to: "{% render 'data-color-swatches', color: tag, tooltip: tooltip %}"
+  position: 17936..18000
+{% endcomment %}

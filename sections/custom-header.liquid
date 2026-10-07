@@ -10,7 +10,7 @@
 
       	<h2 class="shop-side">SHOP</h2>
 
-        {% render 'header_bottom' | header_blocks: section.blocks | view: 'mobile'%}
+        {% render 'header_bottom', header_blocks: section.blocks, view: 'mobile' %}
 
         <div class="sidemenu-menu_outer">
 
@@ -278,7 +278,7 @@
 
     </div>
 
-    {% render 'header_bottom' | header_blocks: section.blocks | view: 'desktop'%}
+    {% render 'header_bottom', header_blocks: section.blocks, view: 'desktop' %}
 
 </div> 
 
@@ -564,4 +564,16 @@
 
     }
 
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'header_bottom' | header_blocks: section.blocks | view: 'mobile'%}"
+  to: "{% render 'header_bottom', header_blocks: section.blocks, view: 'mobile' %}"
+  position: 298..373
+- from: "{% render 'header_bottom' | header_blocks: section.blocks | view: 'desktop'%}"
+  to: "{% render 'header_bottom', header_blocks: section.blocks, view: 'desktop' %}"
+  position: 8463..8539
+{%- endcomment -%}

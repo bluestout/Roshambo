@@ -36,10 +36,20 @@
 
   <div class="mob_b_btns">
     <a style="display:none" class="clr_flt" href="{{ collection.url }}">Clear Filters</a>
-    <a class="count_flt" >Show <span style="color: #fff !important;" class="tt-title-total m-listing-total-js">({%- paginate collection.products -%}{{ paginate.items }}{%- endpaginate -%})</span> Results</a>
+    <a class="count_flt" >Show <span style="color: #fff !important;" class="tt-title-total m-listing-total-js">({%- paginate collection.products by nil -%}{{ paginate.items }}{%- endpaginate -%})</span> Results</a>
   </div>
 </div>
 <div class="tt-filters-options{% if item_sidebar contains "hidden_closed" %} desctop-no-sidebar{% endif %}">
 {%- include "collection-page-toolbar" -%}
 </div>
          
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- paginate collection.products -%}"
+  to: "{%- paginate collection.products by nil -%}"
+  position: 2204..2247
+{% endcomment %}

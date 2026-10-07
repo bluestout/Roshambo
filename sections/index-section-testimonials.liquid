@@ -66,7 +66,7 @@
 {% comment %} Wholesale_Club_Item_Prices End {% endcomment %}
 
 
-{%- capture bgco =  -%}
+{%- capture bgco -%}
 {% if section.settings.usebgcolor %}
 style="background: {{ section.settings.bgco }};
 {% if section.settings.usebgimage %}
@@ -554,4 +554,13 @@ background-repeat: no-repeat;
     }
   ]
 }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- capture bgco =  -%}"
+  to: "{%- capture bgco -%}"
+  position: 3795..3815
+{%- endcomment -%}
